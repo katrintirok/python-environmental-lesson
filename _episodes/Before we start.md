@@ -1,7 +1,7 @@
 # Before we start
 ***Data Carpentry contributors***
 
-### Learning Objectives
+## Learning Objectives
 * Describe the purpose of the editor, console, help, variable explorer and file explorer panes in Spyder.
 * Organize files and directories for a set of analyses as a python/spyder project, and understand the purpose of the working directory.
 * Know where to find help
