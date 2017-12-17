@@ -1,23 +1,36 @@
+---
+title: Introduction to python
+teaching: 30
+exercises: 20
+questions:
+  - "What is Python?"
+  - "Why should I learn Python?"
+objectives:
+- "Define the following terms as they relate to python: variables, objects, assign, call, function, arguments, options, attributes, methods."
+- "Create variables and and assign values to them."
+- "Use comments to inform scripts."
+- "Do simple arithmetic operations in python using values and variables."
+- "Call functions and use arguments to change their default options."
+- "Use built in and third party modules/libraries in python."
+- "Define the following data types in python: strings, integers, floats, lists, and numpy arrays."
+- "Create and manipulate lists and numpy arrays."
+- "Subset and extract values from lists and arrays."
+- "Use attributes and methods with lists and arrays."
+- "Correctly define and handle missing values." 
+keypoints: 
+- the console works like a fancy calculator
+- naming variables in python should be consistent, there are style files that can be followed
+- assigning a value to one variable does not change the values of other variables
+- functions have one or more arguments, some of them can be optional
+- modules increase the functionality of python
+- python knows numerical, text and logical data types
+- lists and numpy arrays are versatile data structures in python
+- subsetting uses square brackets and indexing starts at 0
+---
+
 
 # Introduction to python
  ***Data Carpentry contributors***
-minutes: 45
-
-
-### Learning Objectives
-
-* Define the following terms as they relate to python: variables, objects, assign, call, function, arguments, options.
-* Create variables and and assign values to them.
-* Use comments to inform script.
-* Do simple arithmetic operations in python using values and variables.
-* Call functions and use arguments to change their default options.
-* Inspect the content of lists and manipulate their content.
-* Use libraries in python.
-* Create and manipulate numPy arrays.
-* Subset and extract values from lists and arrays.
-* Correctly define and handle missing values.
-
-
 
 ## Creating variables in python
 
@@ -83,8 +96,7 @@ What do you think is the current content of the object `weight_lb`? 126.5 or 220
 ## Comments
 
 The comment character in python is `#`, anything to the right of a `#` in a script will be ignored by python. It is useful to leave notes, and explanations in your scripts.
-Spyder makes it easy to comment or uncomment a paragraph: after selecting the
-lines you  want to comment press at the same time <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on a Mac) and <kbd>1</kbd>. If you only want to comment out one line, you can put the cursor at any location of that line (i.e. no need to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>1</kbd>.
+Spyder makes it easy to comment or uncomment a paragraph: after selecting the lines you  want to comment press at the same time <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on a Mac) and <kbd>1</kbd>. If you only want to comment out one line, you can put the cursor at any location of that line (i.e. no need to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>1</kbd>.
 
 > ## Challenge
 >
@@ -97,6 +109,7 @@ lines you  want to comment press at the same time <kbd>Ctrl</kbd> (or <kbd>Cmd</
 > age  = age - 20        # age?
 > mass_index = mass/age  # mass_index?
 > ```
+{: .challenge}
 
 ## Objects vs. variables
 
@@ -104,29 +117,25 @@ Everything in python is an `object`: numbers, lists, functions, even code. A `va
 
 In python, every object has an ID, a type, and a value. The ID is a unique identifier that identifies a particular instance of an object, the type identifies the class (e.g. integer, string, list) of an object, and the value is the contents of the object. Mutable objects can change their value; immutable objects cannot.
 
+***add something more on objects and assigning to objects vs copying here or just later, it comes in Indexing, slicing of pandas data frames***
+
 
 ## Functions and their arguments
-***--> need to fix, python no math function natively, need to import math ..., something on modules, some popular basic modules for science, such as math, statistics...***
 
-
-Functions are "canned scripts" that automate more complicated sets of commands
-including operations assignments, etc. Many functions are predefined, or can be made available by importing python *packages* (more on that later). A function usually gets one or more inputs called *arguments*. Functions often (but not always) return a *value*. A typical example would be the function `abs()`. The input (the argument) must be a number, and the return value (in fact, the output) is the absolute value of that number. Executing a function ('running it') is called *calling* the function. An example of a function call is:
+Functions are "canned scripts" that automate more complicated sets of commands including operations assignments, etc. Many functions are predefined, or can be made available by importing python *modules* (more on that later). A function usually gets one or more inputs called *arguments*. Functions often (but not always) return a *value*. A typical example would be the function `abs()`. The input (the argument) must be a number, and the return value (in fact, the output) is the absolute value of that number. Executing a function ('running it') is called *calling* the function. An example of a function call is:
 
 ```
+a = -9
 b = abs(a)
+b
+9
 ```
 
-Here, the value of `a` is given to the `abs()` function, the `abs()` function
-calculates the absolute value, and returns the value which is then assigned to
-variable `b`. This function is very simple, because it takes just one argument.
+Here, the value of `a` (-9) is given to the `abs()` function, the `abs()` function calculates the absolute value, and returns the value which is then assigned to variable `b`. This function is very simple, because it takes just one argument.
 
-The return 'value' of a function need not be numerical (like that of `abs()`),
-and it also does not need to be a single item: it can be a set of things, or
-even a dataset. We'll see that when we read data files into python.
+The return 'value' of a function need not be numerical (like that of `abs()`), and it also does not need to be a single item: it can be a set of things, or even a dataset. We'll see that when we read data files into python.
 
-Arguments can be anything, not only numbers or filenames, but also other
-objects. Exactly what each argument means differs per function, and must be
-looked up in the documentation (see below). Some functions take arguments which may either be specified by the user, or, if left out, take on a *default* value: these are called *options*. Options are typically used to alter the way the function operates, such as whether it ignores 'bad values', or what symbol to use in a plot.  However, if you want something specific, you can specify a value of your choice which will be used instead of the default.
+Arguments can be anything, not only numbers or filenames, but also other objects. Exactly what each argument means differs per function, and must be looked up in the documentation (see below). Some functions take arguments which may either be specified by the user, or, if left out, take on a *default* value: these are called *options*. Options are typically used to alter the way the function operates, such as whether it ignores 'bad values', or what symbol to use in a plot.  However, if you want something specific, you can specify a value of your choice which will be used instead of the default.
 
 Let's try a function that can take multiple arguments: `round()`.
 
@@ -134,10 +143,7 @@ Let's try a function that can take multiple arguments: `round()`.
 round(3.14159)
 ```
 
-Here, we've called `round()` with just one argument, `3.14159`, and it has
-returned the value `3`.  That's because the default is to round to the nearest
-whole number. If we want more digits we can see how to do that by getting
-information about the `round` function.  We can look at the help for this function using `help(round)`.
+Here, we've called `round()` with just one argument, `3.14159`, and it has returned the value `3`.  That's because the default is to round to the nearest whole number. If we want more digits we can see how to do that by getting information about the `round` function.  We can look at the help for this function using `help(round)`.
 
 ```
 help(round)
@@ -149,8 +155,7 @@ We see that if we want a different number of digits, we can type `ndigits=2` or 
 round(3.14159, ndigits = 2)
 ```
 
-If you provide the arguments in the exact same order as they are defined you
-don't have to name them:
+If you provide the arguments in the exact same order as they are defined you don't have to name them:
 
 ```
 round(3.14159, 2)
@@ -167,10 +172,9 @@ rounding) first in your function call, and to specify the names of all optional 
 
 ### Using modules and external libraries with python
 
-The always available [built-in functions](https://docs.python.org/3/library/functions.html) in python are limited. To get to use more functions for e.g. mathematical operations, modules can be used. There are a couple of modules that come with the [python standard library](https://docs.python.org/3.6/library/index.html) including for example the `math` module, which provides access to mathematical functions and the `statistics` module for calculations of mathematical statistics.
+The always available [built-in functions](https://docs.python.org/3/library/functions.html) in python are limited. To get to use more functions for e.g. mathematical operations, *modules* can be used. A module in python contains a set of tools, the functions, that perform tasks on our data. There are a couple of modules that come with the [python standard library](https://docs.python.org/3.6/library/index.html) including for example the `math` module, which provides access to mathematical functions and the `statistics` module for calculations of mathematical statistics.
 
 Modules need to be imported using `import` and their functions can then be used by calling the name of the function together with the module name using the syntax `module_name.function_name`. Adding the module name with a `.` before the function name tells python where to find the function. 
-
 For example the function `sqrt` is part of the module `math` and can be called using `math.sqrt()`:
 
 ```
@@ -178,22 +182,58 @@ import math
 math.sqrt(9)
 ```
 
-A big advantage of python is its expandability with external modules (or libraries). In this workshop we will make use of `numPy`, `pandas`, and `matplotlib` which are all part of the [SciPy ecosystem](https://scipy.org).
+To find out more about an imported module use `help(module)` and to simply show a list of all functions use `dir(module)`, e.g. `dir(math)`.
+
+A big advantage of python is its expandability with external modules (or libraries/packages). Importing a library is like getting a piece of lab equipment out of a storage locker and setting it up on the bench for use in a project.
+Once a library is set up, it can be used or called to perform many tasks.
+
+In this workshop we will make use of `numPy`, `pandas`, and `matplotlib` which are all part of the [SciPy ecosystem](https://scipy.org).
 
 When importing libraries we can give them a nickname to shorten the command, e.g. `np` is commonly used as a nickname for the `numpy` module:
 
 ```
 import numpy as np
-np.cos(np.pi)
+np.cos(3.14159)
 ```
 
-In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosinus of pi. Pi also exists as a function within numpy and can be called with `np.pi`.
+In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosinus.
 
+> ## Challenge
+> 1. Import numpy, try the function `.pi` to represent the number $\pi$. 
+> 2. Calculate the sinus and cosinus of $\pi$. 
+> 3. What do `.floor` and `.ceil` do?
+{: .challenge}
 
 ## Data types
 
-Individual values can be 'numbers', 'strings' or 'logical values' ('booleans', i.e. TRUE and FALSE). Numerical data types include integers (`int`),  floating point real value (`float`), and colmplex numbers (`complex`).
+There are two main types of data that we're exploring in
+this lesson: numeric and text data types.
 
+Numeric data types include integers (`int`) and floating point real values (`float`). 
+A **floating point** number has decimal points even if that decimal point value is 0. For example: 1.13, 2.0, 1234.345. An **integer** will never have a decimal point. Thus if we wanted to store 1.13 as an integer it would be stored as 1. Similarly, 1234.345 would be stored as 1234. You will often see the data type `Int64` in python which stands for 64 bit integer. The 64
+simply refers to the memory allocated to store data in each cell which effectively relates to how many digits it can store in each "cell". Allocating space ahead of time allows computers to optimize storage and processing efficiency. 
+
+Text data type is known as *strings* (`str`) in Python. Strings can contain characters and/or numbers. For example, a string might be a word, a sentence, or several sentences. You can't perform mathematical calculations on a string, even if the string contains numbers. Strings are represented as a sequence of Unicode characters (in the range of U+0000 - U+10FFFF) in Python 3.x and thus are often show as `<U..`, e.g. `<U15`.
+
+Another important data type are booleans (`bool`), i.e. `True` and `False`. Booleans represent the truth values of logic and are useful in conditional expressions, and anywhere else you want to represent the truth or falsity of some condition. `True` and `False` are stored as `1` and `0` in python. 
+
+ 
+> ## Challenge - playing with data types
+> * Define the following variables: 
+> `a = 2`, `b = 4.5`, `c = "cat"`, `d = int(4.5)`, `e = float(3)`, `f=bool(true)`, `g=bool(0)`
+> * Use the function `type()` to find which data type each variable corresponds to. 
+> As you have seen, we can convert a floating point number to an integer or an integer to a floating point number. Notice that Python by default rounds down when it converts from floating point to integer.
+> 
+> ```python
+	# convert a to integer
+	a = 7.83
+	int(a)
+	7
+```
+{: .challenge}
+
+### Data structures
+#### Lists
 Data structures represent data types that can contain more than one value. Lists are the most versatile of python's compound data types. A list contains items separated by commas and enclosed within square brackets ([]). For example we can create a list of animal weights and assign it to a new variable `weight_g`:
 
 ```
@@ -210,13 +250,14 @@ animals
 
 The quotes around "mouse", "rat", etc. are essential here. Without the quotes python will assume there are variables called `mouse`, `rat` and `dog`. As these variables don't exist in python's memory, there will be an error message.
 
-Lists in python can also hold of items of different data type, i.e. a mix of numbers and strings:
+Lists in python can also hold items of different data type, i.e. a mix of numbers and strings:
 
 ```
 streets = ["first", "second", "third", 1, 2, 3]
 streets
 ```
-You can use functions with lists, e.g. to get the number of elements in a list use `len()`:
+
+You can use functions with lists, e.g. to get the number of elements in a list, i.e. its length, use `len()`:
 
 ```
 len(animals)
@@ -228,15 +269,16 @@ The function `type` indicates the class of a variable, in this case a `list`:
 type(animals)
 ```
 
-Objects in python can have `methods`, which allow for changes (mutations) to the object. For example, you can use the `.append()` method to add other values to the end of your list:
+#### Methods
+Objects in python can have `methods`, which allow for changes (mutations) of the object. They are like object specific functions, that is they only work with e.g. `list`s or `int`s whereas normal functions are more general. We call `object methods` by adding the `method` to the `object` using a `.`. For example, you can use the `append()` method to add other values to the end of your list:
 
 ```
-weight_g.append(90)    # add 90 to the end of the list
+weight_g.append(90)    # adds 90 to the end of the list
 weight_g
 [50, 60, 65, 82, 90]
 ```
 
-or use the `.remove()` method to delete the first occurrence of an object from the list:
+or use the `remove()` method to delete the first occurrence of an object from the list:
 
 ```
 animals.remove("rat")
@@ -244,247 +286,86 @@ animals
 ["mouse", "dog"]
 ```
 
-Use `help(list)` to get an overview of all methods for lists. 
+When typing `list.` and then using the <kbd>tab</kbd> key a window pops up with all available methods for lists. You can also use `help(list)` or `dir(list)` to get an overview of all methods for lists.
 
-Other built-in data types in python are `tuples` and `dictionaries`.
+Other built-in data types in python are [`tuples`](https://docs.python.org/3/tutorial/datastructures.html?highlight=tuple#tuples-and-sequences) and [`dictionaries`](https://docs.python.org/3/tutorial/datastructures.html?highlight=tuple#dictionaries).
 
-As described earlier, external libraries or modules largely extend the functionality of python and they also provide more data structures. In this workshop we will use **numpy arrays** (defined with `np.array`) and **pandas dataframes**.
+#### Numpy arrays
+As described earlier, external libraries or modules largely extend the functionality of python and they also provide more data structures. In this workshop we will use **numpy arrays** (defined with `np.array`) and **pandas dataframes** (we will discuss those in the next episode).
 
-NumPy arrays are multidimensional containers of items of the same type. That is, unlike lists, numpy arrays can only contain e.g. integers or strings, but not both. They allow us doing so called vectorised operations, that is doing an operation on each element in the array, something that is not possible for python's lists. (add challenge on that and on type mutation)
+NumPy arrays are multidimensional containers of items of the same type. That is, unlike lists, numpy arrays can only contain e.g. integers or strings, but not both. They allow us doing so called vectorised operations, that is doing an operation on each element in the array, something that is not possible for python's lists.
 
-Create a list ...
-Create a numpy array ...
-do the following calculations:
-- list/array * 2
-- list/array + 2
-- what happens with the list/with the array?
+> ## Challenge - lists and numpy arrays
+> Create a list, l1, with numbers 2,4,6,8 and another list, l2,  with letters a,b,c,d. Create two numpy arrays, a1 and a2, with the same content. Then do the following operations:
+> 1. multiply l1, l2, a1, and a2 by 2
+> 2. add 2 to l1, l2, a1, and a2
+> 3. divide l1, l2, a1, and a2 by 2
+> 4. try `l1 + l2`, `a1 + a2`, `l1 + a1`, `l2 + a1`
+> 
+> Discuss the different behaviour of lists and numpy arrays with your neighbour.
+{: .challenge}
 
+<!-- Another very useful data structure when working with data in python is a DataFrame from the pandas module. A DataFrame more or less represents a table, i.e. it has columns, with column headers and rows representing observations. A column needs to be of the same data type, i.e. either numeric or character, but different columns can differ in their data type. That means, pandas DataFrames are ideal to hold observational data tables imported into python. We will use DataFrames in the next episode.
+-->
 
-Another very useful data structure when working with data/doing data analysis in python is a DataFrame from the pandas module. A DataFrame more or less represents a table, i.e. it has columns, with columns headers and rows with one observation per row. A column needs to be of the same data type, i.e. either numeric or character, but different columns can differ in their data type. That means, pandas DataFrames are ideal to hold observational data tables imported into python.
-
-...
-
-We just saw 2 of the 6 main **atomic vector** types (or **data types**) that R
-uses: `"character"` and `"numeric"`. These are the basic building blocks that
-all R objects are built from. The other 4 are:
-
-* `"logical"` for `TRUE` and `FALSE` (the boolean data type)
-* `"integer"` for integer numbers (e.g., `2L`, the `L` indicates to R that it's an integer)
-* `"complex"` to represent complex numbers with real and imaginary parts (e.g.,
-  `1 + 4i`) and that's all we're going to say about them
-* `"raw"` that we won't discuss further
-
-Vectors are one of the many **data structures** that R uses. Other important
-ones are lists (`list`), matrices (`matrix`), data frames (`data.frame`),
-factors (`factor`) and arrays (`array`).
-
-
-> ### Challenge
+> ## Challenge - data types in arrays
+> * We’ve seen that numPy arrays can be of type character, float, integer, and boolean. But what happens if we try to mix these types in a single array?
+> <!-- * _Answer_: python implicitly converts them to all be the same type -->
 >
->
-> * We’ve seen that atomic vectors can be of type character,
->   numeric, integer, and logical. But what happens if we try to mix these types in
->   a single vector?
-> <!-- * _Answer_: R implicitly converts them to all be the same type -->
->
-> * What will happen in each of these examples? (hint: use `class()`
+> * What will happen in each of these examples? (hint: use method `dtype`
 >   to check the data type of your objects):
+> 1. `num_char = np.array([1, 2, 3, 'a'])`
+> 2. `num_logical = np.array([1, 2, 3, bool('true')])`
+> 3. `char_logical = np.array(['a', 'b', 'c', bool('true')])`
+> 4. `tricky = np.array([1, 2, 3, '4'])`
 >
->     ```r
->     num_char <- c(1, 2, 3, 'a')
->     num_logical <- c(1, 2, 3, TRUE)
->     char_logical <- c('a', 'b', 'c', TRUE)
->     tricky <- c(1, 2, 3, '4')
->     ```
 >
 > * Why do you think it happens?
-> <!-- * _Answer_: Vectors can be of only one data type. R tries to convert (coerce)
->   the content of this vector to find a "common denominator". -->
+>
+> > ## _Answer_: 
+> > arrays can be of only one data type. python tries to convert (coerce)
+> >  the content of this array to find a "common denominator".
+> {: .solution}
 >
 > * You've probably noticed that objects of different types get
->   converted into a single, shared type within a vector. In R, we
->   call converting objects from one class into another class
+>   converted into a single, shared type within a vector. In python, we
+>   call converting objects from one type into another type
 >   _coercion_. These conversions happen according to a hierarchy,
 >   whereby some types get preferentially coerced into other
 >   types. Can you draw a diagram that represents the hierarchy of how
 >   these data types are coerced?
-> <!-- * _Answer_: `logical -> numeric -> character <-- logical` -->
+> 
+> > ## _Answer_: 
+> > `logical -> numeric -> character <- logical`
+> > 
+> {: .solution}
+{: .challenge}
 
-```{r, echo=FALSE, eval=FALSE, purl=TRUE}
-## We’ve seen that atomic vectors can be of type character, numeric, integer, and
-## logical. But what happens if we try to mix these types in a single
-## vector?
+## Subsetting lists and arrays in python
 
-## What will happen in each of these examples? (hint: use `class()` to
-## check the data type of your object)
-num_char <- c(1, 2, 3, "a")
+If we want to extract one or several values from a list, we must provide one or several indices in square brackets. The indices represent the position of the value in our list. For instance:
 
-num_logical <- c(1, 2, 3, TRUE)
-
-char_logical <- c("a", "b", "c", TRUE)
-
-tricky <- c(1, 2, 3, "4")
-
-## Why do you think it happens?
-
-## You've probably noticed that objects of different types get
-## converted into a single, shared type within a vector. In R, we call
-## converting objects from one class into another class
-## _coercion_. These conversions happen according to a hierarchy,
-## whereby some types get preferentially coerced into other types. Can
-## you draw a diagram that represents the hierarchy of how these data
-## types are coerced?
+```
+animals = ["mouse", "rat", "dog", "cat"]
+animals[0]
 ```
 
-## Subsetting vectors
+Python indices start at 0, that is if you want to access the first element of `animals` you need to type `animals[0]`. Languages in the C family (including C++, Java, Perl, and Python) count from 0 because that's simpler for computers to do.
+Programming languages like Fortran, MATLAB, Julia, and R start counting at 1, because that's what human beings typically do. 
 
-If we want to extract one or several values from a vector, we must provide one
-or several indices in square brackets. For instance:
-
-```{r, results='show', purl=FALSE}
-animals <- c("mouse", "rat", "dog", "cat")
-animals[2]
-animals[c(3, 2)]
-```
-
-We can also repeat the indices to create an object with more elements than the
-original one:
-
-```{r, results='show', purl=FALSE}
-more_animals <- animals[c(1, 2, 3, 2, 1, 4)]
-more_animals
-```
-
-R indices start at 1. Programming languages like Fortran, MATLAB, Julia, and R start
-counting at 1, because that's what human beings typically do. Languages in the C
-family (including C++, Java, Perl, and Python) count from 0 because that's
-simpler for computers to do.
-
-### Conditional subsetting
-
-Another common way of subsetting is by using a logical vector. `TRUE` will
-select the element with the same index, while `FALSE` will not:
-
-```{r, results='show', purl=FALSE}
-weight_g <- c(21, 34, 39, 54, 55)
-weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
-```
-
-Typically, these logical vectors are not typed by hand, but are the output of
-other functions or logical tests. For instance, if you wanted to select only the
-values above 50:
-
-```{r, results='show', purl=FALSE}
-weight_g > 50    # will return logicals with TRUE for the indices that meet the condition
-## so we can use this to select only the values above 50
-weight_g[weight_g > 50]
-```
-
-You can combine multiple tests using `&` (both conditions are true, AND) or `|`
-(at least one of the conditions is true, OR):
-
-```{r, results='show', purl=FALSE}
-weight_g[weight_g < 30 | weight_g > 50]
-weight_g[weight_g >= 30 & weight_g == 21]
-```
-
-Here, `<` stands for "less than", `>` for "greater than", `>=` for "greater than
-or equal to", and `==` for "equal to". The double equal sign `==` is a test for
-numerical equality between the left and right hand sides, and should not be
-confused with the single `=` sign, which performs variable assignment (similar
-to `<-`).
-
-A common task is to search for certain strings in a vector.  One could use the
-"or" operator `|` to test for equality to multiple values, but this can quickly
-become tedious. The function `%in%` allows you to test if any of the elements of
-a search vector are found:
-
-```{r, results='show', purl=FALSE}
-animals <- c("mouse", "rat", "dog", "cat")
-animals[animals == "cat" | animals == "rat"] # returns both rat and cat
-animals %in% c("rat", "cat", "dog", "duck", "goat")
-animals[animals %in% c("rat", "cat", "dog", "duck", "goat")]
-```
-
-> ### Challenge (optional){.challenge}
+> ## Challenge - subsetting
+> Create the following list: 
+> `sizes = ['S','M','2XL']`
+> 1. Take the first element of `sizes` and put it into a new variable. 
+> 2. Add elements to `sizes` so that the list ranges from `XS` to `3XL`, the elements should be in the right order. 
+> (Hint: check out the method `.insert(index, value)`)
+> 
+> ## Challenge (optional)
 >
-> * Can you figure out why `"four" > "five"` returns `TRUE`?
+> Can you figure out why `"four" > "five"` returns `TRUE`?
+> > ## _Answer_:
+> > When using ">" or "<" on strings, python compares their alphabetical order. Here, "four" comes after "five", and therefore is "greater than" it.
+> {: .solution}
+{: .challenge}
 
-```{r, echo=FALSE, purl=TRUE}
-### Challenge (optional)
-##
-## * Can you figure out why `"four" > "five"` returns `TRUE`?
-```
-
-<!--
-```{r, purl=FALSE}
-## Answers
-## * When using ">" or "<" on strings, R compares their alphabetical order. Here
-##   "four" comes after "five", and therefore is "greater than" it.
-```
--->
-
-
-## Missing data
-
-As R was designed to analyze datasets, it includes the concept of missing data
-(which is uncommon in other programming languages). Missing data are represented
-in vectors as `NA`.
-
-When doing operations on numbers, most functions will return `NA` if the data
-you are working with include missing values. This feature
-makes it harder to overlook the cases where you are dealing with missing data.
-You can add the argument `na.rm=TRUE` to calculate the result while ignoring
-the missing values.
-
-```{r, purl=FALSE}
-heights <- c(2, 4, 4, NA, 6)
-mean(heights)
-max(heights)
-mean(heights, na.rm = TRUE)
-max(heights, na.rm = TRUE)
-```
-
-If your data include missing values, you may want to become familiar with the
-functions `is.na()`, `na.omit()`, and `complete.cases()`. See below for
-examples.
-
-
-```{r, purl=FALSE}
-## Extract those elements which are not missing values.
-heights[!is.na(heights)]
-
-## Returns the object with incomplete cases removed. The returned object is atomic.
-na.omit(heights)
-
-## Extract those elements which are complete cases.
-heights[complete.cases(heights)]
-```
-
-> ### Challenge
->
-> 1. Using this vector of length measurements, create a new vector with the NAs
-> removed.
->
->     ```r
->     lengths <- c(10,24,NA,18,NA,20)
->     ```
->
-> 2. Use the function `median()` to calculate the median of the `lengths` vector.
-
-```{r,echo=FALSE, purl=TRUE}
-## ### Challenge
-## 1. Using this vector of length measurements, create a new vector with the NAs
-## removed.
-##
-##    lengths <- c(10,24,NA,18,NA,20)
-##
-## 2. Use the function `median()` to calculate the median of the `lengths` vector.
-```
-
-Now that we have learned how to write scripts, and the basics of R's data
-structures, we are ready to start working with the Portal dataset we have been
-using in the other lessons, and learn about data frames.
-
-
-<p style="text-align: right; font-size: small;">Page build on: `r format(Sys.time())`</p>
+Now that we have learned how to write scripts, and the basics of python's data structures, we are ready to start working with the Portal dataset we have been using in the other lessons, and learn about data frames.

@@ -15,14 +15,21 @@ objectives:
     - "Query /select a subset of data using a set of criteria using the following operators: =, !=, >, <, >=, <=."
     - Locate subsets of data using masks.
     - Describe BOOLEAN objects in Python and manipulate data using BOOLEANs.
+keypoints:
+- use column labels in [] to access individual columns
+- indexing starts at 0, when choosing a range, the stop bound is one step BEYOND the row you want to select
+- using the `=` operator, like in `y = x`, does not create a copy of `x`, instead `y` refers to the same object as `x`, the `.copy()`  method creates a true copy
+- use label based `loc` and index based `iloc` for subsetting rows and columns in dataframes
+- we can also using criteria with `==`, `>`, `<`, `!=` etc. in subsetting
+- missing values in form of NaN can be dropped with .dropna()
+- .to_csv saves a dataframe as a csv file
 ---
 
 In lesson 01, we read a CSV into a Python pandas DataFrame.  We learned:
 
 - how to save the DataFrame to a named object,
-- how to perform basic math on the data,
-- how to calculate summary statistics, and
-- how to create plots of the data.
+- how to perform basic math on the data, and
+- how to calculate summary statistics
 
 In this lesson, we will explore **ways to access different parts of the data**
 using:
@@ -41,7 +48,7 @@ lesson. Let's reopen and read in the data again:
 import pandas as pd
 
 # read in the survey csv
-surveys_df = pd.read_csv("surveys.csv")
+surveys_df = pd.read_csv("data/surveys.csv")
 ```
 
 ## Indexing and Slicing in Python
@@ -191,19 +198,19 @@ DataFrame.
 Let's look at what happens when we reassign the values within a subset of the
 DataFrame that references another DataFrame object:
 
-   ```
-    # Assign the value `0` to the first three rows of data in the DataFrame
-    ref_surveys_df[0:3] = 0
-    ```
+```python
+# Assign the value `0` to the first three rows of data in the DataFrame
+ref_surveys_df[0:3] = 0
+```
 
 Let's try the following code:
 
-    ```
-   # ref_surveys_df was created using the '=' operator
-    ref_surveys_df.head()
+```python
+# ref_surveys_df was created using the '=' operator
+ref_surveys_df.head()
 
-    # surveys_df is the original dataframe
-    surveys_df.head()
+# surveys_df is the original dataframe
+surveys_df.head()
 ```
 
 What is the difference between these two dataframes?
@@ -219,20 +226,19 @@ the other will see the same changes to the reference object.
 
 - **Copy** uses the dataframe's `copy()` method
 
-    ```
-    true_copy_surveys_df = surveys_df.copy()
-    ```
+	```python
+	true_copy_surveys_df = surveys_df.copy()
+	```
 - A **Reference** is created using the `=` operator
 
     ```python
     ref_surveys_df = surveys_df
     ```
 
-Okay, that's enough of that. Let's create a brand new clean dataframe from
-the original data CSV file.
+Okay, that's enough of that. Let's create a brand new clean dataframe from the original data CSV file.
 
 ```python
-surveys_df = pd.read_csv("surveys.csv")
+surveys_df = pd.read_csv("data/surveys.csv")
 ```
 
 ## Slicing Subsets of Rows and Columns in Python
@@ -264,7 +270,7 @@ which gives the **output**
 
 Notice that we asked for a slice from 0:3. This yielded 3 rows of data. When you
 ask for 0:3, you are actually telling Python to start at index 0 and select rows
-0, 1, 2 **up to but not including 3**.
+0, 1, 2 **up to but not including 3**. The same holds for the columns, 1:4 with return columns 1, 2, 3 up to but not including 4.
 
 Let's explore some other ways to index and select subsets of data:
 
@@ -282,7 +288,7 @@ surveys_df.loc[[0, 10, 35549], :]
 **NOTE**: Labels must be found in the DataFrame or you will get a `KeyError`.
 
 Indexing by labels `loc` differs from indexing by integers `iloc`.
-With `loc`, the both start bound and the stop bound are **inclusive**. When using
+With `loc`, both the start bound and the stop bound are **inclusive**. When using
 `loc`, integers *can* be used, but the integers refer to the
 index label and not the position. For example, using `loc` and select 1:4
 will get a different result than using `iloc` to select rows 1:4.
@@ -303,7 +309,7 @@ surveys_df.iloc[2, 6]
 
 gives the **output**
 
-```
+```python
 'F'
 ```
 
@@ -404,10 +410,41 @@ Experiment with selecting various subsets of the "surveys" data.
 >   selection that you specify in Python. It is equivalent to **is not in**.
 >   Write a query that selects all rows with sex NOT equal to 'M' or 'F' in
 >   the "surveys" data.
+> 
+>> ## Did you get #4 right?
+>> It is a bit tricky where to put the `~`. If our 'isin'  query would look like:
+>> ```
+>> surveys_df[surveys_df['sex'].isin(['F','M'])]
+>>  # and to better see the output let's make it:
+>> surveys_df[surveys_df['sex'].isin(['F','M'])][['record_id','species_id','sex']].head()
+>> ```
+>> yielding:
+>> ```
+>>    record_id species_id sex
+0          1         NL   M
+1          2         NL   M
+2          3         DM   F
+3          4         DM   M
+4          5         DM   M
+>> ```
+>> we need to place the `~` before the surveys_df at the beginning of the query, i.e. `surveys_df[~surveys_df['sex']...`
+>> ```
+>> surveys_df[~surveys_df['sex'].isin(['F','M'])][['record_id','species_id','sex']].head()
+>> ```
+>> yielding:
+>> ```
+>> record_id species_id  sex
+13         14         DM  NaN
+18         19         PF  NaN
+33         34         DM  NaN
+56         57         DM  NaN
+76         77         SS  NaN
+>> ```
+> {: .solution}
 {: .challenge}
 
 
-# Using masks to identify a specific condition
+## Using masks to identify a specific condition
 
 A **mask** can be useful to locate where a particular subset of values exist or
 don't exist - for example,  NaN, or "Not a Number" values. To understand masks,
@@ -439,8 +476,8 @@ To create a boolean mask:
   object, but with a `True` or `False` value for each index location.
 
 Let's try this out. Let's identify all locations in the survey data that have
-null (missing or NaN) data values. We can use the `isnull` method to do this.
-The `isnull` method will compare each cell with a null value. If an element
+null (missing or NaN) data values. We can use the `isnull` function to do this.
+The `isnull` function will compare each cell with a null value. If an element
 has a null value, it will be assigned a value of  `True` in the output object.
 
 ```python
@@ -491,7 +528,128 @@ asking Python to select rows that have a `NaN` value of weight.
 >   new value of 'x'. Determine the number of null values in the subset.
 >   
 > 2. Create a new DataFrame that contains only observations that are of sex male
->   or female and where weight values are greater than 0. Create a stacked bar
->   plot of average weight by plot with male vs female values stacked for each
->   plot.
+>   or female and where weight values are greater than 0.
 {: .challenge}
+
+
+## Missing Data Values - NaN
+
+By now you probably wondered about the `NaN`s in the data, e.g. in the `weight` column. `NaN` stands for **N**ot **a** **N**umber. `NaN` values are undefined
+values that cannot be represented mathematically. Pandas, for example, will read
+an empty cell in a CSV or Excel sheet as a `NaN`. `NaN`s have some desirable properties: if we
+were to average the `weight` column without replacing our `NaN`s, Python would know to skip
+over those cells.
+
+```python
+surveys_df['weight'].mean()
+42.672428212991356
+```
+Dealing with missing data values is always a challenge. It's sometimes hard to
+know why values are missing - was it because of a data entry error? Or data that
+someone was unable to collect? Should the value be 0? We need to know how
+missing values are represented in the dataset in order to make good decisions.
+If we're lucky, we have some metadata that will tell us more about how null
+values were handled.
+
+For instance, in some disciplines, like Remote Sensing, missing data values are often defined as -9999. Having a bunch of -9999 values in your data could really alter numeric calculations. Often in spreadsheets, cells are left empty where no
+data are available. Pandas will, by default, replace those missing values with
+`NaN`. However it is good practice to get in the habit of intentionally marking
+cells that have no data, with a no data value! That way there are no questions
+in the future when you (or someone else) explores your data.
+
+### Where Are the NaN's?
+
+Let's explore the `NaN` values in our data a bit further. Using the tools we
+learned in lesson 02, we can figure out how many rows contain `NaN` values for
+weight. We can also create a new subset from our data that only contains rows
+with weight values > 0 (ie select meaningful weight values):
+
+```python
+len(surveys_df[pd.isnull(surveys_df.weight)])
+# how many rows have weight values?
+len(surveys_df[surveys_df.weight> 0])
+```
+
+We can replace all NaN values with zeroes using the `.fillna()` method (after
+making a copy of the data so we don't lose our work):
+
+```python
+df1 = surveys_df.copy()
+# fill all NaN values with 0
+df1['weight'] = df1['weight'].fillna(0)
+```
+
+However NaN and 0 yield different analysis results. The mean value when NaN
+values are replaced with 0 is different from when NaN values are simply thrown
+out or ignored.
+
+```python
+df1['weight'].mean()
+38.751976145601844
+```
+
+We can fill NaN values with any value that we chose. The code below fills all
+NaN values with a mean for all weight values.
+
+```python
+ df1['weight'] = surveys_df['weight'].fillna(surveys_df['weight'].mean())
+```
+
+We could also chose to create a subset of our data, only keeping rows that do not contain NaN values. `.dropna()` removes all rows with NaNs.
+```python
+surveys_na = surveys_df.dropna()
+```
+If we check `len(surveys_na)` we find that the DataFrame has 30676 rows
+and 9 columns, much smaller than the 35549 row original.
+
+Useful options for `.dropna` are: 
+`.dropna(how = 'all')` --> removes only rows where all columns have NaN, 
+`.dropna(subset=['species_id'])` --> removes only rows that have NaN in species column.
+
+The point is to make conscious decisions about how to manage missing data. This
+is where we think about how our data will be used and how these values will
+impact the scientific conclusions made from the data.
+
+Python gives us all of the tools that we need to account for these issues. We
+just need to be cautious about how the decisions that we make impact scientific
+results.
+
+> ## Challenge - Counting
+> Count the number of missing values per column. Hint: The method .count() gives you
+> the number of non-NA observations per column. Try looking to the .isnull() method.
+{: .challenge}
+
+
+## Writing Out Data to CSV
+
+We've learned about using manipulating data to get desired outputs. But we've also discussed
+keeping data that has been manipulated separate from our raw data. Something we might be interested 
+in doing is working with only the columns that have full data. First, let's reload the data so
+we're not mixing up all of our previous manipulations.
+
+```python
+surveys_df = pd.read_csv("data/surveys.csv")
+```
+Then let's drop all rows with `NaN`s.
+
+```python
+surveys_na = surveys_df.dropna()
+```
+
+We can now use the `to_csv` command to export a DataFrame in CSV format. Note that the code
+below will by default save the data into the current working directory. We can
+save it to a different folder by adding the foldername and a slash to the file
+`df.to_csv('foldername/out.csv')`. We use the 'index=False' so that
+pandas doesn't include the index number for each line.
+
+```python
+# Write DataFrame to CSV
+surveys_na.to_csv('data_output/surveys_complete.csv', index=False)
+```
+
+We will use this data file later in the workshop. Check out your working directory to make 
+sure the CSV wrote out properly, and that you can open it! If you want, try to bring it 
+back into python to make sure it imports properly. 
+
+
+
