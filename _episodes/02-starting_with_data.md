@@ -47,18 +47,14 @@ directory structure, however, that is not our focus today.
 
 ### Our Data
 
-For this lesson, we will be using the Portal Teaching data, a subset of the data
-from Ernst et al
-[Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA](http://www.esapubs.org/archive/ecol/E090/118/default.htm)
+For this lesson, we will be using rainfall data from eThekwini for the year ..., 
+The files can be downloaded using the google link provided.
 
-We will be using files from the [Portal Project Teaching Database](https://figshare.com/articles/Portal_Project_Teaching_Database/1314459).
-This section will use the `surveys.csv` file that can be downloaded here:
-[https://ndownloader.figshare.com/files/2292172](https://ndownloader.figshare.com/files/2292172)
+This section will use the `rain.csv`.
 After downloading the file move it to your project/data folder. Remember, this is the folder that should keep the raw data.
 
-We are studying the species and weight of animals caught in plots in our study
-area. The dataset is stored as a `.csv` file: each row holds information for a
-single animal, and the columns represent:
+We are studying the different rainfall recorded for rain gauges in different regions of eThekwini. The dataset is stored as a `.csv` file: each row holds information for a
+5 minute period, and the columns represent:
 
 
 | Column           | Description                        |
@@ -67,26 +63,19 @@ single animal, and the columns represent:
 | month            | month of observation               |
 | day              | day of observation                 |
 | year             | year of observation                |
-| plot_id          | ID of a particular plot            |
-| species_id       | 2-letter code                      |
-| sex              | sex of animal ("M", "F")           |
-| hindfoot_length  | length of the hindfoot in mm       |
-| weight           | weight of the animal in grams      |
+| unixdate          |             |
+| gauge_id       | ... code                      |
+| location              | ...           |
+| reainfall  | amount of rainfall in mm       |
+...
 
-We can open the `surveys.csv` file in a text editor.
+***need to complete this table***
+
+We can open the `rain.csv` file in a text editor.
 The first few rows of our first file look like this:
 
 ```
-record_id,month,day,year,plot_id,species_id,sex,hindfoot_length,weight
-1,7,16,1977,2,NL,M,32,
-2,7,16,1977,3,NL,M,33,
-3,7,16,1977,2,DM,F,37,
-4,7,16,1977,7,DM,M,36,
-5,7,16,1977,3,DM,M,35,
-6,7,16,1977,1,PF,M,14,
-7,7,16,1977,2,PE,F,,
-8,7,16,1977,1,DM,M,37,
-9,7,16,1977,1,DM,F,34,
+...
 ```
 ---
 ## Pandas in Python
@@ -123,48 +112,35 @@ an element in the data structure.
 ```python
 # note that pd.read_csv is used because we imported pandas as pd
 # the 'data/' stands for the subfolder data in our working directory
-pd.read_csv("data/surveys.csv")
+pd.read_csv("data/rain.csv")
 ```
 
 The above command yields the **output** below:
 
 ```
-record_id  month  day  year  plot_id species_id sex  hindfoot_length  weight
-0          1      7   16  1977        2         NL   M               32   NaN
-1          2      7   16  1977        3         NL   M               33   NaN
-2          3      7   16  1977        2         DM   F               37   NaN
-3          4      7   16  1977        7         DM   M               36   NaN
-4          5      7   16  1977        3         DM   M               35   NaN
 ...
-35544      35545     12   31  2002       15     AH  NaN              NaN  NaN
-35545      35546     12   31  2002       15     AH  NaN              NaN  NaN
-35546      35547     12   31  2002       10     RM    F               15   14
-35547      35548     12   31  2002        7     DO    M               36   51
-35548      35549     12   31  2002        5     NaN  NaN             NaN  NaN
-
-[35549 rows x 9 columns]
 ```
 
-We can see that there were 33,549 rows parsed. Each row has 9
+We can see that there were ... rows parsed. Each row has ...
 columns. The first column is the index of the DataFrame. The index is used to
 identify the position of the data, but it is not an actual column of the DataFrame.
 It looks like  the `read_csv` function in Pandas  read our file properly. However,
 we haven't saved any data to memory so we can work with it. We need to assign the
 DataFrame to a variable. Remember that a variable is a name for a value, such as `x`,
-or  `data`. We can create a new  object with a variable name by assigning a value to it using `=`.
+or `data`. We can create a new  object with a variable name by assigning a value to it using `=`.
 
-Let's call the imported survey data `surveys_df`:
+Let's call the imported survey data `rainfall_df`:
 
 ```python
-surveys_df = pd.read_csv("data/surveys.csv")
+rainfall_df = pd.read_csv("data/rain.csv")
 ```
 
 Notice when you assign the imported DataFrame to a variable, Python does not
-produce any output on the screen. We can view the value of the `surveys_df`
+produce any output on the screen. We can view the value of the `rainfall_df`
 object by typing its name into the Python command prompt
 
 ```python
-surveys_df
+rainfall_df
 ```
 
 which prints contents like above.
@@ -231,9 +207,9 @@ Let's look at the data using these.
 > Can you answer the following questions:
 > 1. How many rows and how many columns are in `surveys_df`?
 > 
-> 2. What is the value of  `hindfoot_length` in row 11 and what in the second last row?
+> 2. What is the value of  `rainfall` in row 11 and what in the second last row?
 > 
-> 3. What is the mean value and what the median of `weight`?
+> 3. What is the mean value and what the median of `rainfall`?
 > 
 > 4. Take note of the output of `.shape` - what format does it
 >    return the shape of the DataFrame in?
@@ -245,8 +221,7 @@ Let's look at the data using these.
 
 We've read our data into Python. Next, let's perform some quick summary
 statistics to learn more about the data that we're working with. We might want
-to know how many animals were collected in each plot, or how many of each
-species were caught. We can perform summary stats quickly using groups. But
+to know how many rain periods were recorded in each rain gauge, or how much rainfall was recorded per month. We can perform summary stats quickly using groups. But
 first we need to figure out what we want to group by.
 
 Let's begin by exploring our data:
@@ -265,7 +240,7 @@ Index(['record_id', 'month', 'day', 'year', 'plot_id', 'species_id', 'sex',
 ```
 We can access individual columns of `surveys_df` by giving the column name in `[]`, e.g. `surveys_df['year']` only shows the content of column `year`.
 
-Let's get a list of all the species in our dataset. The `pd.unique` function tells us all of the unique values in the `species_id` column.
+Let's get a list of all the rain gauges in our dataset. The `pd.unique` function tells us all of the unique values in the `species_id` column.
 
 ```python
 pd.unique(surveys_df['species_id'])
@@ -274,11 +249,7 @@ pd.unique(surveys_df['species_id'])
 which **returns**:
 
 ```python
-array(['NL', 'DM', 'PF', 'PE', 'DS', 'PP', 'SH', 'OT', 'DO', 'OX', 'SS',
-       'OL', 'RM', nan, 'SA', 'PM', 'AH', 'DX', 'AB', 'CB', 'CM', 'CQ',
-       'RF', 'PC', 'PG', 'PH', 'PU', 'CV', 'UR', 'UP', 'ZL', 'UL', 'CS',
-       'SC', 'BA', 'SF', 'RO', 'AS', 'SO', 'PI', 'ST', 'CU', 'SU', 'RX',
-       'PB', 'PL', 'PX', 'CT', 'US'], dtype=object)
+array([...])
 ```
 
 > ## Challenge - Statistics
@@ -294,13 +265,13 @@ array(['NL', 'DM', 'PF', 'PE', 'DS', 'PP', 'SH', 'OT', 'DO', 'OX', 'SS',
 
 We often want to calculate summary statistics grouped by subsets or attributes
 within fields of our data. For example, we might want to calculate the average
-weight of all individuals per plot.
+rainfall of all rain gauges per region.
 
 We can calculate basic statistics for all records in a single column using the
 syntax below:
 
 ```python
-surveys_df['weight'].describe()
+surveys_df['rainfall'].describe()
 ```
 gives **output**
 
@@ -326,7 +297,7 @@ surveys_df['weight'].std()
 surveys_df['weight'].count()
 ```
 
-But if we want to summarize by one or more variables, for example sex, we can
+But if we want to summarize by one or more variables, for example region, we can
 use **Pandas' `.groupby` method**. Once we've created a groupby DataFrame, we
 can quickly calculate summary statistics by a group of our choice.
 
