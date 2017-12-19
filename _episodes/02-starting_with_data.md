@@ -57,7 +57,7 @@ We are studying the different rainfall recorded for rain gauges in different reg
 5 minute period, and the columns represent:
 
 
-| Column           | Description                        |
+| Column           | Description                   |
 |------------------|------------------------------------|
 | record_id        | Unique id for the observation      |
 | month            | month of observation               |
@@ -66,8 +66,8 @@ We are studying the different rainfall recorded for rain gauges in different reg
 | unixdate          |             |
 | gauge_id       | ... code                      |
 | location              | ...           |
-| reainfall  | amount of rainfall in mm       |
-...
+| rainfall  | amount of rainfall in mm   |
+
 
 ***need to complete this table***
 
