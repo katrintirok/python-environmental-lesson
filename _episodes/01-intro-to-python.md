@@ -1,10 +1,11 @@
 ---
 title: Introduction to python
-teaching: 30
-exercises: 20
+teaching: 50
+exercises: 30
 questions:
-  - "What is Python?"
-  - "Why should I learn Python?"
+  - "How can I do basic calculations in python?"
+  - "How can I use functions in python?"
+  - "What data types are there?"
 objectives:
 - "Define the following terms as they relate to python: variables, objects, assign, call, function, arguments, options, attributes, methods."
 - "Create variables and and assign values to them."
@@ -117,9 +118,6 @@ Everything in python is an `object`: numbers, lists, functions, even code. A `va
 
 In python, every object has an ID, a type, and a value. The ID is a unique identifier that identifies a particular instance of an object, the type identifies the class (e.g. integer, string, list) of an object, and the value is the contents of the object. Mutable objects can change their value; immutable objects cannot.
 
-***add something more on objects and assigning to objects vs copying here or just later, it comes in Indexing, slicing of pandas data frames***
-
-
 ## Functions and their arguments
 
 Functions are "canned scripts" that automate more complicated sets of commands including operations assignments, etc. Many functions are predefined, or can be made available by importing python *modules* (more on that later). A function usually gets one or more inputs called *arguments*. Functions often (but not always) return a *value*. A typical example would be the function `abs()`. The input (the argument) must be a number, and the return value (in fact, the output) is the absolute value of that number. Executing a function ('running it') is called *calling* the function. An example of a function call is:
@@ -127,8 +125,6 @@ Functions are "canned scripts" that automate more complicated sets of commands i
 ```
 a = -9
 b = abs(a)
-b
-9
 ```
 
 Here, the value of `a` (-9) is given to the `abs()` function, the `abs()` function calculates the absolute value, and returns the value which is then assigned to variable `b`. This function is very simple, because it takes just one argument.

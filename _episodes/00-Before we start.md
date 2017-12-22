@@ -82,8 +82,6 @@ Anyone can inspect the source code to see how python works. Because of this tran
 [Spyder](https://spyder-ide.github.io
 ) is currently a popular way to not only write your python scripts but also to interact with the python software; it is an interactive development enviroment, a so called IDE. To function correctly, Spyder needs python and therefore both need to be installed on your computer. The [Anaconda](https://www.anaconda.com) distribution includes python as well as Spyder and other programs such as the IPython console and Jupyter notebook.
 
-Open the Anaconda Navigator (explain environments?, projects?, packages?).
-
 ### Getting set up
 
 It is good practice to keep a set of related data, analyses, and text self-contained in a single folder, called the working directory. All of the scripts within this folder can then use relative paths to files that indicate where inside the project a file is located (as opposed to absolute paths, which point to where a file is on a specific computer). Working this way makes it a lot easier to move your project around on your computer and share it with others without worrying about whether or not the underlying scripts will still work.
@@ -106,8 +104,6 @@ Using a consistent folder structure across your projects will help keep things o
 
 **`scripts/`** This would be the location to keep your python scripts for different analyses or plotting, and potentially a separate folder for your functions (more on that later).
 You may want additional directories or subdirectories depending on your project needs, but these should form the backbone of your working directory. For this workshop, we will need a `data/` folder to store our raw data, and we will create later a `data_output/` folder when we learn how to export data as CSV files.
-
-(add work directory graph as in R lesson)
 
 ## Interacting with Python
 The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write, or code, instructions in python because it is a common language that both the computer and we can understand. We call the instructions commands and we tell the computer to follow the instructions by executing (also called running) those commands.

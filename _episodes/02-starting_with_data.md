@@ -1,6 +1,6 @@
 ---
 title: Starting With Data
-teaching: 30
+teaching: 40
 exercises: 30
 questions:
     - " How can I import data in Python?"
