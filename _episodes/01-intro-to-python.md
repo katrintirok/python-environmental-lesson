@@ -192,11 +192,11 @@ import numpy as np
 np.cos(3.14159)
 ```
 
-In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosinus.
+In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosine.
 
 > ## Challenge
 > 1. Import numpy, try the function `.pi` to represent the number $\pi$. 
-> 2. Calculate the sinus and cosinus of `$\pi$`. 
+> 2. Calculate the sine and cosine of `$\pi$`. 
 > 3. What do `.floor` and `.ceil` do?
 <!--{: .challenge}-->
 
