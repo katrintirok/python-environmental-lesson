@@ -10,6 +10,11 @@ objectives:
     - Combine two DataFrames using a unique ID found in both DataFrames.
     - Employ `to_csv` to export a DataFrame in CSV format.
     - Join DataFrames using common fields (join keys).
+keypoints: 
+- the function pd.concat() can be used to concatenate/stack two DataFrames
+- axis = 0 will stack vertically and axis = 1 horizontally
+- the function pd.merge() can be used to join two DataFrames and requires joining keys
+- pandas can perform inner joins, the default option in merge(), left joins, right joins and full joins
 ---
 
 In many "real world" situations, the data that we want to use come in multiple
@@ -18,7 +23,7 @@ the data. The pandas package provides [various methods for combining
 DataFrames](http://pandas.pydata.org/pandas-docs/stable/merging.html) including
 `merge` and `concat`.
 
-To work through the examples below, we first need to load the different  files into pandas DataFrames. We will work with the files 'raingauges_data.csv', 'raingauges.csv' and 'region.csv'.
+To work through the examples below, we first need to load the different  files into pandas DataFrames. We will work with the files 'raingauge_data.csv', 'raingauges.csv' and 'region.csv'.
 
 (If done SQL already remember the files from there, otherwise open in text editor for first look)
 
@@ -26,20 +31,7 @@ To work through the examples below, we first need to load the different  files i
 import pandas as pd
 rain_df = pd.read_csv("data/raingauge_data.csv")
 rain_df.head()
-
-   ID              TR          UT  data  raingauges_id    update_ref  invalid  \
-0   1  17/12/04 10:51  1512227100   0.6              1  1512227100-1        0   
-1   2  17/12/04 10:51  1512227400   0.8              1  1512227400-1        0   
-2   3  17/12/04 10:51  1512227700   0.2              1  1512227700-1        0   
-3   4  17/12/04 10:51  1512228000   0.2              1  1512228000-1        0   
-4   5  17/12/04 10:51  1512252000   0.0              1  1512252000-1        0   
-
-   hours_surrounding_total  
-0                      1.8  
-1                      1.8  
-2                      1.8  
-3                      1.8  
-4                      0.0  
+  
 ```
 
 ```python
@@ -160,7 +152,7 @@ For example, the `raingauges.csv` and the `regions.csv` file are lookup
 tables. The `raingauges.csv` table contains the name, x and y coordinates, and a short reference for the 42 raingauges. The
 raingauges id is unique for each line. These raingauges are identified in our rainfall
 data as well using the unique id. Rather than adding more columns
-for the name, location etc to each of the 6,744 lines in the rainfall data table, we
+for the name, location etc to each of the 6,749 lines in the rainfall data table, we
 can maintain the shorter table with the raingauges information. When we want to
 access that information, we can create a query that joins the additional columns
 of information to the rainfall data.
@@ -176,19 +168,20 @@ Storing data in this way has many benefits including:
 
 ## Joining Two DataFrames
 
+<!--
 To better understand joins, let's grab the first 10 lines of our data as a
 subset to work with. We'll use the `.head` method to do this. 
+--->
 
 ```python
-# read in rainfall data and grab first 10 lines 
+# read in rainfall data 
 rain_df = pd.read_csv('data/raingauge_data.csv')
-rain_sub = rain_df.head(10)
 
-# read in raingauge infos and grab first 10 lines gauges_df = pd.read_csv('data/raingauges.csv')
-gauges_sub = gauges_df.head(10)
+# read in raingauge infos 
+gauges_df = pd.read_csv('data/raingauges.csv')
 ```
 
-In this example, `gauges_sub` is the lookup table containing name and location of raingauges that we want to join with the data in `rain_sub` to produce a new DataFrame that contains all of the columns from both `rain_df` *and*
+In this example, `gauges_df` is the lookup table containing name and location of raingauges that we want to join with the data in `rain_df` to produce a new DataFrame that contains all of the columns from both `rain_df` *and*
 `gauges_df`.
 
 
@@ -202,12 +195,12 @@ identify a (differently-named) column in each DataFrame that contains the same
 information.
 
 ```python
->>> gauges_sub.columns
+>>> gauges_df.columns
 
 Index(['id', 'name', 'location_x', 'location_y', 'region_id', 'reference', 'ward_id'],
       dtype='object')
       
->>> rain_sub.columns
+>>> rain_df.columns
 
 Index(['ID', 'UT', 'data', 'raingauges_id'], dtype='object')
 ```
@@ -235,7 +228,7 @@ The pandas function for performing joins is called `merge` and an Inner join is
 the default option:  
 
 ```python
-merged_inner = pd.merge(left=rain_sub,right=gauges_sub, left_on='raingauges_id', right_on='id')
+merged_inner = pd.merge(left=rain_df,right=gauges_df, left_on='raingauges_id', right_on='id')
 # since the keys have different names (`raingauges_id` and `id`) in the two dataframes we have to define the join keys with `left_on` and `right_on`. If the join keys would have the same name we could skip `left_on` and `right_on` 
 
 # what's the size of the output data?
@@ -249,36 +242,36 @@ merged_inner.head()
   
 ```
 
-The result of an inner join of `rain_sub` and `gauges_sub` is a new DataFrame
-that contains the combined set of columns from `rain_sub` and `gauges_sub`. It
+The result of an inner join of `rain_df` and `gauges_df` is a new DataFrame
+that contains the combined set of columns from `rain_df` and `gauges_df`. It
 *only* contains rows that have raingauge ids that are the same in
-both the `rain_sub` and `gauges_sub` DataFrames. In other words, if a row in
-`rain_sub` has a value of `raingauges_id` that does *not* appear in the `id`
-column of `gauges_sub`, it will not be included in the DataFrame returned by an
-inner join.  Similarly, if a row in `gauges_sub` has a value of `id`
-that does *not* appear in the `raingauges_id` column of `rain_sub`, that row will not
+both the `rain_df` and `gauges_df` DataFrames. In other words, if a row in
+`rain_df` has a value of `raingauges_id` that does *not* appear in the `id`
+column of `gauges_df`, it will not be included in the DataFrame returned by an
+inner join.  Similarly, if a row in `gauges_df` has a value of `id`
+that does *not* appear in the `raingauges_id` column of `rain_df`, that row will not
 be included in the DataFrame returned by an inner join.
 
 The two DataFrames that we want to join are passed to the `merge` function using
 the `left` and `right` argument. The `left_on='raingauges_id'` argument tells `merge`
 to use the `raingauges_id` column as the join key from `rain_sub` (the `left`
 DataFrame). Similarly , the `right_on='id'` argument tells `merge` to
-use the `id` column as the join key from `gauges_sub` (the `right`
+use the `id` column as the join key from `gauges_df` (the `right`
 DataFrame). For inner joins, the order of the `left` and `right` arguments does
 not matter.
 
-The result `merged_inner` DataFrame contains all of the columns from `rain_sub`
-(ID, UT, data etc.) as well as all the columns from `gauges_sub`
+The result `merged_inner` DataFrame contains all of the columns from `rain_df`
+(ID, UT, data etc.) as well as all the columns from `gauges_df`
 (id, name, location_x, etc).
 
-In our case `merged_inner` has the same number of rows than `rain_sub`. This is an
+In our case `merged_inner` has fewer rows than `rain_df`. This is an
 indication that there were rows in `rain_df` with value(s) for `raingauges_id` that
 do not exist as value(s) for `id` in `gauges_df`.
 
 ## Left joins
 
-What if we want to add information from `species_sub` to `survey_sub` without
-losing any of the information from `survey_sub`? In this case, we use a different
+What if we want to add information from `gauges_df` to `rain_df` without
+losing any of the information from `rain_df`? In this case, we use a different
 type of join called a "left outer join", or a "left join".
 
 Like an inner join, a left join uses join keys to combine two DataFrames. Unlike
@@ -302,54 +295,164 @@ merged_left = pd.merge(left=survey_sub,right=species_sub, how='left', left_on='s
 merged_left
 
 **OUTPUT:**
+         ID          UT  data  raingauges_id    id                  name  \
+0         1  1512227100   0.6              1   1.0        BLUFF RES NO.3   
+1         2  1512227400   0.8              1   1.0        BLUFF RES NO.3   
+2         3  1512227700   0.2              1   1.0        BLUFF RES NO.3   
+3         4  1512228000   0.2              1   1.0        BLUFF RES NO.3   
+4         5  1512252000     0              1   1.0        BLUFF RES NO.3   
+5         6  1512325800   0.2              1   1.0        BLUFF RES NO.3   
+6         7  1512326100   0.2              1   1.0        BLUFF RES NO.3   
+7         8  1512326400   0.4              1   1.0        BLUFF RES NO.3   
+8         9  1512326700   0.8              1   1.0        BLUFF RES NO.3   
+9        10  1512327000   0.4              1   1.0        BLUFF RES NO.3   
+10       11  1512338400     0              1   1.0        BLUFF RES NO.3   
+11       12  1512226800   0.2              2   2.0   CHATSWORTH RES NO.1   
+12       13  1512227100   0.2              2   2.0   CHATSWORTH RES NO.1   
+13       14  1512252000     0              2   2.0   CHATSWORTH RES NO.1   
+14       15  1512325500   0.2              2   2.0   CHATSWORTH RES NO.1   
+15       16  1512325800   0.6              2   2.0   CHATSWORTH RES NO.1   
+16       17  1512326100   1.6              2   2.0   CHATSWORTH RES NO.1   
+17       18  1512326400   1.8              2   2.0   CHATSWORTH RES NO.1   
+18       19  1512326700   0.2              2   2.0   CHATSWORTH RES NO.1   
+19       20  1512338400     0              2   2.0   CHATSWORTH RES NO.1   
+20       21  1512252000     0              3   3.0   CHATSWORTH RES NO.4   
+21       22  1512325500   0.4              3   3.0   CHATSWORTH RES NO.4   
+22       23  1512325800   1.4              3   3.0   CHATSWORTH RES NO.4   
+23       24  1512326100   2.6              3   3.0   CHATSWORTH RES NO.4   
+24       25  1512326400   0.2              3   3.0   CHATSWORTH RES NO.4   
+25       26  1512331800   0.2              3   3.0   CHATSWORTH RES NO.4   
+26       27  1512338400     0              3   3.0   CHATSWORTH RES NO.4   
+27       28  1512227100   1.8              4   4.0  CITY ENGINEER'S DEPT   
+28       29  1512227400   0.4              4   4.0  CITY ENGINEER'S DEPT   
+29       30  1512252000     0              4   4.0  CITY ENGINEER'S DEPT   
+    ...         ...   ...            ...   ...                   ...   
+6719  71602  1512624300   0.4             34  34.0          ISIPINGO RES   
+6720  71603  1512625200   0.2             34  34.0          ISIPINGO RES   
+6721  71604  1512626400   0.2             34  34.0          ISIPINGO RES   
+6722  71621  1512624300   0.2             42  42.0           AMANZIMTOTI   
+6723  71625  1512629100   0.2              2   2.0   CHATSWORTH RES NO.1   
+6724  71628  1512629100   0.2              5   5.0        CRABTREE S-P-S   
+6725  71647  1512627000   0.2             18  18.0         WENTWORTH RES   
+6726  71662  1512629100   0.2             36  36.0              RIVERLEA   
+6727  71678  1512633900   0.2              1   1.0        BLUFF RES NO.3   
+6728  71679  1512634200   0.2              1   1.0        BLUFF RES NO.3   
+6729  71682  1512632400   0.2              4   4.0  CITY ENGINEER'S DEPT   
+6730  71685  1512634200   0.2              5   5.0        CRABTREE S-P-S   
+6731  71686  1512634500   0.2              5   5.0        CRABTREE S-P-S   
+6732  71687  1512635400   0.2              5   5.0        CRABTREE S-P-S   
+6733  71693  1512633900   0.2              9   9.0     ISLAND VIEW S-P-S   
+6734  71699  1512633300   0.2             15  15.0      SAND PUMP HOPPER   
+6735  71716  1512633300   0.2             29  29.0         SHONGWENI DAM   
+6736  71717  1512632100   0.2             30  30.0              PINETOWN   
+6737  71734  1512633600   0.2             38  38.0               UMH NTH   
+6738  71774  1512634500   0.2             18  18.0         WENTWORTH RES   
+6739  71785  1512627600   0.4             33  33.0         UMBUMBULU RES   
+6740  71786  1512627900   0.4             33  33.0         UMBUMBULU RES   
+6741  71787  1512636300   0.2             34  34.0          ISIPINGO RES   
+6742  71788  1512636600   0.2             34  34.0          ISIPINGO RES   
+6743  71796  1512634800   0.2             35  35.0              UMKDEPOT   
+6744  80001  1512605100   nan             43   NaN                   NaN   
+6745  80002  1512606000   nan             43   NaN                   NaN   
+6746  80003  1512606600   nan             43   NaN                   NaN   
+6747  80004  1512606900   nan             43   NaN                   NaN   
+6748  80005  1512608700   nan             43   NaN                   NaN   
 
-   record_id  month  day  year  plot_id species_id sex  hindfoot_length  \
-0          1      7   16  1977        2         NL   M               32   
-1          2      7   16  1977        3         NL   M               33   
-2          3      7   16  1977        2         DM   F               37   
-3          4      7   16  1977        7         DM   M               36   
-4          5      7   16  1977        3         DM   M               35   
-5          6      7   16  1977        1         PF   M               14   
-6          7      7   16  1977        2         PE   F              NaN   
-7          8      7   16  1977        1         DM   M               37   
-8          9      7   16  1977        1         DM   F               34   
-9         10      7   16  1977        6         PF   F               20   
+      location_x  location_y  region_id reference  ward_id  
+0      31.005075  -29.933965        1.0    bluff3     66.0  
+1      31.005075  -29.933965        1.0    bluff3     66.0  
+2      31.005075  -29.933965        1.0    bluff3     66.0  
+3      31.005075  -29.933965        1.0    bluff3     66.0  
+4      31.005075  -29.933965        1.0    bluff3     66.0  
+5      31.005075  -29.933965        1.0    bluff3     66.0  
+6      31.005075  -29.933965        1.0    bluff3     66.0  
+7      31.005075  -29.933965        1.0    bluff3     66.0  
+8      31.005075  -29.933965        1.0    bluff3     66.0  
+9      31.005075  -29.933965        1.0    bluff3     66.0  
+10     31.005075  -29.933965        1.0    bluff3     66.0  
+11     30.900285  -29.911171        1.0    chats1     70.0  
+12     30.900285  -29.911171        1.0    chats1     70.0  
+13     30.900285  -29.911171        1.0    chats1     70.0  
+14     30.900285  -29.911171        1.0    chats1     70.0  
+15     30.900285  -29.911171        1.0    chats1     70.0  
+16     30.900285  -29.911171        1.0    chats1     70.0  
+17     30.900285  -29.911171        1.0    chats1     70.0  
+18     30.900285  -29.911171        1.0    chats1     70.0  
+19     30.900285  -29.911171        1.0    chats1     70.0  
+20     30.859903  -29.903620        1.0    chats4     71.0  
+21     30.859903  -29.903620        1.0    chats4     71.0  
+22     30.859903  -29.903620        1.0    chats4     71.0  
+23     30.859903  -29.903620        1.0    chats4     71.0  
+24     30.859903  -29.903620        1.0    chats4     71.0  
+25     30.859903  -29.903620        1.0    chats4     71.0  
+26     30.859903  -29.903620        1.0    chats4     71.0  
+27     31.023634  -29.851328        1.0   cityeng     26.0  
+28     31.023634  -29.851328        1.0   cityeng     26.0  
+29     31.023634  -29.851328        1.0   cityeng     26.0  
+         ...         ...        ...       ...      ...  
+6719   30.923468  -30.014299        4.0  isipingo     93.0  
+6720   30.923468  -30.014299        4.0  isipingo     93.0  
+6721   30.923468  -30.014299        4.0  isipingo     93.0  
+6722   30.866731  -30.048904        4.0   amanzim     97.0  
+6723   30.900285  -29.911171        1.0    chats1     70.0  
+6724   30.992646  -29.883997        1.0  crabtree     32.0  
+6725   30.988069  -29.934086        1.0   wentwth     68.0  
+6726   30.294999  -29.880668        3.0  riverlea      3.0  
+6727   31.005075  -29.933965        1.0    bluff3     66.0  
+6728   31.005075  -29.933965        1.0    bluff3     66.0  
+6729   31.023634  -29.851328        1.0   cityeng     26.0  
+6730   30.992646  -29.883997        1.0  crabtree     32.0  
+6731   30.992646  -29.883997        1.0  crabtree     32.0  
+6732   30.992646  -29.883997        1.0  crabtree     32.0  
+6733   31.033217  -29.895545        1.0  islandvw     66.0  
+6734   31.050144  -29.872875        1.0  sandpump     26.0  
+6735   30.722337  -29.860570        3.0  shongdam      7.0  
+6736   30.861785  -29.816873        3.0       ptn     18.0  
+6737   31.077676  -29.730088        2.0    umhnth     35.0  
+6738   30.988069  -29.934086        1.0   wentwth     68.0  
+6739   30.707848  -29.981689        4.0  umbumbul      3.0  
+6740   30.707848  -29.981689        4.0  umbumbul      3.0  
+6741   30.923468  -30.014299        4.0  isipingo     93.0  
+6742   30.923468  -30.014299        4.0  isipingo     93.0  
+6743   30.754047  -30.200036        4.0  umkdepot     99.0  
+6744         NaN         NaN        NaN       NaN      NaN  
+6745         NaN         NaN        NaN       NaN      NaN  
+6746         NaN         NaN        NaN       NaN      NaN  
+6747         NaN         NaN        NaN       NaN      NaN  
+6748         NaN         NaN        NaN       NaN      NaN  
 
-   weight       genus   species    taxa  
-0     NaN     Neotoma  albigula  Rodent  
-1     NaN     Neotoma  albigula  Rodent  
-2     NaN   Dipodomys  merriami  Rodent  
-3     NaN   Dipodomys  merriami  Rodent  
-4     NaN   Dipodomys  merriami  Rodent  
-5     NaN         NaN       NaN     NaN  
-6     NaN  Peromyscus  eremicus  Rodent  
-7     NaN   Dipodomys  merriami  Rodent  
-8     NaN   Dipodomys  merriami  Rodent  
-9     NaN         NaN       NaN     NaN  
+[6749 rows x 11 columns]
+
 ```
 
 The result DataFrame from a left join (`merged_left`) looks very much like the
 result DataFrame from an inner join (`merged_inner`) in terms of the columns it
 contains. However, unlike `merged_inner`, `merged_left` contains the **same
-number of rows** as the original `survey_sub` DataFrame. When we inspect
+number of rows** as the original `rain_df` DataFrame. When we inspect
 `merged_left`, we find there are rows where the information that should have
-come from `species_sub` (i.e., `species_id`, `genus`, and `taxa`) is
+come from `gauges_df` (i.e., `name`, `location_x`, etc) is
 missing (they contain NaN values):
 
 ```python
-merged_left[ pd.isnull(merged_left.genus) ]
+merged_left[ pd.isnull(merged_left.name) ]
 **OUTPUT:**
-   record_id  month  day  year  plot_id species_id sex  hindfoot_length  \
-5          6      7   16  1977        1         PF   M               14   
-9         10      7   16  1977        6         PF   F               20   
+         ID          UT  data  raingauges_id  id name  location_x  location_y  \
+6744  80001  1512605100   nan             43 NaN  NaN         NaN         NaN   
+6745  80002  1512606000   nan             43 NaN  NaN         NaN         NaN   
+6746  80003  1512606600   nan             43 NaN  NaN         NaN         NaN   
+6747  80004  1512606900   nan             43 NaN  NaN         NaN         NaN   
+6748  80005  1512608700   nan             43 NaN  NaN         NaN         NaN   
 
-   weight genus species taxa  
-5     NaN   NaN     NaN  NaN  
-9     NaN   NaN     NaN  NaN
+      region_id reference  ward_id  
+6744        NaN       NaN      NaN  
+6745        NaN       NaN      NaN  
+6746        NaN       NaN      NaN  
+6747        NaN       NaN      NaN  
+6748        NaN       NaN      NaN  
+
 ```
-
-These rows are the ones where the value of `species_id` from `survey_sub` (in this
-case, `PF`) does not occur in `species_sub`.
+These rows are the ones where the value of `raingauges_id` from `rain_df` (in this
+case, `43`) does not occur in `gauges_df`.
 
 
 ## Other join types
@@ -367,24 +470,15 @@ The pandas `merge` function supports two other join types:
 
 # Final Challenges
 
-> ## Challenge - Distributions
-> Create a new DataFrame by joining the contents of the `surveys.csv` and
-> `species.csv` tables. Then calculate and plot the distribution of:
+> ## Challenge
+> 1. Create a new DataFrame by joining the contents of the `raingauge_data.csv` and
+> `raingauges.csv` tables. Then calculate the distribution of:
 >
-> 1. taxa by plot
-> 2. taxa by sex by plot
-{: .challenge}
-
-> ## Challenge - Diversity Index
+> 	1. raingauges by region_id
+> 	2. raingauges by day by region_id
 >
-> 1. In the data folder, there is a plot `CSV` that contains information about the
->    type associated with each plot. Use that data to summarize the number of
->   plots by plot type.
-> 2. Calculate a diversity index of your choice for control vs rodent exclosure
->   plots. The index should consider both species abundance and number of
->   species. You might choose to use the simple [biodiversity index described
->   here](http://www.amnh.org/explore/curriculum-collections/biodiversity-counts/plant-ecology/how-to-calculate-a-biodiversity-index)
->   which calculates diversity as:
 >
->        the number of species in the plot / the total number of individuals in the plot = Biodiversity index.
+> 2. In the data folder, there is a region `CSV` that contains information about the
+>    region associated with each raingauge. Use that data to summarize the number of
+>   raingauges by region name.
 {: .challenge}
