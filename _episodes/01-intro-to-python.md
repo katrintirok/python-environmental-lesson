@@ -42,7 +42,7 @@ You can get output from python simply by typing math in the console:
 12 / 7
 ```
 
-However, to do useful and interesting things, we need to assign values to _variables_ (or link _objects_ to names/variables). To create a variable, we need to give it a name followed by an `=` and the value we want to give it:
+However, to do useful and interesting things, we need to assign values to _variables_ (or link _objects_ to names/variables). A _variable_ is just a name for a value. Python's _variables_ must begin with a letter and are case sensitive. To create a variable, we need to give it a name followed by an `=` and the value we want to give it:
 
 ```
 weight_kg = 55
@@ -55,9 +55,9 @@ a, b = 3, 4
 ```
 
 Variables can be given any name such as `x`, `current_temperature`, or
-`subject_id`. You want your variable names to be explicit and not too long. They cannot start with a number (`2x` is not valid, but `x2` is). python is case sensitive (e.g., `weight_kg` is different from `Weight_kg`). There are some names that cannot be used because they are the names of fundamental functions in python (e.g., `if`, `else`, `for`,
+`subject_id`. You want your variable names to be explicit and not too long. They cannot start with a number (`2x` is not valid, but `x2` is). Python is case sensitive (e.g., `weight_kg` is different from `Weight_kg`). There are some names that cannot be used because they are the names of fundamental functions in python (e.g., `if`, `else`, `for`,
 see [here](https://docs.python.org/2.5/ref/keywords.html) for a complete list). In general, even if it's allowed, it's best to not use other function names (e.g., `list`, `mean`, `data`, `len`). If in doubt, check the help to see if the name is already in use. It's also not allowd to use a dot or minus (`.`, `-`) within a variable name as in `my.dataset` or `my-dataset`. 
-It is also recommended to use nouns for variable names, and verbs for function names. It's important to be consistent in the styling of your
+It is also recommended to use _nouns_ for variable names, and _verbs_ for function names. It's important to be consistent in the styling of your
 code (where you put spaces, how you name variables, etc.). A speciality of python is [indentation](https://docs.python.org/3/reference/lexical_analysis.html#indentation), which is used to define code blocks and consequently structures a program. While this is generally a good style for program code, in the case of python, it is a language requirement. Using a consistent coding style makes your code clearer to read for your future self and your collaborators. There are several style guides for python, e.g. [python's PEP 8](https://www.python.org/dev/peps/pep-0008/), [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html), and [The Hitchhiker's Guide to Python](http://docs.python-guide.org/en/latest/writing/style/). 
 
 Just remember how we assigned a value to `weight_kg`:
@@ -67,7 +67,7 @@ weight_kg = 55
 ```
 
 Now that python has `weight_kg` in memory, we can do arithmetic with it. We can perform mathematical calculations in python using the basic operators
- `+, -, /, *, %`. For instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
+ `+, -, /, *, %` (plus, subtract, divide, multiply and modulus). For instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
 
 ```
 2.2 * weight_kg
@@ -192,11 +192,11 @@ import numpy as np
 np.cos(3.14159)
 ```
 
-In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosinus.
+In the example above, we have imported numPy as np. This means we don't have to type out `numpy` each time we call a numPy function. `np.cos` calculates the cosine.
 
 > ## Challenge
 > 1. Import numpy, try the function `.pi` to represent the number $\pi$. 
-> 2. Calculate the sinus and cosinus of $\pi$. 
+> 2. Calculate the sine and cosine of `$\pi$`. 
 > 3. What do `.floor` and `.ceil` do?
 {: .challenge}
 
@@ -289,7 +289,7 @@ Other built-in data types in python are [`tuples`](https://docs.python.org/3/tut
 #### Numpy arrays
 As described earlier, external libraries or modules largely extend the functionality of python and they also provide more data structures. In this workshop we will use **numpy arrays** (defined with `np.array`) and **pandas dataframes** (we will discuss those in the next episode).
 
-NumPy arrays are multidimensional containers of items of the same type. That is, unlike lists, numpy arrays can only contain e.g. integers or strings, but not both. They allow us doing so called vectorised operations, that is doing an operation on each element in the array, something that is not possible for python's lists.
+NumPy arrays are multidimensional containers of items of the same type. That is, unlike lists, numpy arrays can only contain e.g. integers/floats or strings, but not both. They allow us to perform batch operations on data without any `for` loops (we will discuss loops in episode 5). This is called _vectorization_ and is something that is not possible on python's lists.
 
 > ## Challenge - lists and numpy arrays
 > Create a list, l1, with numbers 2,4,6,8 and another list, l2,  with letters a,b,c,d. Create two numpy arrays, a1 and a2, with the same content. Then do the following operations:
@@ -321,7 +321,7 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 > > ## _Answer_: 
 > > arrays can be of only one data type. python tries to convert (coerce)
 > >  the content of this array to find a "common denominator".
-> {: .solution}
+> <!--{: .solution}-->
 >
 > * You've probably noticed that objects of different types get
 >   converted into a single, shared type within a vector. In python, we
