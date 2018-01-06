@@ -1,22 +1,62 @@
 ---
-title: Combining DataFrames with pandas
-teaching: 20
-exercises: 25
+title: Manipulating DataFrames with pandas
+teaching: 30
+exercises: 30
 questions:
+- " How can I reshape DataFrames and make tables?"
 - " Can I work with data from multiple sources? "
 - " How can I combine data from different data sets? "
 objectives:
+- Reshape data by making pivot_tables and melting tables.
     - Combine data from multiple files into a single DataFrame using merge and concat.
     - Combine two DataFrames using a unique ID found in both DataFrames.
     - Employ `to_csv` to export a DataFrame in CSV format.
     - Join DataFrames using common fields (join keys).
 keypoints: 
+- the method .pivot_table() creates pivot tables or can just be used to reshape data from long to wide format
+- the method .melt() brings data back to long format
 - the function pd.concat() can be used to concatenate/stack two DataFrames
 - axis = 0 will stack vertically and axis = 1 horizontally
 - the function pd.merge() can be used to join two DataFrames and requires joining keys
 - pandas can perform inner joins, the default option in merge(), left joins, right joins and full joins
 ---
 
+# Reshaping DataFrames
+Many analysis and statistics functions require for the data to be in a specific format. We learned about the so-called "long" and "wide" format earlier. Pandas DataFrames have methods to change between these formats.
+
+Let's say we want to summarise rainfall for the individual raingauges per day and want to have the rainfall spread out with one column per day and one row per raingauge (matrix like). We can use `rainfall_df.groupby(by=['day','raingauges_id']).sum()` to summarise, but then we will still have all the rainfall values in one column.
+
+To reshape the DataFrame when summarising we can use method `.pivot_table()`. 
+
+```python
+rainfall_day = rainfall_df.pivot_table(values='data', index='raingauges_id',columns='day')
+rainfall_day.head()
+
+day             1         2         3         4         5         6         7
+raingauges_id                                                                
+1             NaN  0.360000  0.333333  0.304348  0.257143  0.369620  0.200000
+2             NaN  0.133333  0.733333  0.208696  0.397101  0.316667  0.200000
+3             NaN  0.000000  0.800000  0.200000  0.323810  0.234568       NaN
+4             NaN  0.733333  0.133333  0.266667  0.297674  0.370093  0.733333
+5             NaN  0.200000  0.333333  0.340000  0.286207  0.472897  0.200000
+```
+
+Note, that raingauges_id now appear as the index, not a column, the 7 days are the columns.
+If we need the raingauges_id values to be presented in a column, we can use `rainfall_day.reset_index()`.
+
+Also note the `nan` values that where introduced, when there was no rainfall value for a day - raingauge combination.
+
+We can take the `rainfall_day` DataFrame we just created and reshape it into the "long" format, i.e. one column with raingauge_ids, one column with days and one column with the measured values using the method `.melt()`. `melt()` needs the information which columns are index/categories and which colums are data (when defining id variables `melt` assumes by default that all other columns are values):
+
+```python
+# 1. reset_index to get column with raingauges_id
+rainfall_day = rainfall_day.reset_index()
+# 2. melt data with raingauges_id as id variable
+rainfall_day_long = rainfall_day.melt(id_vars='raingauges_id', var_name='day')
+```
+
+
+# Combining DataFrames
 In many "real world" situations, the data that we want to use come in multiple
 files. We often need to combine these files into a single DataFrame to analyze
 the data. The pandas package provides [various methods for combining
@@ -62,8 +102,8 @@ we didn't use previously. Many functions in python have a set of options that
 can be set by the user if needed. In this case we used `name` to hand over a list with column names, since the region.csv file missed column names.
 [More about all of the read_csv options here.](http://pandas.pydata.org/pandas-docs/dev/generated/pandas.io.parsers.read_csv.html)
 
-# Concatenating DataFrames
 
+## Concatenating DataFrames
 We can use the `concat` function in Pandas to append either columns or rows from
 one DataFrame to another.  Let's grab two subsets of our data to see how this
 works.
@@ -136,7 +176,7 @@ new_output = pd.read_csv('out.csv', keep_default_na=False, na_values=[""])
 > Export your results as a CSV and make sure it reads back into python properly.
 {: .challenge}
 
-# Joining DataFrames
+## Joining DataFrames
 
 When we concatenated our DataFrames we simply added them to each other -
 stacking them either vertically or side by side. Another way to combine
