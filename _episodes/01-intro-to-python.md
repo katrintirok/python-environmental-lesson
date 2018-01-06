@@ -110,7 +110,7 @@ Spyder makes it easy to comment or uncomment a paragraph: after selecting the li
 > age  = age - 20        # age?
 > mass_index = mass/age  # mass_index?
 > ```
-<!--{: .challenge}-->
+{: .challenge}
 
 ## Objects vs. variables
 
@@ -198,7 +198,7 @@ In the example above, we have imported numPy as np. This means we don't have to 
 > 1. Import numpy, try the function `.pi` to represent the number $\pi$. 
 > 2. Calculate the sine and cosine of `$\pi$`. 
 > 3. What do `.floor` and `.ceil` do?
-<!--{: .challenge}-->
+{: .challenge}
 
 ## Data types
 
@@ -226,7 +226,7 @@ Another important data type are booleans (`bool`), i.e. `True` and `False`. Bool
 	int(a)
 	7
 ```
-<!--{: .challenge}-->
+{: .challenge}
 
 ### Data structures
 #### Lists
@@ -299,7 +299,7 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 > 4. try `l1 + l2`, `a1 + a2`, `l1 + a1`, `l2 + a1`
 > 
 > Discuss the different behaviour of lists and numpy arrays with your neighbour.
-<!--{: .challenge}-->
+{: .challenge}
 
 <!-- Another very useful data structure when working with data in python is a DataFrame from the pandas module. A DataFrame more or less represents a table, i.e. it has columns, with column headers and rows representing observations. A column needs to be of the same data type, i.e. either numeric or character, but different columns can differ in their data type. That means, pandas DataFrames are ideal to hold observational data tables imported into python. We will use DataFrames in the next episode.
 -->
@@ -334,8 +334,8 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 > > ## _Answer_: 
 > > `logical -> numeric -> character <- logical`
 > > 
-> <!--{: .solution}-->
-<!--{: .challenge}-->
+> {: .solution}
+{: .challenge}
 
 ## Subsetting lists and arrays in python
 
@@ -361,7 +361,7 @@ Programming languages like Fortran, MATLAB, Julia, and R start counting at 1, be
 > Can you figure out why `"four" > "five"` returns `TRUE`?
 > > ## _Answer_:
 > > When using ">" or "<" on strings, python compares their alphabetical order. Here, "four" comes after "five", and therefore is "greater than" it.
-> <!--{: .solution}-->
-<!--{: .challenge}-->
+> {: .solution}
+{: .challenge}
 
 Now that we have learned how to write scripts, and the basics of python's data structures, we are ready to start working with the Portal dataset we have been using in the other lessons, and learn about data frames.
