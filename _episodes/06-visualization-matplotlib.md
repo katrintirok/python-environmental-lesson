@@ -1,10 +1,9 @@
 ---
-title: Making Plots With ggplot
+title: Making Plots with matplotlib
 teaching: 40
 exercises: 50
 questions:
     - " How can I visualize data in Python?"
-    - " What is 'grammar of graphics'?"
 objectives:
     - "Create a matplotlib object."
     - "Set universal plot settings."
@@ -13,8 +12,9 @@ objectives:
     - "Edit the axis labels."
     - "Build complex plots using a step-by-step approach."
     - "Create scatter plots, box plots, and time series plots." 
-    - "Use the facet_wrap and facet_grid commands to create a collection of plots splitting the data by a factor variable."
+    - "Use the subplots() to create a collection of plots."
     - "Create customized plot styles to meet their needs." 
+---
 
 
 <!--
@@ -199,8 +199,9 @@ ax.boxplot(groups)
 ```
 What do you see? Can you make sense of this?
 
-#Challenge
+> ## Challenge
 >Can you change the axes limits to see the boxes?
+{: .challenge}
 
 <!--Answer
 
@@ -222,8 +223,7 @@ jitter = rainfall_data['raingauges_id']+np.random.normal(loc=0,scale=0.04,size =
 ax.scatter(jitter,rainfall_data['data'],s=1)
 ```
 
-## Challenges
-
+> ## Challenges
 > Boxplots are useful summaries, but hide the *shape* of the distribution. For
 > example, if there is a bimodal distribution, this would not be observed with a
 > boxplot. An alternative to the boxplot is the violin plot (sometimes known as a
@@ -239,7 +239,7 @@ ax.scatter(jitter,rainfall_data['data'],s=1)
 >
 > - Change the yscale to Log see more [here](https://matplotlib.org/devdocs/api/_as_gen/matplotlib.pyplot.yscale.html)
 >
-
+{: .challenge}
 
 <!-- Answers
 
@@ -325,11 +325,10 @@ for i in range(len(gaugeGrps)):
 	ax.plot(gaugeGrps.get_group(i+1)['day'],gaugeGrps.get_group(i+1)[0])
 
 ```
-##Challenge
-
-With all those colours how do we distinguish the different raingauges?
+> ## Challenge
+> With all those colours how do we distinguish the different raingauges?
 Can you figure it out [here](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html)?
-
+{: .challenge}
 
 
 # Subplots
@@ -364,8 +363,9 @@ for i in range(num_rows):
 ```
 
 
-# Challenge
-
+> ## Challenge
+>
+{: .challenge}
 
 ## Customization
 
@@ -428,11 +428,11 @@ fig.savefig('my_first_plot.png',dpi = 120)
 see more [here](https://matplotlib.org/devdocs/api/_as_gen/matplotlib.pyplot.savefig.html)
 
 
-## Final plotting challenge:
-With all of this information in hand, please take another five
+> ## Final plotting challenge:
+> With all of this information in hand, please take another five
 minutes to either improve one of the plots generated in this
 exercise or create a beautiful graph of your own. Use the Matplotlib gallery
 for inspiration:
 [https://matplotlib.org/gallery/index.html](https://matplotlib.org/gallery/index.html)
-
+{: .challenge}
 

@@ -57,7 +57,7 @@ After downloading the file move it to your project/data folder. Remember, this i
 We are studying the rainfall recorded for rain gauges in the different wards of eThekwini. The dataset is stored as a `.csv` file: each row holds information for a
 5 minute period, and the columns represent:
 
-ID,UT,year, month, day, time, raingauges_id,ward_id,data,invalid
+ID,UT,year, month, day, time, raingauges_id,name, ward_id,region, data
 
 | Column           | Description                   |
 |------------------|------------------------------------|
@@ -70,19 +70,19 @@ ID,UT,year, month, day, time, raingauges_id,ward_id,data,invalid
 | raingauges_id       | unique id for raingauge                      |
 | name | name of raingauge |
 | ward_id              | unique id for ward           |
+| region | name of region |
 | data          |   rainfall in mm |
-| invalid  | validity of data encoded with 0=False (valid) and 1=True (invalid)  |
 
 We can open the `rainfall_combined.csv` file in a text editor.
 The first few rows of our first file look like this:
 
 ```
-ID,UT,year,month,day,time,raingauges_id,name,ward_id,data,invalid
-1,1512227100,2017,12,2,15:05:00,1,BLUFF RES NO.3,66,0.6,0
-2,1512227400,2017,12,2,15:10:00,1,BLUFF RES NO.3,66,0.8,0
-3,1512227700,2017,12,2,15:15:00,1,BLUFF RES NO.3,66,0.2,0
-4,1512228000,2017,12,2,15:20:00,1,BLUFF RES NO.3,66,0.2,0
-5,1512252000,2017,12,2,22:00:00,1,BLUFF RES NO.3,66,0.0,0
+ID,UT,year,month,day,time,raingauges_id,name,ward_id,region,data
+1,1512227100,2017,12,2,15:05:00,1,BLUFF RES NO.3,66,Central,0.6
+2,1512227400,2017,12,2,15:10:00,1,BLUFF RES NO.3,66,Central,0.8
+3,1512227700,2017,12,2,15:15:00,1,BLUFF RES NO.3,66,Central,0.2
+4,1512228000,2017,12,2,15:20:00,1,BLUFF RES NO.3,66,Central,0.2
+5,1512252000,2017,12,2,22:00:00,1,BLUFF RES NO.3,66,Central,0.0
 ```
 ---
 ## Pandas in Python
@@ -157,105 +157,105 @@ The above command yields the **output** below:
 28     1443  1512417000  2017     12    4  19:50:00              1   
 29     2033  1512421200  2017     12    4  21:00:00              1   
     ...         ...   ...    ...  ...       ...            ...   
-6714  27131  1512544800  2017     12    6  07:20:00             44   
-6715  27132  1512546300  2017     12    6  07:45:00             44   
-6716  34625  1512557700  2017     12    6  10:55:00             44   
-6717  34626  1512558000  2017     12    6  11:00:00             44   
-6718  34627  1512558300  2017     12    6  11:05:00             44   
-6719  37402  1512561000  2017     12    6  11:50:00             44   
-6720  43283  1512567900  2017     12    6  13:45:00             44   
-6721  43284  1512568200  2017     12    6  13:50:00             44   
-6722  46409  1512570000  2017     12    6  14:20:00             44   
-6723  46410  1512570300  2017     12    6  14:25:00             44   
-6724  46411  1512570600  2017     12    6  14:30:00             44   
-6725  46412  1512571800  2017     12    6  14:50:00             44   
-6726  46413  1512572100  2017     12    6  14:55:00             44   
-6727  46414  1512572400  2017     12    6  15:00:00             44   
-6728  49718  1512573900  2017     12    6  15:25:00             44   
-6729  49719  1512574200  2017     12    6  15:30:00             44   
-6730  49720  1512574500  2017     12    6  15:35:00             44   
-6731  49721  1512575100  2017     12    6  15:45:00             44   
-6732  49722  1512575700  2017     12    6  15:55:00             44   
-6733  53221  1512578400  2017     12    6  16:40:00             44   
-6734  53222  1512578700  2017     12    6  16:45:00             44   
-6735  53223  1512579000  2017     12    6  16:50:00             44   
-6736  53224  1512579300  2017     12    6  16:55:00             44   
-6737  53225  1512579600  2017     12    6  17:00:00             44   
-6738  56794  1512580200  2017     12    6  17:10:00             44   
-6739  56795  1512580500  2017     12    6  17:15:00             44   
-6740  56796  1512581400  2017     12    6  17:30:00             44   
-6741  56797  1512582000  2017     12    6  17:40:00             44   
-6742  71254  1512597600  2017     12    6  22:00:00             44   
-6743  71351  1512599100  2017     12    6  22:25:00             44   
+6714  31895  1512554700  2017     12    6  10:05:00             42   
+6715  31896  1512555000  2017     12    6  10:10:00             42   
+6716  34545  1512555900  2017     12    6  10:25:00             42   
+6717  37320  1512562500  2017     12    6  12:15:00             42   
+6718  37321  1512562800  2017     12    6  12:20:00             42   
+6719  40201  1512563100  2017     12    6  12:25:00             42   
+6720  40202  1512563400  2017     12    6  12:30:00             42   
+6721  40203  1512563700  2017     12    6  12:35:00             42   
+6722  40204  1512564000  2017     12    6  12:40:00             42   
+6723  40205  1512564600  2017     12    6  12:50:00             42   
+6724  49621  1512573900  2017     12    6  15:25:00             42   
+6725  49622  1512574200  2017     12    6  15:30:00             42   
+6726  49623  1512574500  2017     12    6  15:35:00             42   
+6727  49624  1512574800  2017     12    6  15:40:00             42   
+6728  49625  1512575700  2017     12    6  15:55:00             42   
+6729  49626  1512576000  2017     12    6  16:00:00             42   
+6730  49627  1512576300  2017     12    6  16:05:00             42   
+6731  49628  1512576600  2017     12    6  16:10:00             42   
+6732  49629  1512576900  2017     12    6  16:15:00             42   
+6733  49630  1512577200  2017     12    6  16:20:00             42   
+6734  53117  1512577500  2017     12    6  16:25:00             42   
+6735  53118  1512577800  2017     12    6  16:30:00             42   
+6736  53119  1512578100  2017     12    6  16:35:00             42   
+6737  53120  1512578400  2017     12    6  16:40:00             42   
+6738  53121  1512578700  2017     12    6  16:45:00             42   
+6739  53122  1512579000  2017     12    6  16:50:00             42   
+6740  53123  1512579300  2017     12    6  16:55:00             42   
+6741  71149  1512597600  2017     12    6  22:00:00             42   
+6742  71438  1512609300  2017     12    7  01:15:00             42   
+6743  71621  1512624300  2017     12    7  05:25:00             42   
 
-                name  ward_id  data  invalid  
-0     BLUFF RES NO.3       66   0.6        0  
-1     BLUFF RES NO.3       66   0.8        0  
-2     BLUFF RES NO.3       66   0.2        0  
-3     BLUFF RES NO.3       66   0.2        0  
-4     BLUFF RES NO.3       66   0.0        0  
-5     BLUFF RES NO.3       66   0.2        0  
-6     BLUFF RES NO.3       66   0.2        0  
-7     BLUFF RES NO.3       66   0.4        0  
-8     BLUFF RES NO.3       66   0.8        0  
-9     BLUFF RES NO.3       66   0.4        0  
-10    BLUFF RES NO.3       66   0.0        0  
-11    BLUFF RES NO.3       66   0.8        0  
-12    BLUFF RES NO.3       66   0.2        0  
-13    BLUFF RES NO.3       66   0.2        0  
-14    BLUFF RES NO.3       66   0.4        0  
-15    BLUFF RES NO.3       66   0.2        0  
-16    BLUFF RES NO.3       66   0.2        0  
-17    BLUFF RES NO.3       66   0.4        0  
-18    BLUFF RES NO.3       66   0.2        0  
-19    BLUFF RES NO.3       66   0.2        0  
-20    BLUFF RES NO.3       66   0.4        0  
-21    BLUFF RES NO.3       66   0.2        0  
-22    BLUFF RES NO.3       66   0.2        0  
-23    BLUFF RES NO.3       66   0.8        0  
-24    BLUFF RES NO.3       66   1.0        0  
-25    BLUFF RES NO.3       66   0.2        0  
-26    BLUFF RES NO.3       66   0.2        0  
-27    BLUFF RES NO.3       66   0.2        0  
-28    BLUFF RES NO.3       66   0.2        0  
-29    BLUFF RES NO.3       66   0.2        0  
-             ...      ...   ...      ...  
-6714         BUFFELS       59   0.2        0  
-6715         BUFFELS       59   0.2        0  
-6716         BUFFELS       59   0.4        0  
-6717         BUFFELS       59   0.4        0  
-6718         BUFFELS       59   0.4        0  
-6719         BUFFELS       59   0.2        0  
-6720         BUFFELS       59   0.4        0  
-6721         BUFFELS       59   0.2        0  
-6722         BUFFELS       59   0.2        0  
-6723         BUFFELS       59   0.2        0  
-6724         BUFFELS       59   0.4        0  
-6725         BUFFELS       59   0.4        0  
-6726         BUFFELS       59   0.2        0  
-6727         BUFFELS       59   0.2        0  
-6728         BUFFELS       59   0.2        0  
-6729         BUFFELS       59   0.2        0  
-6730         BUFFELS       59   0.4        0  
-6731         BUFFELS       59   0.2        0  
-6732         BUFFELS       59   0.2        0  
-6733         BUFFELS       59   0.2        0  
-6734         BUFFELS       59   0.6        0  
-6735         BUFFELS       59   0.8        0  
-6736         BUFFELS       59   0.4        0  
-6737         BUFFELS       59   0.2        0  
-6738         BUFFELS       59   0.2        0  
-6739         BUFFELS       59   0.4        0  
-6740         BUFFELS       59   0.2        0  
-6741         BUFFELS       59   0.2        0  
-6742         BUFFELS       59   0.0        0  
-6743         BUFFELS       59   0.2        0  
+                name  ward_id    region  data  
+0     BLUFF RES NO.3       66   Central   0.6  
+1     BLUFF RES NO.3       66   Central   0.8  
+2     BLUFF RES NO.3       66   Central   0.2  
+3     BLUFF RES NO.3       66   Central   0.2  
+4     BLUFF RES NO.3       66   Central   0.0  
+5     BLUFF RES NO.3       66   Central   0.2  
+6     BLUFF RES NO.3       66   Central   0.2  
+7     BLUFF RES NO.3       66   Central   0.4  
+8     BLUFF RES NO.3       66   Central   0.8  
+9     BLUFF RES NO.3       66   Central   0.4  
+10    BLUFF RES NO.3       66   Central   0.0  
+11    BLUFF RES NO.3       66   Central   0.8  
+12    BLUFF RES NO.3       66   Central   0.2  
+13    BLUFF RES NO.3       66   Central   0.2  
+14    BLUFF RES NO.3       66   Central   0.4  
+15    BLUFF RES NO.3       66   Central   0.2  
+16    BLUFF RES NO.3       66   Central   0.2  
+17    BLUFF RES NO.3       66   Central   0.4  
+18    BLUFF RES NO.3       66   Central   0.2  
+19    BLUFF RES NO.3       66   Central   0.2  
+20    BLUFF RES NO.3       66   Central   0.4  
+21    BLUFF RES NO.3       66   Central   0.2  
+22    BLUFF RES NO.3       66   Central   0.2  
+23    BLUFF RES NO.3       66   Central   0.8  
+24    BLUFF RES NO.3       66   Central   1.0  
+25    BLUFF RES NO.3       66   Central   0.2  
+26    BLUFF RES NO.3       66   Central   0.2  
+27    BLUFF RES NO.3       66   Central   0.2  
+28    BLUFF RES NO.3       66   Central   0.2  
+29    BLUFF RES NO.3       66   Central   0.2  
+             ...      ...       ...   ...  
+6714     AMANZIMTOTI       97  Southern   0.4  
+6715     AMANZIMTOTI       97  Southern   0.2  
+6716     AMANZIMTOTI       97  Southern   0.2  
+6717     AMANZIMTOTI       97  Southern   0.4  
+6718     AMANZIMTOTI       97  Southern   2.0  
+6719     AMANZIMTOTI       97  Southern   0.4  
+6720     AMANZIMTOTI       97  Southern   0.2  
+6721     AMANZIMTOTI       97  Southern   0.2  
+6722     AMANZIMTOTI       97  Southern   0.2  
+6723     AMANZIMTOTI       97  Southern   0.2  
+6724     AMANZIMTOTI       97  Southern   0.2  
+6725     AMANZIMTOTI       97  Southern   0.2  
+6726     AMANZIMTOTI       97  Southern   0.2  
+6727     AMANZIMTOTI       97  Southern   0.2  
+6728     AMANZIMTOTI       97  Southern   0.2  
+6729     AMANZIMTOTI       97  Southern   0.4  
+6730     AMANZIMTOTI       97  Southern   0.4  
+6731     AMANZIMTOTI       97  Southern   0.2  
+6732     AMANZIMTOTI       97  Southern   0.6  
+6733     AMANZIMTOTI       97  Southern   1.4  
+6734     AMANZIMTOTI       97  Southern   1.6  
+6735     AMANZIMTOTI       97  Southern   0.6  
+6736     AMANZIMTOTI       97  Southern   0.4  
+6737     AMANZIMTOTI       97  Southern   0.6  
+6738     AMANZIMTOTI       97  Southern   0.4  
+6739     AMANZIMTOTI       97  Southern   0.4  
+6740     AMANZIMTOTI       97  Southern   0.2  
+6741     AMANZIMTOTI       97  Southern   0.0  
+6742     AMANZIMTOTI       97  Southern   0.2  
+6743     AMANZIMTOTI       97  Southern   0.2  
 
 [6744 rows x 11 columns]
  
 ```
 
-We can see that there were 6744 rows parsed. Each row has 11 columns. The first column is the index of the DataFrame. The index is used to
+We can see that there were 6749 rows parsed. Each row has 11 columns. The first column is the index of the DataFrame. The index is used to
 identify the position of the data, but it is not an actual column of the DataFrame.
 It looks like  the `read_csv` function in Pandas  read our file properly. However,
 we haven't saved any data to memory so we can work with it. We need to assign the
@@ -306,8 +306,8 @@ time              object
 raingauges_id      int64
 name              object
 ward_id            int64
+region            object
 data             float64
-invalid            int64
 dtype: object
 
 ```
@@ -315,7 +315,7 @@ dtype: object
 All the values in a column have the same type. For example, UT has type
 `int64`, which is a kind of integer. Cells in the UT column cannot have
 fractional values, but the data  column can, because it has type `float64`. The `object` type doesn't have a very helpful name, but in
-this case it represents strings (such as the ward name).
+this case it represents strings (such as the time, ward name and region).
 
 ### Useful Ways to View DataFrame objects in Python
 
@@ -371,23 +371,32 @@ which **returns**:
 
 ```
 Index(['ID', 'UT', 'year', 'month', 'day', 'time', 'raingauges_id', 'name',
-       'ward_id', 'data', 'invalid'],
+       'ward_id', 'region', 'data'],
       dtype='object')
 ```
 We can access individual columns of `rainfall_df` by giving the column name in `[]`, e.g. `rainfall_df['year']` only shows the content of column `year`.
 
-Let's get a list of all the rain gauges in our dataset. The `pd.unique` function tells us all of the unique values in the `raingauges_id` column.
+Let's get a list of all the rain gauges in our dataset. The `pd.unique` function tells us all of the unique values in the `name` column.
 
 ```python
-pd.unique(rainfall_df['raingauges_id'])
+pd.unique(rainfall_df['name'])
 ```
 
 which **returns**:
 
 ```python
-array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17,
-       18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-       35, 36, 37, 38, 41, 42, 44])
+array(['BLUFF RES NO.3', 'CHATSWORTH RES NO.1', 'CHATSWORTH RES NO.4',
+       "CITY ENGINEER'S DEPT", 'CRABTREE S-P-S', 'DUNKELD RES',
+       'FIRWOOD RES', 'ISLAND VIEW S-P-S', 'KENNEDY ROAD S-P-S',
+       'RIDGE END RES', 'RIDGE VIEW RES', 'SAND PUMP HOPPER',
+       'SHERWOOD RES NO.3', 'ST THOMAS RES', 'WENTWORTH RES',
+       'WOODLAND RES NO.2', 'DBN NORTH HL RES', 'NEWLANDS RES NO.3',
+       'PHOENIX RES NO.1', 'PHOENIX RES NO.4', 'BALLITO', 'HAZELMERE DAM',
+       'UMHWWTW', 'CRAWFORD', 'UMH NTH', 'BUFFELS', 'CATO RIDGE',
+       'ALVERSTN', 'INANDA DAM', 'WATERFALL', 'HILLCREST', 'SHONGWENI DAM',
+       'PINETOWN', 'NAGLE DAM', 'RIVERLEA', 'KLOOF', 'UMLAZI',
+       'UMBUMBULU RES', 'ISIPINGO RES', 'UMKDEPOT', 'AMANZIMTOTI',
+       'not there'], dtype=object)
 ```
 
 > ## Challenge - Statistics
@@ -494,41 +503,41 @@ ward_id
 103      18707.295181  1.512506e+09  2017.0   12.0  5.289157      25.000000   
 110      16830.762195  1.512505e+09  2017.0   12.0  5.323171      12.000000   
 
-             data  invalid  
-ward_id                     
-1        0.229630      0.0  
-3        0.262722      0.0  
-7        0.342308      0.0  
-8        0.241916      0.0  
-9        0.329373      0.0  
-10       0.384211      0.0  
-11       0.385455      0.0  
-18       0.417352      0.0  
-23       0.394118      0.0  
-24       0.333696      0.0  
-25       0.646591      0.0  
-26       0.359044      0.0  
-27       0.370103      0.0  
-30       0.404464      0.0  
-31       0.382090      0.0  
-32       0.389000      0.0  
-35       0.441344      0.0  
-36       0.381395      0.0  
-52       0.533333      0.0  
-59       0.395238      0.0  
-60       0.483598      0.0  
-63       0.440580      0.0  
-64       0.330000      0.0  
-66       0.360390      0.0  
-68       0.290566      0.0  
-70       0.340000      0.0  
-71       0.282840      0.0  
-80       0.366169      0.0  
-93       0.321519      0.0  
-97       0.364356      0.0  
-99       0.317419      0.0  
-103      0.302410      0.0  
-110      0.419512      0.0  
+             data  
+ward_id            
+1        0.229630  
+3        0.262722  
+7        0.342308  
+8        0.241916  
+9        0.329373  
+10       0.384211  
+11       0.385455  
+18       0.417352  
+23       0.394118  
+24       0.333696  
+25       0.646591  
+26       0.359044  
+27       0.370103  
+30       0.404464  
+31       0.382090  
+32       0.389000  
+35       0.441344  
+36       0.381395  
+52       0.533333  
+59       0.395238  
+60       0.483598  
+63       0.440580  
+64       0.330000  
+66       0.360390  
+68       0.290566  
+70       0.340000  
+71       0.282840  
+80       0.366169  
+93       0.321519  
+97       0.364356  
+99       0.317419  
+103      0.302410  
+110      0.419512  
 
 ```
 
@@ -537,10 +546,10 @@ summary stats.
 
 > ## Challenge - Summary Data
 >
-> 1. How many recorded observations are valid `0` and not valid `1`
+> 1. How many recorded observations are there in the four different regions?
 > 2. What happens when you group by two columns using the following syntax and
 >    then grab mean values:
->	- `grouped_data2 = rainfall_df.groupby(['day','ward_id'])`
+>	- `grouped_data2 = rainfall_df.groupby(['day','region'])`
 >	- `grouped_data2.mean()`
 > 3. Summarize rainfall values for each day in your data. HINT: you can use the
 >   following syntax to only create summary statistics for one column in your data

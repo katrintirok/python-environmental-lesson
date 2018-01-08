@@ -1,10 +1,9 @@
-## Data Carpentry Python Lessons with Ecological Data
+## Data Carpentry Python Lessons with Rainfall Data
 
-This repository contains the Data Carpentry Python material based on ecological
-data. Please see our [contribution guidelines](CONTRIBUTING.md) for information
-on how to contribute updates, bug fixes, or other corrections.
+This repository contains Python material using rainfall
+data. It is based on the original Data Carpentry Python Lesson for ecology from December 2017.
 
-### Maintainers
+### Material was adjusted by
 
-- April Wright ([@wrightaprilm](https://github.com/wrightaprilm))
-- John Gosset ([@qjcg](https://github.com/qjcg))
+- Katrin Tirok ([@katrintirok](https://github.com/katrintirok))
+- Justin Pringle ([@JustinPringle](https://github.com/JustinPringle))
