@@ -5,15 +5,14 @@ exercises: 50
 questions:
     - " How can I visualize data in Python?"
 objectives:
-			- "Create plots with pandas"
-    - "Set universal plot settings."
-    - "Change the aesthetics of a plot such as colour."
-    - "Edit the axis labels."
-    - "Build complex plots using a step-by-step approach."
-    - "Create scatter plots, box plots, and time series plots." 
-    -  "Create a matplotlib object."
-    - "Save figure to a file"
-    
+- "Create plots with pandas"
+- "Set universal plot settings."
+- "Change the aesthetics of a plot such as colour."
+- "Edit the axis labels."
+- "Build complex plots using a step-by-step approach."
+- "Create scatter plots, box plots, and time series plots." 
+-  "Create a matplotlib object."
+- "Save figure to a file"
 ---
 
 # Plotting with matplotlib
