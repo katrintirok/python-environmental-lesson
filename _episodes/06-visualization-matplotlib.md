@@ -1,17 +1,18 @@
 ---
-title: Making Plots With ggplot
+title: Making Plots With Matplotlib
 teaching: 40
 exercises: 50
 questions:
     - " How can I visualize data in Python?"
 objectives:
-    - "Create a matplotlib object."
+			- "Create plots with pandas"
     - "Set universal plot settings."
-    - "Modify an existing matplotlib object."
     - "Change the aesthetics of a plot such as colour."
     - "Edit the axis labels."
     - "Build complex plots using a step-by-step approach."
     - "Create scatter plots, box plots, and time series plots." 
+    -     - "Create a matplotlib object."
+    -     "Save figure to a file"
 ---
 
 # Plotting with matplotlib
