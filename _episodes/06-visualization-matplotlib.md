@@ -11,8 +11,9 @@ objectives:
     - "Edit the axis labels."
     - "Build complex plots using a step-by-step approach."
     - "Create scatter plots, box plots, and time series plots." 
-    -     - "Create a matplotlib object."
-    -     "Save figure to a file"
+    -  "Create a matplotlib object."
+    - "Save figure to a file"
+    
 ---
 
 # Plotting with matplotlib
