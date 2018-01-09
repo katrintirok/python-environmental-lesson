@@ -357,7 +357,7 @@ rainfall_data['datetime'] = pd.Series(dats)
 Let's load in the *new* file:
 
 ```python
-rainfall_day_grp = pd.read_csv('data/rainfall/rainfall_days.csv')
+rainfall_combined = pd.read_csv('data/rainfall/rainfall_combined.csv')
 ```
 
 
@@ -368,7 +368,7 @@ on y axis.
 
 
 ```python
-rainfall_day_grp.plot(x='day',y='data')
+rainfall_combined.plot(x='day',y='data')
 ```
 
 
@@ -379,10 +379,13 @@ We will be able to distinguish gauges in the plot if we add colors.
 Now let's group the data by day and raingauge and then sum the total amount of rainfall for each day for each gauge:
  
 ```python
-day_counts = rainfall_day_grp[['day','raingauges_id']].groupby(['day','raingauges_id']).size().reset_index().rename(columns={0:'rainfall'})
- 
-```
+dailyRain = rainfall_combined.pivot_table(values='data',columns='raingauges_id',index='day',aggfunc='sum')
 
+#now plot only first 5 gauges
+
+dailyRain.loc[:,1:5].plot()
+```
+<!--
 ```python
 # reshape the Dataframe to have each raingauge as a column
 day_count_pGauge = day_counts.pivot_table(values = 'rainfall',columns = 'raingauges_id',index='day')
@@ -394,20 +397,17 @@ day_count_pGauge.loc[:,1:5].plot()
 
 
 ```
+-->
 
 We might need to perform these operations again so in your editor let's create a function called reOrganize and save our script:
 
 ```python
 def reOrganize():
-	rainfall_day_grp = pd.read_csv('data/rainfall/rainfall_days.csv')
+	rainfall_combined = pd.read_csv('data/rainfall/rainfall_combined.csv')
 
-	#regroup
-	day_counts = rainfall_day_grp[['day','raingauges_id']].groupby(['day','raingauges_id']).size().reset_index().rename(columns={0:'rainfall'})
-
-	# reshape the Dataframe to have each raingauge as a column
-	day_count_pGauge = day_counts.pivot_table(values = 'rainfall',columns = 'raingauges_id',index='day')
+	dailyRain = rainfall_combined.pivot_table(values='data',columns='raingauges_id',index='day',aggfunc='sum')
 	
-	return day_count_pGauge
+	return dailyRain
 ```
 ##Challenges
 
@@ -439,7 +439,7 @@ Can you figure out how we can change our layout (give yourself 5mins? ([Hint](ht
 Let's plot the first 5 raingauges in a layout with 2 columns and 3 rows
 
 ```python
-day_count_pGauge.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2))
+dailyRain.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2))
 ```
 -->
 
@@ -447,7 +447,7 @@ Is there anything you notice about the limits of each Y Axis?
 How do we ensure all the plots have the same limits?
 
 ```python
-day_count_pGauge.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2),sharey=True,xlim(1,7)
+dailyRain.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2),sharey=True,xlim(1,7)
 ```
 
 <!--
@@ -509,9 +509,9 @@ import matplotlib.pyplot as plt
 
 #run your saved script reOrganize from earlier...
 
-daily_Data = reOrganize()
+dailyRain = reOrganize()
 
-axes = daily_Data.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2),sharey=True,sharex=True,title='Daily Rainfall Intensity Over the past 7 Days',xlim=(1,7))
+axes = dailyRain.loc[:,1:5].plot(legend=False,subplots=True,layout=(3,2),sharey=True,sharex=True,title='Daily Rainfall Intensity Over the past 7 Days',xlim=(1,7))
 
 #extract our figure object from axes
 
