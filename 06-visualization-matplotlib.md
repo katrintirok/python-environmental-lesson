@@ -307,7 +307,7 @@ Up to now you have been vizualizing your plots *inline*... **but** we cannot dyn
 In order to dynamically change for example the text of our plot we must first change our backend that our computer uses to show us the plot. 
 
 To change this go to *preferences --> IPython console --> Graphics.
-Change the Graphic Backend to 'Automatic'  (Windows).
+Change the Graphic Backend to 'Automatic'.
  
 Restart your kernel and lets begin...
 (you can restart the kernel under Consoles --> restart kernel or directly from the iPython console)
