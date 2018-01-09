@@ -6,10 +6,16 @@ permalink: /setup/
 
 > ## Data
 {: .prereq}
+<!--
 Data for this lesson is from the Portal Project Teaching Database -
 [available on FigShare](https://figshare.com/articles/Portal_Project_Teaching_Database/1314459).
+-->
+For this lesson, we will use
+rainfall data from eThekwini from December 2017.
+The files can be downloaded using this [google link](https://drive.google.com/drive/folders/1arYqAkecMKwFUYv_H5o_-8Z7BaccLZts?usp=sharing).
 
-For this lesson, we will use two files for the data. Download these files to your computer. Once you click on them they will be automatically downloaded to your default download directory.
+<!--
+For this lesson, we will use files for the data. Download these files to your computer. Once you click on them they will be automatically downloaded to your default download directory.
 
 - [surveys.csv](https://ndownloader.figshare.com/files/2292172)
 - [species.csv](https://ndownloader.figshare.com/files/3299483)
@@ -18,7 +24,7 @@ For this lesson, we will use two files for the data. Download these files to you
 - [surveys2002.csv](https://github.com/datacarpentry/python-ecology-lesson/blob/gh-pages/data/survey2002.csv)
 - [plots.csv](https://github.com/datacarpentry/python-ecology-lesson/blob/gh-pages/data/plots.csv)
 - [SQL Database](https://github.com/datacarpentry/python-ecology-lesson/blob/gh-pages/data/portal_mammals.sqlite)
-
+-->
 
 > ## Software
 {: .prereq}
@@ -32,7 +38,7 @@ For this workshop we use Python version 3.x.
 ## Required Python Packages for this workshop
 
 * [Pandas](http://pandas.pydata.org/)
-* [Jupyter notebook](http://jupyter.org/)
+<!-- * [Jupyter notebook](http://jupyter.org/) -->
 * [Numpy](http://www.numpy.org/)
 * [Matplotlib](http://matplotlib.org/)
 
@@ -71,7 +77,7 @@ From the terminal, type:
 conda list
 ```
 
-### Install the required workshop packages with conda
+#### Install the required workshop packages with conda
 
 From the terminal, type:
 
@@ -80,6 +86,7 @@ conda install -y numpy pandas matplotlib jupyter
 conda install -c bokeh ggplot
 ```
 
+<!--
 ## Launch a Jupyter notebook
 
 After installing either Anaconda or Miniconda and the workshop packages,
@@ -93,7 +100,9 @@ The notebook should open automatically in your browser. If it does not or you
 wish to use a different browser, open this link: <http://localhost:8888>.
 
 ---
+-->
 
+<!--
 ## Overview of the Jupyter notebook (Optional)
 
 ![Example Jupyter Notebook](../fig/00_0_jupyter_notebook_example.jpg)  
@@ -190,3 +199,4 @@ cells which can contain code, markdown, html, visualizations, and more.
 ### Help and more information
 
 Use the **Help** menu and its options when needed.
+-->

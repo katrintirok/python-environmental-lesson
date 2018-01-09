@@ -364,4 +364,4 @@ Programming languages like Fortran, MATLAB, Julia, and R start counting at 1, be
 > {: .solution}
 {: .challenge}
 
-Now that we have learned how to write scripts, and the basics of python's data structures, we are ready to start working with the Portal dataset we have been using in the other lessons, and learn about data frames.
+Now that we have learned how to write scripts, and the basics of python's data structures, we are ready to start working with a real dataset, and learn about data frames.
