@@ -11,7 +11,7 @@ maintainers:
 
 Python is a general purpose programming language that is useful for writing scripts to work effectively and reproducibly with data.
 
-This is an introduction to Python designed for participants with no programming experience. These lessons can be taught in a day (~ 6 hours). They start with some basic information about Python syntax, Anaconda navigator and the Spyder IDE, and move through how to import CSV files, using the pandas package to work with data frames, how to calculate summary information from a data frame, and a brief introduction to plotting. The last lesson demonstrates how to work with databases directly from Python.
+This is an introduction to Python designed for participants with no programming experience. These lessons can be taught in a day (~ 8 hours). They start with some basic information about Python syntax, Anaconda navigator and the Spyder IDE, and move through how to import CSV files, using the pandas package to work with data frames, how to calculate summary information from a data frame, and a brief introduction to plotting. The last lesson demonstrates how to work with databases directly from Python.
 
 > ## Getting Started
 >
