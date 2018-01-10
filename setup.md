@@ -12,7 +12,7 @@ Data for this lesson is from the Portal Project Teaching Database -
 -->
 For this lesson, we will use
 rainfall data from eThekwini from December 2017.
-The files can be downloaded using this [google link](https://drive.google.com/drive/folders/1arYqAkecMKwFUYv_H5o_-8Z7BaccLZts?usp=sharing).
+The files can be downloaded using this [google link](https://drive.google.com/open?id=1WOd94TOmvcnotwMYjY-2xmsip9EiGT7V).
 
 <!--
 For this lesson, we will use files for the data. Download these files to your computer. Once you click on them they will be automatically downloaded to your default download directory.
