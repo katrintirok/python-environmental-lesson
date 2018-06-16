@@ -30,7 +30,7 @@ Python's main advantages:
 * It is a general-purpose programming language
 * Supports multiple programming paradigms
 * Very large community with a rich ecosystem of third-party packages
-* interpreted language, i.e. direct execution of commands, no compilation neccessary
+* Interpreted language, i.e. direct execution of commands, no compilation neccessary
 
 
 ## Why learn python for data analysis?
@@ -80,7 +80,7 @@ Anyone can inspect the source code to see how python works. Because of this tran
 ## Knowing your way around Anaconda and Spyder
 
 [Spyder](https://spyder-ide.github.io
-) is currently a popular way to not only write your python scripts but also to interact with the python software; it is an interactive development enviroment, a so called IDE. To function correctly, Spyder needs python and therefore both need to be installed on your computer. The [Anaconda](https://www.anaconda.com) distribution includes python as well as Spyder and other programs such as the IPython console and Jupyter notebook.
+) is currently a popular way to not only write your python scripts but also to interact with the python software; it is an integrated development enviroment, a so called IDE. To function correctly, Spyder needs python and therefore both need to be installed on your computer. The [Anaconda](https://www.anaconda.com) distribution includes python as well as Spyder and other programs such as the IPython console and Jupyter notebook.
 
 ### Getting set up
 
@@ -105,6 +105,10 @@ Using a consistent folder structure across your projects will help keep things o
 **`scripts/`** This would be the location to keep your python scripts for different analyses or plotting, and potentially a separate folder for your functions (more on that later).
 You may want additional directories or subdirectories depending on your project needs, but these should form the backbone of your working directory. For this workshop, we will need a `data/` folder to store our raw data, and we will create later a `data_output/` folder when we learn how to export data as CSV files.
 
+In order to stay in the workign directory when running a script we have to change the run settings in preferences:
+
+* under the _python_ menu, click on _Preferences_ and choose _Run_, under _Working Directory settings_ choose _The current working directory_
+
 ## Interacting with Python
 The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write, or code, instructions in python because it is a common language that both the computer and we can understand. We call the instructions commands and we tell the computer to follow the instructions by executing (also called running) those commands.
 
@@ -124,6 +128,10 @@ If python is still waiting for you to enter more data because it isn’t complet
 The material we cover during this workshop will give you an initial taste of how you can use python to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your dataset, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at python, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
 
 ## Seeking help
+
+Spyder can automatically show an object's help information after a left parenthesis is written next to it. To activate this feature go to _python_ and choose  _Preferences_ and then _Help_, under _Automatic connections_ tick _Editor_ and _iPython Console_.
+
+Other options to find help are:
 
 * check under _Help_ menu
 * type `help()` in console
