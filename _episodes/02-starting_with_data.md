@@ -37,7 +37,7 @@ and they can replicate the same analysis.
 
 ## Starting in the same spot
 
-To help the lesson run smoothly, let's ensure everyone is in the same directory. This should help us avoid path and file name issues. After launching Spyder (remember you can launch Spyder from the Anaconda Navigator), open the project you created in the previous session. You can do this under the _Projects_ tab. 
+To help the lesson run smoothly, let's ensure everyone is in the same directory. This should help us avoid path and file name issues. After launching   Spyder (remember you can launch Spyder from the Anaconda Navigator), open the project you created in the previous session. You can do this under the _Projects_ tab. 
 
 If you are working in IPython Notebook be sure
 that you start your notebook in the workshop directory.

@@ -756,13 +756,8 @@ asking Python to select rows that have a `NaN` value of rainfall.
 
 
 > ## Challenge - Putting it all together
->
-> 1. Create a new DataFrame that only contains observations with data values that
->   are **not** female or male. Assign each sex value in the new DataFrame to a
->   new value of 'x'. Determine the number of null values in the subset.
 >   
-> 2. Create a new DataFrame that contains only observations that are of sex male
->   or female and where rainfall values are greater than 0.
+> Create a new DataFrame that does not contain nan values for the ward_id and here rainfall values are greater than 0.
 {: .challenge}
 
 

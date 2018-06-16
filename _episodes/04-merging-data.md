@@ -22,14 +22,14 @@ keypoints:
 ---
 
 # Reshaping DataFrames
-Many analysis and statistics functions require for the data to be in a specific format. We learned about the so-called "long" and "wide" format earlier. Pandas DataFrames have methods to change between these formats.
+Many analysis and statistical functions require for the data to be in a specific format. We learned about the so-called "long" and "wide" format earlier. Pandas DataFrames have methods to change between these formats.
 
-Let's say we want to summarise rainfall for the individual raingauges per day and want to have the rainfall spread out with one column per day and one row per raingauge (matrix like). We can use `rainfall_df.groupby(by=['day','raingauges_id']).sum()` to summarise, but then we will still have all the rainfall values in one column.
+Let's say we want to summarise rainfall for the individual raingauges per day and want to have the rainfall spread out with one columns for each day and one row for each raingauge (matrix like). We can use `rainfall_df.groupby(by=['day','raingauges_id']).sum()` to summarise per day and raingauge, but then we will still have all the rainfall values in one column.
 
-To reshape the DataFrame when summarising we can use method `.pivot_table()`. 
+To reshape the DataFrame when summarising we can use method `.pivot_table()`. `pivot_table()` takes the arguments `values`, `index` and `columns`. By default it summarises using the mean. With `aggfunc` we can define a different measure, e.g. sum.
 
 ```python
-rainfall_day = rainfall_df.pivot_table(values='data', index='raingauges_id',columns='day')
+rainfall_day = rainfall_df.pivot_table(values='data', index='raingauges_id',columns='day', aggfunc='sum')
 rainfall_day.head()
 
 day             1         2         3         4         5         6         7
@@ -41,12 +41,12 @@ raingauges_id
 5             NaN  0.200000  0.333333  0.340000  0.286207  0.472897  0.200000
 ```
 
-Note, that raingauges_id now appear as the index, not a column, the 7 days are the columns.
-If we need the raingauges_id values to be presented in a column, we can use `rainfall_day.reset_index()`.
+Note, that `raingauges_id` now appears as the index, not a column, the 7 days are the columns.
+If we need the `raingauges_id` values to be presented in a column, we can use `rainfall_day.reset_index()`.
 
 Also note the `nan` values that where introduced, when there was no rainfall value for a day - raingauge combination.
 
-We can take the `rainfall_day` DataFrame we just created and reshape it into the "long" format, i.e. one column with raingauge_ids, one column with days and one column with the measured values using the method `.melt()`. `melt()` needs the information which columns are index/categories and which colums are data (when defining id variables `melt` assumes by default that all other columns are values):
+We can take the `rainfall_day` DataFrame we just created and reshape it into the "long" format, i.e. one column with raingauge_ids, one column with days and one column with the measured values using the method `.melt()`. `melt()` needs the information which columns are index- or key-variables and which colums are values, i.e. measured data (when defining id variables `melt` assumes by default that all other columns are values):
 
 ```python
 # 1. reset_index to get column with raingauges_id
@@ -54,7 +54,9 @@ rainfall_day = rainfall_day.reset_index()
 # 2. melt data with raingauges_id as id variable
 rainfall_day_long = rainfall_day.melt(id_vars='raingauges_id', var_name='day')
 ```
-
+> ## Challenge
+> Summarise data per region and day using pivot_table and have one column per region and the days as row index.
+> {: .challenge} 
 
 # Combining DataFrames
 In many "real world" situations, the data that we want to use come in multiple
@@ -512,13 +514,12 @@ The pandas `merge` function supports two other join types:
 
 > ## Challenge
 > 1. Create a new DataFrame by joining the contents of the `raingauge_data.csv` and
-> `raingauges.csv` tables. Then calculate the distribution of:
+> `raingauges.csv` tables. Then summarise the data (rainfall) over:
 >
 > 	1. raingauges by region_id
 > 	2. raingauges by day by region_id
 >
 >
 > 2. In the data folder, there is a region `CSV` that contains information about the
->    region associated with each raingauge. Use that data to summarize the number of
->   raingauges by region name.
+>    region associated with each raingauge. Use that data together with the `raingauges` table to count the raingauges per region and show the raingauges names per region name.
 {: .challenge}
