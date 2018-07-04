@@ -37,7 +37,7 @@ and they can replicate the same analysis.
 
 ## Starting in the same spot
 
-To help the lesson run smoothly, let's ensure everyone is in the same directory. This should help us avoid path and file name issues. After launching   Spyder (remember you can launch Spyder from the Anaconda Navigator), open the project you created in the previous session. You can do this under the _Projects_ tab. 
+To help the lesson run smoothly, let's ensure everyone is in the same directory. This should help us avoid path and file name issues. After launching Spyder (remember you can launch Spyder from the Anaconda Navigator), open the project you created in the previous session. You can do this under the _Projects_ tab. 
 
 If you are working in IPython Notebook be sure
 that you start your notebook in the workshop directory.
@@ -49,13 +49,12 @@ directory structure, however, that is not our focus today.
 ### Our Data
 
 For this lesson, we will be using rainfall data from eThekwini from December 2017.
-The files can be downloaded using the google link provided.
+The files can be downloaded [here](https://drive.google.com/open?id=1WOd94TOmvcnotwMYjY-2xmsip9EiGT7V).
 
-This section will use the `rainfall_combined.csv` file.
-After downloading the file move it to your project/data folder. Remember, this is the folder that should keep the raw data.
+This episode will use the [rainfall_combined.csv](https://drive.google.com/open?id=12zcIgkXBR_hHlcDHvSdpuQJbl1EFfFBI) file.
+After downloading the file move it to your 'project/data' folder. Remember, this is the folder that should keep the raw data.
 
-We are studying the rainfall recorded for rain gauges in the different wards of eThekwini. The dataset is stored as a `.csv` file: each row holds information for a
-5 minute period, and the columns represent:
+We are studying the rainfall recorded for rain gauges in the different wards of eThekwini. The dataset is stored as a `.csv` file: each row holds information for a 5 minute period, and the columns represent:
 
 ID,UT,year, month, day, time, raingauges_id,name, ward_id,region, data
 
@@ -74,7 +73,7 @@ ID,UT,year, month, day, time, raingauges_id,name, ward_id,region, data
 | data          |   rainfall in mm |
 
 We can open the `rainfall_combined.csv` file in a text editor.
-The first few rows of our first file look like this:
+The first few rows of our file look like this:
 
 ```
 ID,UT,year,month,day,time,raingauges_id,name,ward_id,region,data
@@ -576,7 +575,7 @@ day
 ### Quickly Creating Summary Counts in Pandas
 
 Let's next count the number of samples for each raingauge. We can do this in a few
-ways, but we'll use `groupby` combined with **a `count()` method**.
+ways, but we'll use `groupby` combined with the `count()` method.
 
 
 ```python
@@ -599,21 +598,58 @@ rainfall_df.groupby('raingauges_id')['ID'].count()[5]
 >  groupby DataFrames in the same way you can perform them on regular DataFrames.
 {: .challenge}
 
+
+## Quick and Easy Plotting Data Using Pandas
+
+We can plot our summary stats using Pandas, too.
+
+Let's plot our counts per raingauge we just calculated:
+
+```python
+# Make sure figures appear inline in Ipython Notebook
+%matplotlib inline
+# Create a quick bar chart
+raingauge_counts.plot(kind='bar')
+```
+
+![Count per raingauge](../fig/countPerRaingauge.png)
+
+We can also look at how many raingauges are there in each region:
+
+```python
+raingauges_region = rainfall_df.groupby('region')['raingauges_id'].nunique()
+# Let's plot that too
+raingauges_region.plot(kind='bar') 
+```
+
+![Raingauges per region](../fig/RaingaugePerRegion.png)
+
+> ## Challenge - Plots
+>
+> Plot the average or the sum (or both) of rainfall per day over all raingauges.
+>
+{: .challenge}
+
+
 ## Mutating columns
 
 If we wanted to, we could perform math on an entire column of our data. For example let's multiply all rainfall values by 2 or take the `log` of rainfall. Remember if we want to apply a function to all elements in an array like object we can use functions from `numpy`, e.g. `np.log()`.
 
-	# multiply all rainfall values by 2
-	rainfall_df['data']*2
-	# take the log of all values
-	np.log(rainfall_df['data'])
+```{python}
+# multiply all rainfall values by 2
+rainfall_df['data']*2
+# take the log of all values
+np.log(rainfall_df['data'])
+```
 
 We can create a new variable for the 'mutated' rainfall or adding it as a new column to our dataframe `rainfall_df`:
 	
-	# adding the column `ln_data` to `rainfall_df`
-	rainfall_df['ln_data'] = np.log(rainfall_df['data'])
-	rainfall_df.head()
-		
+```{python}
+# adding the column `ln_data` to `rainfall_df`
+rainfall_df['ln_data'] = np.log(rainfall_df['data'])
+rainfall_df.head()
+```
+	
 A more practical use of this might be to normalize the data according to a mean, area, or some other value calculated from our data.
 
 ## A few words on dates
@@ -658,6 +694,7 @@ rainfall_df.dtypes
 datetime         datetime64[ns]
 ...
 ```
+
 > ## Challenge - datetime objects
 > 1. Add a column with hours to rainfall_df.
 > 
