@@ -402,7 +402,7 @@ array(['BLUFF RES NO.3', 'CHATSWORTH RES NO.1', 'CHATSWORTH RES NO.4',
 >
 > 1. Create a list of unique ward ID's found in the rainfall data. Call it
 >   `ward_names`. How many unique wards are there in the data? 
-> >
+> 
 > 2. What is the difference between `len(ward_names)` and `rainfall_df['ward_id'].nunique()`?
 {: .challenge}
 
@@ -626,7 +626,7 @@ raingauges_region.plot(kind='bar')
 
 > ## Challenge - Plots
 >
-> Plot the average or the sum (or both) of rainfall per day over all raingauges.
+> Create a plot with the average or the sum (or both) of rainfall per day over all raingauges.
 >
 {: .challenge}
 
@@ -696,7 +696,7 @@ datetime         datetime64[ns]
 ```
 
 > ## Challenge - datetime objects
-> 1. Add a column with hours to rainfall_df.
+> Add a column with hours to rainfall_df.
 > 
 > hint: look up the methods of the _datetime_ package to extract individual date and time elements from the `datetime` column.
 {: .challenge}
