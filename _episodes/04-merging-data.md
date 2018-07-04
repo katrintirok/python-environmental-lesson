@@ -24,14 +24,28 @@ keypoints:
 # Reshaping DataFrames
 Many analyses and statistical functions require for the data to be in a specific format. We learned about the so-called "long" and "wide" format earlier. Pandas DataFrames have methods to change between these formats.
 
-Let's say we want to summarise rainfall for the individual raingauges per day and want to have the rainfall spread out with one columns for each day and one row for each raingauge (wide format or matrix like or ). We can use `rainfall_df.groupby(by=['day','raingauges_id']).sum()` to summarise per day and raingauge, but then we will still have all the rainfall values in one column.
+Let's say we want to summarise rainfall for the individual raingauges per day and want to have the rainfall spread out with one column for each day and one row for each raingauge (wide format or matrix like or ). 
+
+We can use
+
+```{python}
+rainfall_day = rainfall_df.groupby(by=['day','raingauges_id']).sum()
+```
+to summarise per day and raingauge, but then we will still have all the rainfall values in one column.
+
+Note, that the two grouping variables `raingauges_id` and `day` now appear as an index, not a column. If we want them as columns again we can use
+
+```{python}
+rainfall_day = rainfall_day.reset_index()
+```
 
 To reshape the DataFrame after summarising it we can use method `.pivot()`. `pivot()` takes the arguments `index`, `columns`, and `values`. 
 
 With `index` we define which variable should be spreasd out into rows, i.e. `'raingauges_id'` in our example; with `columns` we define the variable we want to turn into several columns, i.e. `'day'` in our example; and with `values` we tell Python which variable holds the measurements we want to fill in, i.e. `'data'` in our example.
 
+
 ```python
-rainfall_day = rainfall_df.pivot(index='raingauges_id',columns='day', values='data')
+rainfall_day_wide = rainfall_day.pivot(index='raingauges_id',columns='day', values='data')
 rainfall_day.head()
 
 day             1         2         3         4         5         6         7
@@ -44,27 +58,29 @@ raingauges_id
 ```
 
 Note, that `raingauges_id` now appears as the index, not a column, the 7 days are the columns.
-If we need the `raingauges_id` values to be presented in a column, we can use `rainfall_day.reset_index()`.
+If we need the `raingauges_id` values to be presented in a column, we can use:
 
 ```python
 # reset_index to get column with raingauges_id
-rainfall_day = rainfall_day.reset_index()
+rainfall_day_wide = rainfall_day_wide.reset_index()
 ```
 
 Also note the `nan` values that were introduced when there was no rainfall value for a day - raingauge combination.
 
 ### Getting data back into long format
-We can take the `rainfall_day` DataFrame we just created and reshape it into the "long" format, i.e. one column with raingauge_ids, one column with days and one column with the measured values using the method `.melt()`. `melt()` needs the information which columns are index- or key-variables and which colums are values, i.e. measured data (when defining id variables `melt` assumes by default that all other columns are values):
+We can take the `rainfall_day_wide` DataFrame we just created and reshape it into the "long" format, i.e. one column with raingauge_ids, one column with days and one column with the measured values using the method `.melt()`. `melt()` needs the information which columns are index- or key-variables and which colums are values, i.e. measured data (when defining id variables `melt` assumes by default that all other columns are values):
 
 ```python
 # melt data with raingauges_id as id variable
-rainfall_day_long = rainfall_day.melt(id_vars='raingauges_id', var_name='day')
+rainfall_day_long = rainfall_day_wide.melt(id_vars='raingauges_id', var_name='day')
 ```
+
 > ## Challenge
 > Summarise data per region and day and reshape the data so that they have one column per region and the days as row index using `group_by()` and `pivot()`.
 > Optional:
 > Instead of using `group_by()` to summarise the data and `pivot()` to reshape, try to do both at once using the function `pivot_table()`. 
 > {: .challenge} 
+
 
 # Combining DataFrames
 In many "real world" situations, the data that we want to use come in multiple
