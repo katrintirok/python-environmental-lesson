@@ -292,7 +292,7 @@ As described earlier, external libraries or modules largely extend the functiona
 NumPy arrays are multidimensional containers of items of the same type. That is, unlike lists, numpy arrays can only contain e.g. integers/floats or strings, but not both. They allow us to perform batch operations on data without any `for` loops (we will discuss loops in episode 5). This is called _vectorization_ and is something that is not possible on python's lists.
 
 > ## Challenge - lists and numpy arrays
-> Create a list, l1, with numbers 2,4,6,8 and another list, l2,  with letters a,b,c,d. Create two numpy arrays, a1 and a2, with the same content. Then do the following operations:
+> Create a list, l1, with numbers 2,4,6,8 and another list, l2,  with letters a,b,c,d. Create two numpy arrays, a1 and a2, with the same content as l1 and l2. Then do the following operations (you will get ERROR messages for some of the operations!):
 > 1. multiply l1, l2, a1, and a2 by 2
 > 2. add 2 to l1, l2, a1, and a2
 > 3. divide l1, l2, a1, and a2 by 2
