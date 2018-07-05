@@ -168,6 +168,13 @@ rainfall_df[:5]
 rainfall_df[-1:]
 ```
 
+Select the first 5 rows and plot rainfall over UT as points:
+```
+rainfall_df[0:5].plot(x='UT',y='data',kind = 'scatter')
+```
+
+![scatter plot](../fig/FirstFiveScatter.png)
+
 We can also reassign values within subsets of our DataFrame.
 
 But before we do that, let's look at the difference between the concept of
@@ -330,7 +337,7 @@ selects the element that is 3 rows down and 7 columns over in the DataFrame.
 >    - `rainfall_df.iloc[0:4, 1:4]`
 >    - `rainfall_df.loc[0:4, 1:4]`
 >
-> - How are the two commands different?
+> - How are the two commands different? (HINT: you may get an error message)
 > 
 > 3. Create a new dataframe that only holds the first 20 rows and columns `UT`,`raingauges_id` and `data`
 {: .challenge}
@@ -504,17 +511,16 @@ Experiment with selecting various subsets of the "rainfall" data.
 
 > ## Challenge - Queries
 >
-> 1. Select a subset of rows in the `rainfall_df` DataFrame that contain data from 4th of December and that contain rainfall values larger than or equal to 1. How
->   many rows did you end up with? What did your neighbor get?
+> 1. Select a subset of rows in the `rainfall_df` DataFrame that contain data from 4th of December and that contain rainfall values larger than or equal to 1.  
+> 	How many rows did you end up with? What did your neighbor get?
+> 	Can you make a plot of the data, e.g. with raingauge_ids on x and rainfall data on y?
 >
 > 2. You can use the `isin` command in Python to query a DataFrame based upon a
 >   list of values as follows:
->
->    ```python
->    rainfall_df[rainfall_df['raingauges_id'].isin([listGoesHere])]
->    ```
->
->   Use the `isin` function to find all rainfall data from the raingauges from city engineers, pinetown and umlazi (hint: first look up the correct name for these raingauges). How many records contain these values?
+> ```python
+> rainfall_df[rainfall_df['raingauges_id'].isin([listGoesHere])]
+> ```
+> Use the `isin` function to find all rainfall data from the raingauges from city engineers, pinetown and umlazi (hint: first look up the correct name for these raingauges). How many records contain these values?
 >
 > 3. Experiment with other queries. Create a query that finds all rows with a
 >   rainfall value equal to 0.
@@ -523,6 +529,16 @@ Experiment with selecting various subsets of the "rainfall" data.
 >   selection that you specify in Python. It is equivalent to **is not in**.
 >   Write a query that selects all rows with region NOT equal to 'Southern' or 'Northern' in
 >   the rainfall data.
+> 
+>> ## Did you get #1 right?
+>> ```
+>> # subset data
+>> rainfall_d4_gr1 = rainfall_df[(rainfall_df.day == 4) & (rainfall_df.data >= 1)]
+>> # make plot
+rainfall_d4_gr1.plot(x = 'raingauges_id', y = 'data', kind = 'bar')
+>> ```
+>> ![day4 plot](../fig/ScatterD4Gr1.png)
+> {: .solution}
 > 
 >> ## Did you get #4 right?
 >> It is a bit tricky where to put the `~`. If our 'isin'  query would look like:
