@@ -37,20 +37,20 @@ keypoints:
 
 You can get output from python simply by typing math in the console:
 
-```
+```python
 3 + 5
 12 / 7
 ```
 
 However, to do useful and interesting things, we need to assign values to _variables_ (or link _objects_ to names/variables). A _variable_ is just a name for a value. Python's _variables_ must begin with a letter and are case sensitive. To create a variable, we need to give it a name followed by an `=` and the value we want to give it:
 
-```
+```python
 weight_kg = 55
 ```
 
 `=` is the assignment operator. It assigns values on the right to variables/names on the left. So, after executing `x = 3`, the value of `x` is `3`. Assignments can be done on more than one variable "simultaneously" on the same line like this:
 
-```
+```python
 a, b = 3, 4
 ```
 
@@ -62,33 +62,33 @@ code (where you put spaces, how you name variables, etc.). A speciality of pytho
 
 Just remember how we assigned a value to `weight_kg`:
 
-```
+```python
 weight_kg = 55
 ```
 
 Now that python has `weight_kg` in memory, we can do arithmetic with it. We can perform mathematical calculations in python using the basic operators
  `+, -, /, *, %` (plus, subtract, divide, multiply and modulus). For instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
 
-```
+```python
 2.2 * weight_kg
 ```
 
 We can also change a variable's value by assigning it a new one:
 
-```
+```python
 weight_kg = 57.5
 2.2 * weight_kg
 ```
 
 This means that assigning a value to one variable does not change the values of other variables.  For example, let's store the animal's weight in pounds in a new variable, `weight_lb`:
 
-```
+```python
 weight_lb = 2.2 * weight_kg
 ```
 
 and then change `weight_kg` to 100.
 
-```
+```python
 weight_kg = 100
 ```
 
@@ -103,7 +103,7 @@ Spyder makes it easy to comment or uncomment a paragraph: after selecting the li
 >
 > What are the values after each statement in the following?
 >
-> ```
+> ```python
 > mass = 47.5            # mass?
 > age  = 122             # age?
 > mass = mass * 2.0      # mass?
@@ -122,7 +122,7 @@ In python, every object has an ID, a type, and a value. The ID is a unique ident
 
 Functions are "canned scripts" that automate more complicated sets of commands including operations assignments, etc. Many functions are predefined, or can be made available by importing python *modules* (more on that later). A function usually gets one or more inputs called *arguments*. Functions often (but not always) return a *value*. A typical example would be the function `abs()`. The input (the argument) must be a number, and the return value (in fact, the output) is the absolute value of that number. Executing a function ('running it') is called *calling* the function. An example of a function call is:
 
-```
+```python
 a = -9
 b = abs(a)
 ```
@@ -135,31 +135,31 @@ Arguments can be anything, not only numbers or filenames, but also other objects
 
 Let's try a function that can take multiple arguments: `round()`.
 
-```
+```python
 round(3.14159)
 ```
 
 Here, we've called `round()` with just one argument, `3.14159`, and it has returned the value `3`.  That's because the default is to round to the nearest whole number. If we want more digits we can see how to do that by getting information about the `round` function.  We can look at the help for this function using `help(round)`.
 
-```
+```python
 help(round)
 ```
 
 We see that if we want a different number of digits, we can type `ndigits=2` or however many we want.
 
-```
+```python
 round(3.14159, ndigits = 2)
 ```
 
 If you provide the arguments in the exact same order as they are defined you don't have to name them:
 
-```
+```python
 round(3.14159, 2)
 ```
 
 And if you do name the arguments, you can switch their order:
 
-```
+```python
 round(ndigits = 2, number = 3.14159)
 ```
 
@@ -173,7 +173,7 @@ The always available [built-in functions](https://docs.python.org/3/library/func
 Modules need to be imported using `import` and their functions can then be used by calling the name of the function together with the module name using the syntax `module_name.function_name`. Adding the module name with a `.` before the function name tells python where to find the function. 
 For example the function `sqrt` is part of the module `math` and can be called using `math.sqrt()`:
 
-```
+```python
 import math
 math.sqrt(9)
 ```
@@ -187,7 +187,7 @@ In this workshop we will make use of `numPy`, `pandas`, and `matplotlib` which a
 
 When importing libraries we can give them a nickname to shorten the command, e.g. `np` is commonly used as a nickname for the `numpy` module:
 
-```
+```python
 import numpy as np
 np.cos(3.14159)
 ```
@@ -232,14 +232,14 @@ Another important data type are booleans (`bool`), i.e. `True` and `False`. Bool
 #### Lists
 Data structures represent data types that can contain more than one value. Lists are the most versatile of python's compound data types. A list contains items separated by commas and enclosed within square brackets ([]). For example we can create a list of animal weights and assign it to a new variable `weight_g`:
 
-```
+```python
 weight_g = [50, 60, 65, 82]
 weight_g
 ```
 
 A list can also contain strings:
 
-```
+```python
 animals = ["mouse", "rat", "dog"]
 animals
 ```
@@ -248,27 +248,27 @@ The quotes around "mouse", "rat", etc. are essential here. Without the quotes py
 
 Lists in python can also hold items of different data type, i.e. a mix of numbers and strings:
 
-```
+```python
 streets = ["first", "second", "third", 1, 2, 3]
 streets
 ```
 
 You can use functions with lists, e.g. to get the number of elements in a list, i.e. its length, use `len()`:
 
-```
+```python
 len(animals)
 ```
 
 The function `type` indicates the class of a variable, in this case a `list`:
 
-```
+```python
 type(animals)
 ```
 
 #### Methods
 Objects in python can have `methods`, which allow for changes (mutations) of the object. They are like object specific functions, that is they only work with e.g. `list`s or `int`s whereas normal functions are more general. We call `object methods` by adding the `method` to the `object` using a `.`. For example, you can use the `append()` method to add other values to the end of your list:
 
-```
+```python
 weight_g.append(90)    # adds 90 to the end of the list
 weight_g
 [50, 60, 65, 82, 90]
@@ -276,7 +276,7 @@ weight_g
 
 or use the `remove()` method to delete the first occurrence of an object from the list:
 
-```
+```python
 animals.remove("rat")
 animals
 ["mouse", "dog"]
@@ -315,13 +315,12 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 > 3. `char_logical = np.array(['a', 'b', 'c', bool('true')])`
 > 4. `tricky = np.array([1, 2, 3, '4'])`
 >
->
 > * Why do you think it happens?
 >
 > > ## _Answer_: 
 > > arrays can be of only one data type. python tries to convert (coerce)
 > >  the content of this array to find a "common denominator".
-> <!--{: .solution}-->
+> {: .solution}
 >
 > * You've probably noticed that objects of different types get
 >   converted into a single, shared type within a vector. In python, we
@@ -341,7 +340,7 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 
 If we want to extract one or several values from a list, we must provide one or several indices in square brackets. The indices represent the position of the value in our list. For instance:
 
-```
+```python
 animals = ["mouse", "rat", "dog", "cat"]
 animals[0]
 ```
