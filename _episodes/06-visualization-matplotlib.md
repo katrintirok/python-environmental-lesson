@@ -307,15 +307,14 @@ ax4.boxplot(rainfall_west)
 > ## Challenge
 > 1. Can you add titles for each subplot?
 > 2. Can you add x- and y-axis labels?
-> 3. What do you notice in some of the subplots? The x-axis tick labels are not correct. Can you correct them? HINT: We want to use the index of our dataframe which holds our correct days as the xtick labels (remember when we reshaped our data the day was added as an index):
+> 3. What do you notice in some of the subplots? The x-axis tick labels are not correct. Can you correct them? HINT: We want to use the index of our dataframe which holds our correct days as the xtick labels (remember when we reshaped our data the day was added as an index).
+> 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall.
+> 
 >> ## How to change tick labels
 >> ```python
 >> ax1.set_xticklabels(rainfall_south.index)
 >> ```
 > {: .solution}
-> 
-> 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall.
-> 
 {: .challenge}
 
 <!--
