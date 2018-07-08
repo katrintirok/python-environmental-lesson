@@ -4,21 +4,9 @@ title: Setup
 ---
 
 > ## Data
-> Data for this lesson is from the Portal Project Teaching Database -
-> [available on FigShare](https://figshare.com/articles/Portal_Project_Teaching_Database/1314459).
->
-> We will use the eight files listed below for the data in this lesson.  Download these files to your computer either by clicking [this link ](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/datacarpentry/python-ecology-lesson/tree/gh-pages/data), which will give you everything in a single compressed file.  You'll need to unzip this file after downloading it.
->
-> Or download each file indvidually with the following links:
->
-> - [surveys.csv]({{ page.root }}/data/surveys.csv)
-> - [species.csv]({{ page.root }}/data/species.csv)
-> - [speciesSubset.csv]({{ page.root }}/data/speciesSubset.csv)
-> - [surveys2001.csv]({{ page.root }}/data/survey2001.csv)
-> - [surveys2002.csv]({{ page.root }}/data/survey2002.csv)
-> - [plots.csv]({{ page.root }}/data/plots.csv)
-> - [bouldercreek_09_2013.txt]({{ page.root }}/data/bouldercreek_09_2013.txt)
-> - [SQL Database]({{ page.root }}/data/portal_mammals.sqlite)
+> For this lesson, we will use
+rainfall data from eThekwini from December 2017.
+The files can be downloaded using this [google link](https://drive.google.com/open?id=1WOd94TOmvcnotwMYjY-2xmsip9EiGT7V).
 {: .prereq}
 
 
@@ -34,7 +22,6 @@ title: Setup
 > ### Required Python Packages for this workshop
 >
 > * [Pandas](http://pandas.pydata.org/)
-> * [Jupyter notebook](http://jupyter.org/)
 > * [Numpy](http://www.numpy.org/)
 > * [Matplotlib](http://matplotlib.org/)
 {: .prereq}
@@ -54,16 +41,6 @@ Anaconda will install the workshop packages for you.
 
 Download and install [Anaconda](https://www.continuum.io/downloads).
 Remember to download and install the installer for Python 3.x.
-
-#### Download plotting package
-
-The plotting package plotnine is not installed by default.  From the terminal,
-type:
-
-~~~
-conda install -c conda-forge plotnine
-~~~
-{: .language-python}
 
 ### Miniconda installation
 
@@ -90,23 +67,6 @@ conda list
 From the terminal, type:
 
 ~~~
-conda install -y numpy pandas matplotlib jupyter
-conda install -c conda-forge plotnine
+conda install -y numpy pandas matplotlib
 ~~~
 {: .language-bash}
-
-## Launch a Jupyter notebook
-
-After installing either Anaconda or Miniconda and the workshop packages,
-launch a Jupyter notebook by typing this command from the terminal:
-
-~~~
-jupyter notebook
-~~~
-{: .language-bash}
-
-The notebook should open automatically in your browser. If it does not or you
-wish to use a different browser, open this link: <http://localhost:8888>.
-
-For a bried introduction to Jupyter Notebooks, please consult with our
-[Introduction to Jupyter Notebooks](jupyter_notebooks) page.
