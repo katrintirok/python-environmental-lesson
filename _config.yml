@@ -10,7 +10,7 @@
 carpentry: "dc"
 
 # Overall title for pages.
-title: "Python for data analysis"
+title: "Python for Ecologists"
 
 #------------------------------------------------------------
 # Generic settings (should not need to change).
@@ -25,7 +25,7 @@ kind: "lesson"
 repository: <USERNAME>/<PROJECT>
 
 # Email address, no mailto:
-email: "katrintirok@gmail.com"
+email: "team@carpentries.org"
 
 # Sites.
 amy_site: "https://amy.software-carpentry.org/workshops"
