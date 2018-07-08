@@ -375,6 +375,74 @@ fig.savefig('my_second_plot.pdf') # save as pdf
 [https://matplotlib.org/gallery/index.html](https://matplotlib.org/gallery/index.html)
 {: .challenge}
 
-<!--
-# Optional example of mapping
--->
+
+> ## Challenge optional
+> Combine what we have learned so far. Use the different tables in the rainfall dataset to visualise information about the raingauges. Create a 'map' with the x- and y-locations of the raingauges and visualise the weekly rainfall from our sample data for each raingauge by e.g. using different sized symbols.
+> 
+>> ## How to start:
+>> Make a list of the steps that need to be done.
+>> Remember the structure of our data set? We have a table with the data and a table with the information about each raingauge including their locations.
+>> 
+>> 1. Load all necessary libraries.
+>> 2. Read in the rainfall data table and the raingauge information table.
+>> 3. Aggregate the rainfall data per week and per raingauge.
+>> 4. Merge the aggregated rainfall data with the raingauge table.
+>> 5. Make the plot.
+> {: .solution}
+>> 
+>> ## How to make the plot?
+>> You can use a scatter plot to plot the locations of the raingauges, location_x (= longitude) on the x-axis and location_y (=latitude) on the y-axis. Then you can define the size of the markers in the scatter plot to correspond to the weekly rainfall values.
+> {: .solution}
+> 
+>> ## Solution
+>> 
+>> 1. load all necessary libraries
+>> ```python
+>> import pandas as pd
+>> import matplotlib.pyplot as plt
+>> ```
+>> 2. load the data
+>> ```python
+>> rainfall_data = pd.read_csv('data/rainfall_combined.csv')
+>> raingauges = pd.read_csv('data/raingauges.csv')
+>> ```
+>> 3. calculate weekly rainfall
+>> ```python
+>> rainfall_week = rainfall_data.groupby(['raingauges_id'], as_index=False)['data'].sum() 
+>> # check resulting dataframe
+rainfall_week.head()
+>> ```
+>> 4. merge weekly rainfall with raingauges
+>> ```python
+>> rain_merged = pd.merge(rainfall_week, raingauges, left_on='raingauges_id', right_on='id')
+rain_merged.head()
+```
+>> 5. make the plot
+>> ```python
+>> fig, ax = plt.subplots()
+ax.scatter(rain_merged['location_x'],rain_merged['location_y'], s=rain_merged['data'])
+ax.set_xlabel('longitude')
+ax.set_ylabel('latitude')
+ax.set_title('Weekly rainfall of eThekwini raingauges')
+ax.set_aspect('equal',adjustable='box')
+>> ```
+>> ![map](../fig/optionalCh.png)
+> {: .solution}
+>
+>> ## How to make a real map 
+>> We can use the library [cartopy](https://scitools.org.uk/cartopy/docs/latest/) to produce real maps in python.
+>> ```python
+>> import cartopy.crs as ccrs
+ax = plt.axes(projection=ccrs.PlateCarree())
+ax.coastlines(resolution='10m', color='black', linewidth=1)
+ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, alpha = 0.2) 
+ax.set_xlim(round(min(rain_merged.location_x),1)-0.1,round(max(rain_merged.location_x),1)+0.1)
+ax.set_ylim(round(min(rain_merged.location_y),1)-0.1,round(max(rain_merged.location_y),1)+0.1)
+plt.scatter(rain_merged.location_x, rain_merged.location_y,
+         s=rain_merged.data)
+>> ```
+>> ![map](../fig/map.png)
+>
+> {. solution}
+{: .challenge}
+ 
