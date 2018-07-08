@@ -314,6 +314,7 @@ ax4.boxplot(rainfall_west)
 >> ax1.set_xticklabels(rainfall_south.index)
 >> ```
 > {: .solution}
+> 
 > 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall.
 {: .challenge}
 
