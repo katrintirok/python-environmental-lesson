@@ -46,7 +46,7 @@ import matplotlib.pyplot as plt
 ```
 
 `matplotlib`'s `pyplot` module is a powerful plotting tool that makes it simple to create complex plots from data. It uses default settings, which help creating 
-publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found [here](https://matplotlib.org).
+publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found [here](https://matplotlib.org), and a useful Cheat Sheet [here](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Matplotlib_Cheat_Sheet.pdf).
 
 In previous episodes we plotted directly from our `pandas` Dataframe, e.g.:
 
