@@ -1,16 +1,14 @@
 ---
-title: Accessing SQLite Databases Using Python and Pandas
+title: Accessing SQLite Databases Using Python & Pandas
 teaching: 20
 exercises: 25
-questions:
-    - "FIXME"
+questions: 
+- How can we query databases from within Python?
 objectives:
-    - "Use the sqlite3 module to interact with a SQL database."
-    - "Access data stored in SQLite using Python."
-    - "Describe the difference in interacting with data stored as a CSV file versus in SQLite."
-    - "Describe the benefits of accessing data using a database compared to a CSV file."
-keypoints:
-    - "FIXME"
+    - Use the sqlite3 module to interact with a SQL database.
+    - Access data stored in SQLite using Python.
+    - Describe the difference in interacting with data stored as a CSV file versus in SQLite.
+    - Describe the benefits of accessing data using a database compared to a CSV file.
 ---
 
 ## Python and SQL
@@ -33,22 +31,21 @@ perform all kinds of operations with `.execute()`.
 
 [sqlite3]: https://docs.python.org/3/library/sqlite3.html
 
-~~~
+```python
 import sqlite3
 
 # Create a SQL connection to our SQLite database
-con = sqlite3.connect("data/portal_mammals.sqlite")
+con = sqlite3.connect("data/rainfall_durban.sqlite")
 
 cur = con.cursor()
 
-# The result of a "cursor.execute" can be iterated over by row
-for row in cur.execute('SELECT * FROM species;'):
+# the result of a "cursor.execute" can be iterated over by row
+for row in cur.execute('SELECT * FROM raingauge_data;'):
     print(row)
 
-# Be sure to close the connection
+#Be sure to close the connection.
 con.close()
-~~~
-{: .language-python}
+```
 
 ### Queries
 
@@ -57,26 +54,25 @@ retrieving data based on some search parameters. Use a SELECT statement string.
 The query is returned as a single tuple or a tuple of tuples. Add a WHERE
 statement to filter your results based on some parameter.
 
-~~~
+```python
 import sqlite3
 
 # Create a SQL connection to our SQLite database
-con = sqlite3.connect("data/portal_mammals.sqlite")
+con = sqlite3.connect("data/rainfall_durban.sqlite")
 
 cur = con.cursor()
 
 # Return all results of query
-cur.execute('SELECT plot_id FROM sites WHERE site_type="Control"')
+cur.execute('SELECT id FROM raingauges WHERE region_id=2')
 cur.fetchall()
 
 # Return first result of query
-cur.execute('SELECT species FROM species WHERE taxa="Bird"')
+cur.execute('SELECT data FROM raingauge_data WHERE raingauges_id=5')
 cur.fetchone()
 
-# Be sure to close the connection
+#Be sure to close the connection.
 con.close()
-~~~
-{: .language-python}
+```
 
 ## Accessing data stored in SQLite using Python and Pandas
 
@@ -84,20 +80,19 @@ Using pandas, we can import results of a SQLite query into a dataframe. Note
 that you can use the same SQL commands / syntax that we used in the SQLite
 lesson. An example of using pandas together with sqlite is below:
 
-~~~
+```python
 import pandas as pd
 import sqlite3
 
 # Read sqlite query results into a pandas DataFrame
-con = sqlite3.connect("data/portal_mammals.sqlite")
-df = pd.read_sql_query("SELECT * from surveys", con)
+con = sqlite3.connect("data/rainfall_durban.sqlite")
+df = pd.read_sql_query("SELECT * from raingauge_data", con)
 
-# Verify that result of SQL query is stored in the dataframe
+# verify that result of SQL query is stored in the dataframe
 print(df.head())
 
 con.close()
-~~~
-{: .language-python}
+```
 
 ## Storing data: CSV vs SQLite
 
@@ -111,46 +106,41 @@ benchmarks]).
 
 > ## Challenge - SQL
 >
-> 1. Create a query that contains survey data collected between 1998 - 2001 for
->   observations of sex "male" or "female" that includes observation's genus and
->   species and site type for the sample. How many records are returned?
+> 1. Create a query that contains rainfall data collected on 5th December for
+>   observations from regions "Northern" and "Southern" that includes observation's raingauges_name and ward_name for the sample. How many records are returned?
 >
 > 2. Create a dataframe that contains the total number of observations (count)
->   made for all years, and sum of observation weights for each site, ordered by
->   site ID.
+>   made, and sum of rainfall for each day, ordered by
+>   ward_id.
 {: .challenge}
 
 ## Storing data: Create new tables using Pandas
 
-We can also us pandas to create new tables within an SQLite database. Here, we run we re-do an excercise we did before with CSV files using our SQLite database. We first read in our survey data, then select only those survey results for 2002, and then save it out to its own table so we can work with it on its own later.
+We can also us pandas to create new tables within an SQLite database. Here, we run an excercise similar to one we did before with CSV files using our SQLite database. We first read in our rainfall data, then select only rainfall results for raingauge 1, and then save it out to its own table so we can work with it on its own later.
 
-~~~
+```python
 import pandas as pd
 import sqlite3
 
-con = sqlite3.connect("data/portal_mammals.sqlite")
+con = sqlite3.connect("data/rainfall_durban.sqlite")
 
 # Load the data into a DataFrame
-surveys_df = pd.read_sql_query("SELECT * from surveys", con)
+rainfall_df = pd.read_sql_query("SELECT * from raingauge_data", con)
 
 # Select only data for 2002
-surveys2002 = surveys_df[surveys_df.year == 2002]
+rainfall_g1 = rainfall_df[rainfall_df.raingauges_id == 1]
 
 # Write the new DataFrame to a new SQLite table
-surveys2002.to_sql("surveys2002", con, if_exists="replace")
+rainfall_g1.to_sql("rainfall_g1", con, if_exists="replace")
 
 con.close()
-~~~
-{: .language-python}
+```
 
 > ## Challenge - Saving your work
 >
 > 1. For each of the challenges in the previous challenge block, modify your code to save the
->   results to their own tables in the portal database.
+>   results to their own tables in the rainfall database.
 >
 > 2. What are some of the reasons you might want to save the results of your queries back into the
 >   database? What are some of the reasons you might avoid doing this.
 {: .challenge}
-
-{% include links.md %}
-

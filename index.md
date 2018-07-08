@@ -3,15 +3,15 @@ layout: lesson
 root: .
 
 maintainers:
-  - April Wright
-  - Tania Allard
+
 ---
 
-**Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
+<!-- **Lesson Maintainers:** {{ page.maintainers | join: ', ' }}
+-->
 
 Python is a general purpose programming language that is useful for writing scripts to work effectively and reproducibly with data.
 
-This is an introduction to Python designed for participants with no programming experience. These lessons can be taught in a day (~ 6 hours). They start with some basic information about Python syntax, the Jupyter notebook interface, and move through how to import CSV files, using the pandas package to work with data frames, how to calculate summary information from a data frame, and a brief introduction to plotting. The last lesson demonstrates how to work with databases directly from Python.
+This is an introduction to Python designed for participants with no programming experience. This lesson is based on [Data Carpentry Python for Ecologists](https://datacarpentry.org/python-ecology-lesson/) and was adjusted for using a different dataset. The lesson can be taught in a day (~ 6 hours). It starts with some basic information about Python syntax, Anaconda navigator and the Spyder IDE, and moves through how to import CSV files, using the pandas package to work with data frames, how to calculate summary information from a data frame, and a brief introduction to plotting. The last episode demonstrates how to work with databases directly from Python.
 
 > ## Getting Started
 >
@@ -29,7 +29,9 @@ This is an introduction to Python designed for participants with no programming 
 > everything *before* working through this lesson.
 {: .prereq}
 
+<!--
 > ## For Instructors
 > If you are teaching this lesson in a workshop, please see the
 > [Instructor notes](guide).
 {: .prereq}
+-->
