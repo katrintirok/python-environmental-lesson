@@ -283,8 +283,8 @@ which prints contents like above.
 Again, we can use the `type` function to see what kind of thing `rainfall_df` is:
 
 ```python
->>> type(rainfall_df)
-<class 'pandas.core.frame.DataFrame'>
+type(rainfall_df)
+<class pandas.core.frame.DataFrame>
 ```
 
 As expected, it's a DataFrame (or, to use the full name that Python uses to refer
@@ -368,7 +368,7 @@ rainfall_df.columns
 
 which **returns**:
 
-```
+```python
 Index(['ID', 'UT', 'year', 'month', 'day', 'time', 'raingauges_id', 'name',
        'ward_id', 'region', 'data'],
       dtype='object')
@@ -558,7 +558,7 @@ summary stats.
 >> ## Did you get #3 right?
 >> **The Output from challenge 3 looks like:**
 >>
->> ```
+>>
 >>      count      mean       std  min  25%  50%  75%   max
 day                                                      
 1       1.0  0.200000       NaN  0.2  0.2  0.2  0.2   0.2
@@ -568,7 +568,7 @@ day
 5    2250.0  0.419200  0.516775  0.0  0.2  0.2  0.4   7.2
 6    3308.0  0.368017  0.338559  0.0  0.2  0.2  0.4   5.0
 7      66.0  0.278788  0.232389  0.2  0.2  0.2  0.2   1.8
->>	```
+>>
 > {: .solution}
 {: .challenge}
 
@@ -635,7 +635,7 @@ raingauges_region.plot(kind='bar')
 
 If we wanted to, we could perform math on an entire column of our data. For example let's multiply all rainfall values by 2 or take the `log` of rainfall. Remember if we want to apply a function to all elements in an array like object we can use functions from `numpy`, e.g. `np.log()`.
 
-```{python}
+```python
 # multiply all rainfall values by 2
 rainfall_df['data']*2
 # take the log of all values
@@ -644,7 +644,7 @@ np.log(rainfall_df['data'])
 
 We can create a new variable for the 'mutated' rainfall or adding it as a new column to our dataframe `rainfall_df`:
 	
-```{python}
+```python
 # adding the column `ln_data` to `rainfall_df`
 rainfall_df['ln_data'] = np.log(rainfall_df['data'])
 rainfall_df.head()

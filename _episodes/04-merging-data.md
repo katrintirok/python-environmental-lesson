@@ -28,14 +28,14 @@ Let's say we want to summarise rainfall for the individual raingauges per day an
 
 We can use
 
-```{python}
+```python
 rainfall_day = rainfall_df.groupby(by=['day','raingauges_id']).sum()
 ```
 to summarise per day and raingauge, but then we will still have all the rainfall values in one column.
 
 Note, that the two grouping variables `raingauges_id` and `day` now appear as an index, not a column. If we want them as columns again we can use
 
-```{python}
+```python
 rainfall_day = rainfall_day.reset_index()
 ```
 
@@ -77,9 +77,10 @@ rainfall_day_long = rainfall_day_wide.melt(id_vars='raingauges_id', var_name='da
 
 > ## Challenge
 > Summarise data per region and day and reshape the data so that they have one column per region and the days as row index using `group_by()` and `pivot()`.
+> 
 > Optional:
 > Instead of using `group_by()` to summarise the data and `pivot()` to reshape, try to do both at once using the function `pivot_table()`. 
-> {: .challenge} 
+{: .challenge} 
 
 
 # Combining DataFrames
@@ -103,7 +104,8 @@ rain_df.head()
 ```python
 gauges_df = pd.read_csv("data/raingauges.csv")
 gauges_df.head()
-
+```
+```
   id                  name  location_x  location_y  region_id reference  \
 0   1        BLUFF RES NO.3   31.005075  -29.933965          1    bluff3   
 1   2   CHATSWORTH RES NO.1   30.900285  -29.911171          1    chats1   
@@ -260,12 +262,12 @@ identify a (differently-named) column in each DataFrame that contains the same
 information.
 
 ```python
->>> gauges_df.columns
+gauges_df.columns
 
 Index(['id', 'name', 'location_x', 'location_y', 'region_id', 'reference', 'ward_id'],
       dtype='object')
       
->>> rain_df.columns
+rain_df.columns
 
 Index(['ID', 'UT', 'data', 'raingauges_id'], dtype='object')
 ```
@@ -302,10 +304,6 @@ merged_inner.head()
 ```
 
 **OUTPUT:**
-
-```
-  
-```
 
 The result of an inner join of `rain_df` and `gauges_df` is a new DataFrame
 that contains the combined set of columns from `rain_df` and `gauges_df`. It
@@ -358,8 +356,9 @@ inner join, but using the `how='left'` argument:
 merged_left = pd.merge(left=survey_sub,right=species_sub, how='left', left_on='species_id', right_on='species_id')
 
 merged_left
-
+```
 **OUTPUT:**
+```
          ID          UT  data  raingauges_id    id                  name  \
 0         1  1512227100   0.6              1   1.0        BLUFF RES NO.3   
 1         2  1512227400   0.8              1   1.0        BLUFF RES NO.3   
@@ -500,7 +499,9 @@ missing (they contain NaN values):
 
 ```python
 merged_left[ pd.isnull(merged_left.name) ]
+```
 **OUTPUT:**
+```
          ID          UT  data  raingauges_id  id name  location_x  location_y  \
 6744  80001  1512605100   nan             43 NaN  NaN         NaN         NaN   
 6745  80002  1512606000   nan             43 NaN  NaN         NaN         NaN   

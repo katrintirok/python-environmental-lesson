@@ -31,11 +31,11 @@ Let's write a simple for loop that simulates what a kid might see during a
 visit to the zoo:
 
 ```python
->>> animals = ['lion', 'tiger', 'crocodile', 'vulture', 'hippo']
->>> print(animals)
+animals = ['lion', 'tiger', 'crocodile', 'vulture', 'hippo']
+print(animals)
 ['lion', 'tiger', 'crocodile', 'vulture', 'hippo']
 
->>> for creature in animals:
+for creature in animals:
 ...    print(creature)
 lion
 tiger
@@ -53,11 +53,11 @@ anything we like. After the loop finishes, the loop variable will still exist
 and will have the value of the last entry in the collection:
 
 ```python
->>> animals = ['lion', 'tiger', 'crocodile', 'vulture', 'hippo']
->>> for creature in animals:
+animals = ['lion', 'tiger', 'crocodile', 'vulture', 'hippo']
+for creature in animals:
 ...    pass
 
->>> print('The loop variable is now: ' + creature)
+print('The loop variable is now: ' + creature)
 The loop variable is now: hippo
 ```
 
@@ -92,7 +92,7 @@ The command `os.mkdir` is equivalent to `mkdir` in the shell. Just so we are
 sure, we can check that the new directory was created within the `data_output` folder:
 
 ```python
->>> os.listdir('data_output')
+os.listdir('data_output')
 [...
  'ward_files']
 ```
@@ -132,8 +132,9 @@ We have seen that we can loop over a list of items, so we need a list of wards
 to loop over. We can get the wards in our DataFrame with:
 
 ```python
->>> rainfall_df['ward_id']
-
+rainfall_df['ward_id']
+```
+```
 0       66.0
 1       66.0
 2       66.0
@@ -202,7 +203,9 @@ but we want only unique wards, which we can get using the `unique` function
 which we have already seen.  
 
 ```python
->>> rainfall_df['ward_id'].unique()
+rainfall_df['ward_id'].unique()
+```
+```
 array([  66.,   70.,   71.,   26.,   32.,   23.,   63.,   25.,   27.,
          24.,   30.,   31.,   68.,   64.,   36.,   11.,  110.,   52.,
           3.,   60.,   35.,   59.,    1.,  103.,    9.,    8.,    7.,
@@ -212,7 +215,7 @@ array([  66.,   70.,   71.,   26.,   32.,   23.,   63.,   25.,   27.,
 Putting this into our for loop we get
 
 ```python
->>> for ward in rainfall_df['ward_id'].unique():
+for ward in rainfall_df['ward_id'].unique():
 ...    filename='data_output/ward_files/rainfall' + str(ward) + '.csv'
 ...    print(filename)
 ...
@@ -275,7 +278,9 @@ just created to confirm that everything worked as expected.
 
 Notice that the code above created a unique filename for each ward.
 
+```python
 	filename = 'data_output/ward_files/rainfall' + str(ward) + '.csv'
+```
 
 Let's break down the parts of this name:
 
@@ -346,10 +351,10 @@ it is called, it includes a return statement at the end.
 This is how we call the function:
 
 ```python
->>> product_of_inputs = this_is_the_function_name(2,5)
+product_of_inputs = this_is_the_function_name(2,5)
 The function arguments are: 2 5 (this is done inside the function!)
 
->>> print('Their product is:', product_of_inputs, '(this is done outside the function!)')
+print('Their product is:', product_of_inputs, '(this is done outside the function!)')
 Their product is: 10 (this is done outside the function!)
 ```
 
@@ -672,7 +677,7 @@ values to the function using these keywords:
 > doesn't. Add some code to your function that writes out the CSV files, to check
 > for a directory to write to.
 >
-> ```Python
+> ```python
 >	if 'dir_name_here' in os.listdir('.'):
 >	    print('Processed directory exists')
 >	else:

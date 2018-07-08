@@ -169,7 +169,8 @@ rainfall_df[-1:]
 ```
 
 Select the first 5 rows and plot rainfall over UT as points:
-```
+
+```python
 rainfall_df[0:5].plot(x='UT',y='data',kind = 'scatter')
 ```
 
@@ -531,7 +532,7 @@ Experiment with selecting various subsets of the "rainfall" data.
 >   the rainfall data.
 > 
 >> ## Did you get #1 right?
->> ```
+>> ```python
 >> # subset data
 >> rainfall_d4_gr1 = rainfall_df[(rainfall_df.day == 4) & (rainfall_df.data >= 1)]
 >> # make plot
@@ -542,7 +543,7 @@ rainfall_d4_gr1.plot(x = 'raingauges_id', y = 'data', kind = 'bar')
 > 
 >> ## Did you get #4 right?
 >> It is a bit tricky where to put the `~`. If our 'isin'  query would look like:
->> ```
+>> ```python
 >> rainfall_df[rainfall_df['region'].isin(['Southern','Northern'])]
 >>  # and to better see the output let's make it:
 >> rainfall_df[rainfall_df['region'].isin(['Southern','Northern'])][['ID','raingauges_id','region']].head()
@@ -557,11 +558,11 @@ rainfall_d4_gr1.plot(x = 'raingauges_id', y = 'data', kind = 'bar')
 2899  48              6  Northern
 >> ```
 >> we need to place the `~` before the rainfall_df at the beginning of the query, i.e. `rainfall_df[~rainfall_df['region']...`
->> ```
+>> ```python
 >> rainfall_df[~rainfall_df['region'].isin(['Southern','Northern'])][['ID','raingauges_id','region']].head()
 >> ```
 >> yielding:
->> ```
+>> ```python
 >>    ID  raingauges_id   region
 0   1              1  Central
 1   2              1  Central
@@ -845,6 +846,7 @@ df1.tail()
 ```
 
 We could also chose to create a subset of our data, only keeping rows that do not contain NaN values. `.dropna()` removes all rows with NaNs.
+
 ```python
 df_na = rainfall_df.dropna()
 ```
