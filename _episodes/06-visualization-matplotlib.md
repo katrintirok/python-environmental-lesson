@@ -40,7 +40,7 @@ publication quality plots with a minimal amount of settings and tweaking. The `m
 
 In previous episodes we plotted directly from our `pandas` Dataframe, e.g.:
 
-```{python}
+```python
 rainfall_data.plot(x='UT',y='data',kind='scatter')
 ```
 
@@ -55,7 +55,7 @@ To build a matplotlib plot we need to:
 3. use an axes method to plot our data (defines kind of plot)
 4. customise the plot
 
-```{python}
+```python
 fig = plt.figure()
 # checking the type of object fig
 type(fig)
@@ -98,17 +98,17 @@ Notes:
 
 We can now change the aesthetics such as point size, shape, color, etc.
 
-For instance, we can add transparency (alpha) to avoid overplotting.
+For instance, we can add transparency with `alpha` to avoid overplotting.
 
-```
+```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3)
 ```
 ![scatter_alpha](../fig/scatter_alpha.png)
 
 
-We can also add a different colour for **all** the points. 
+We can also add a different colour for **all** the points using `c`. 
 
-```pyhton
+```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c='red')
 ```
 
@@ -116,7 +116,7 @@ ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c='red')
 
 Or color each raingauge in the plot differently:
 
-```
+```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c=rainfall_data['raingauges_id'])
 ```
 ![scatter_col](../fig/scatter_col.png)
@@ -151,7 +151,7 @@ To do that, we first need to calculate the daily rainfall and reshape (_pivot_) 
 Remember the *pivot_table* function?
 
 ```python
-rainfall_day_wide = rainfall_day.pivot_table(values='data', index='day', columns='raingauges_id', aggfunc='sum')
+rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='raingauges_id', aggfunc='sum')
 ```
 
 ```python
@@ -234,10 +234,11 @@ ax.legend(rainfall_wide.columns[0:5])
 
 ![lineplot](../fig/lineplot.png)
 
+Note how we always call our axes object `ax` together with a method (function) like `legend` to add additional things to the plot. This way we can also define axis labels, customise position and labels of axis ticks, add titles, add text and a lot more.
 
 > ## Challenges
 >
-> 1. Can you add a y_label and a x-label?
+> 1. Can you add a y-label and a x-label?
 > 2. Add a title!
 > 3. Can you change the scale of the y-axis to a log-scale?
 {: .challenge}
@@ -245,12 +246,12 @@ ax.legend(rainfall_wide.columns[0:5])
 
 # Subplots
 
-Remember how we add axes objects to the figure using `.add_subplot(111)`? The three 1's give us information on the subplots in the figure. The first two 1's describe a grid of subplots with no of rows and no of columns and the third 1 represents the no of the subplot, i.e. `.add_subplot(#rows#cols#subplot)`.
-For instance, (221) defines the 1st plot on a 2x2 grid and (224) the 4th and last plot on a 2x2 grid.
+Remember how we added an axes object to the figure using `.add_subplot(111)`? The three 1's give us information on the subplots in the figure. The first two 1's describe a grid of subplots with no of rows and no of columns and the third 1 represents the no of the subplot defined, i.e. `.add_subplot(#rows#cols#subplot)`.
+For instance, `.add_subplot(221)` defines the 1st plot of four subplots with on a 2x2 grid, that is the one in the left upper corner, and `.add_subplot(224)` defines the 4th and last plot on a 2x2 grid, the one in the lower right corner.
 
 Let's plot boxplots of the regions Southern, Northern, Central and Western in subplots. First we need to prepare the data again. We here prepare a dataset for each region.
 
-```{python}
+```python
 rainfall_south = rainfall_day[rainfall_day.region=='Southern'].pivot('day','raingauges_id','data')
 rainfall_north = rainfall_day[rainfall_day.region=='Northern'].pivot('day','raingauges_id','data')
 rainfall_central = rainfall_day[rainfall_day.region=='Central'].pivot('day','raingauges_id','data')
@@ -331,7 +332,7 @@ think of ways to improve the plot labels. You can write down some of your ideas 
 
 Now, let's add an overall title for the figure and increase the space between subplots so that individual axis labels are readable.
 
-```{python}
+```python
 # add a figure title with large bold font
 fig.suptitle('Daily rainfall per region', fontsize=14, fontweight='bold')
 # add space between subplots
