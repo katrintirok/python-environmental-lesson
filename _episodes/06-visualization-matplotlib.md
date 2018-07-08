@@ -18,7 +18,17 @@ objectives:
 
 # Plotting with matplotlib
 
-Python has powerful plotting capabilities with its built-in  `matplotlib` library. We will make a plot using this library, its `pyplot` module and our `pandas` dataframe.
+Python has powerful plotting capabilities with its built-in  `matplotlib` library. 
+
+Up to now we have been vizualizing our plots *inline* of the IPython console. When working with spyder we can also show the figure in an extra window which allows us to dynamically edit our plot.
+Which plotting ***backend*** to use can be set in the preferences. 
+
+To change the ***backend*** go to *Preferences --> IPython console --> Graphics*.
+Change the Graphic Backend to 'Automatic'.
+
+Restart your IPython kernel and lets begin...
+(you can restart the kernel under Consoles --> restart kernel or directly from the IPython console)
+
 
 Before we begin let's import the `pandas` module and load in our data.
 
@@ -36,7 +46,7 @@ import matplotlib.pyplot as plt
 ```
 
 `matplotlib`'s `pyplot` module is a powerful plotting tool that makes it simple to create complex plots from data. It uses default settings, which help creating 
-publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found at [here](https://matplotlib.org).
+publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found [here](https://matplotlib.org).
 
 In previous episodes we plotted directly from our `pandas` Dataframe, e.g.:
 
@@ -50,9 +60,9 @@ We now want to look at a different approach to plot matplotlib graphics. We can 
 
 To build a matplotlib plot we need to:
 
-1. generate an empty figure object with no axes and assign it a _variable_ name
+1. generate an empty figure object and assign it a _variable_ name
 2. bind an axes object (a plot) to the figure and assign the axes object a _variable_ name
-3. use an axes method to plot our data (defines kind of plot)
+3. use an axes method to plot the data (defines the kind of plot)
 4. customise the plot
 
 ```python
@@ -79,14 +89,14 @@ These first two steps can also be combined into one step:
 fig, ax = plt.subplots()
 ```
 
-To plot our data we can now call the axes object with the kind of graph to plot, e.g. a scatter plot:
+To plot our data we can now call the axes object we named `ax` with the kind of graph to plot, e.g. a scatter plot:
 
 ```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'])
 ```
 ![scatter](../fig/scatter.png)
 
-scatter is one of many functions that belong to the axes object we generated above.
+`scatter` is one of many functions that belong to the axes object we generated above.
 
 Notes:
 
@@ -98,7 +108,7 @@ Notes:
 
 We can now change the aesthetics such as point size, shape, color, etc.
 
-For instance, we can add transparency with `alpha` to avoid overplotting.
+For instance, we can add transparency to avoid overplotting using `alpha`:
 
 ```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3)
@@ -106,7 +116,7 @@ ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3)
 ![scatter_alpha](../fig/scatter_alpha.png)
 
 
-We can also add a different colour for **all** the points using `c`. 
+We can also add a different colour for **all** the points using `c`:
 
 ```python
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c='red')
@@ -153,6 +163,8 @@ Remember the *pivot_table* function?
 ```python
 rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='raingauges_id', aggfunc='sum')
 ```
+
+Plot a boxplot
 
 ```python
 # make the plot
@@ -234,7 +246,7 @@ ax.legend(rainfall_wide.columns[0:5])
 
 ![lineplot](../fig/lineplot.png)
 
-Note how we always call our axes object `ax` together with a method (function) like `legend` to add additional things to the plot. This way we can also define axis labels, customise position and labels of axis ticks, add titles, add text and a lot more.
+Note how we always call our axes object `ax` together with a method (function) like `plot` or `legend` to add additional things to the plot. This way we can also define axis labels, customise position and labels of axis ticks, add titles, add text and a lot more.
 
 > ## Challenges
 >
@@ -249,7 +261,7 @@ Note how we always call our axes object `ax` together with a method (function) l
 Remember how we added an axes object to the figure using `.add_subplot(111)`? The three 1's give us information on the subplots in the figure. The first two 1's describe a grid of subplots with no of rows and no of columns and the third 1 represents the no of the subplot defined, i.e. `.add_subplot(#rows#cols#subplot)`.
 For instance, `.add_subplot(221)` defines the 1st plot of four subplots with on a 2x2 grid, that is the one in the left upper corner, and `.add_subplot(224)` defines the 4th and last plot on a 2x2 grid, the one in the lower right corner.
 
-Let's plot boxplots of the regions Southern, Northern, Central and Western in subplots. First we need to prepare the data again. We here prepare a dataset for each region.
+Let's plot boxplots of the regions Southern, Northern, Central and Western in subplots. First we need to prepare the data again. We here prepare a dataframe for each region.
 
 ```python
 rainfall_south = rainfall_day[rainfall_day.region=='Southern'].pivot('day','raingauges_id','data')
@@ -280,7 +292,7 @@ This can also be done in a shorter way:
 fig, ([ax1, ax2], [ax3, ax4]) = plt.subplots(2, 2)
 ```
 
-The data are plotted on each of the axes:
+The data are plotted on each of the axes (the subplots):
 
 ```python
 ax1.boxplot(rainfall_south)
@@ -296,13 +308,13 @@ ax4.boxplot(rainfall_west)
 > 1. Can you add titles for each subplot?
 > 2. Can you add x- and y-axis labels?
 > 3. What do you notice in some of the subplots? The x-axis tick labels are not correct. Can you correct them? HINT: We want to use the index of our dataframe which holds our correct days as the xtick labels (remember when we reshaped our data the day was added as an index):
-> 
 >> ## How to change tick labels
 >> 
 >> ```python
 >> ax1.set_xticklabels(rainfall_south.index)
 >> ```
 > {: .solution}
+> 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall.
 {: .challenge}
 
 <!--
@@ -315,20 +327,6 @@ ax1.set_ylabel('rainfall (mm)')
 
 
 # Customization
-
-Up to now you have been vizualizing your plots *inline*... **but** we cannot dynamically edit our plot.
-In order to dynamically change for example the text of our plot we must first change our backend that our computer uses to show us the plot. 
-
-To change this go to *preferences --> IPython console --> Graphics.
-Change the Graphic Backend to 'Automatic'.
- 
-Restart your kernel and lets begin...
-(you can restart the kernel under Consoles --> restart kernel or directly from the iPython console)
-
-> ## Challenge
-> Take a look at the matplotlib `text` documentation [here](https://matplotlib.org/users/text_intro.html), and
-think of ways to improve the plot labels. You can write down some of your ideas as comments in the Etherpad.
-{: .challenge}
 
 Now, let's add an overall title for the figure and increase the space between subplots so that individual axis labels are readable.
 
@@ -343,11 +341,16 @@ fig.subplots_adjust(hspace=0.5, wspace=0.3)
 If you like the changes you created to the default theme, you can save them as
 a python script to easily apply them to other plots you may create.
 
+> ## Challenge
+> Take a look at the matplotlib `text` documentation [here](https://matplotlib.org/users/text_intro.html), and
+think of ways to improve the plot labels. You can write down some of your ideas as comments in the Etherpad.
+{: .challenge}
+
 
 # Exporting your plot
 After creating your plot, you can save it to a file in your favourite format.
-You can easily change the dimension (and its resolution) of your plot by
-adjusting the appropriate arguments (`name` and `dpi`):
+You can easily change format (.png, pdf, eps ...) and resolution of your plot by
+adjusting the appropriate arguments (`format`,  `dpi`):
 
 ```python
 fig.savefig('my_first_plot.png',dpi = 120)
@@ -438,11 +441,9 @@ ax.coastlines(resolution='10m', color='black', linewidth=1)
 ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, alpha = 0.2) 
 ax.set_xlim(round(min(rain_merged.location_x),1)-0.1,round(max(rain_merged.location_x),1)+0.1)
 ax.set_ylim(round(min(rain_merged.location_y),1)-0.1,round(max(rain_merged.location_y),1)+0.1)
-plt.scatter(rain_merged.location_x, rain_merged.location_y,
-         s=rain_merged.data)
+plt.scatter(rain_merged.location_x, rain_merged.location_y, s=rain_merged.data)
 >> ```
 >> ![map](../fig/map.png)
->
-> {. solution}
+> {: .solution}
 {: .challenge}
  
