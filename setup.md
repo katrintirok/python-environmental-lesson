@@ -82,8 +82,7 @@ conda list
 From the terminal, type:
 
 ```
-conda install -y numpy pandas matplotlib jupyter
-conda install -c bokeh ggplot
+conda install -y numpy pandas matplotlib
 ```
 
 <!--
