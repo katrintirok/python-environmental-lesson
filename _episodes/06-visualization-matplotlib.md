@@ -45,8 +45,7 @@ Now let's import the `pyplot` module from the `matplotlib` library.
 import matplotlib.pyplot as plt
 ```
 
-`matplotlib`'s `pyplot` module is a powerful plotting tool that makes it simple to create complex plots from data. It uses default settings, which help creating 
-publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found [here](https://matplotlib.org), and a useful Cheat Sheet [here](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Matplotlib_Cheat_Sheet.pdf).
+`matplotlib`'s `pyplot` module is a powerful plotting tool that makes it simple to create complex plots from data. It uses default settings, which help creating publication quality plots with a minimal amount of settings and tweaking. The `matplotlib` documentation is found [here](https://matplotlib.org), and a useful Cheat Sheet [here](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Matplotlib_Cheat_Sheet.pdf).
 
 In previous episodes we plotted directly from our `pandas` Dataframe, e.g.:
 
@@ -56,14 +55,14 @@ rainfall_data.plot(x='UT',y='data',kind='scatter')
 
 ![plot1](../fig/plot1.png)
 
-We now want to look at a different approach to plot matplotlib graphics. We can build the plot step by step by adding new elements using *keyword* arguments.
+We now want to look at a different approach to plot matplotlib graphics. We will use the so called object-oriented approach for more control and customization of our plots. We can build the plot step by step by adding new elements using *keyword* arguments.
 
 To build a matplotlib plot we need to:
 
 1. generate an empty figure object and assign it a _variable_ name
 2. bind an axes object (a plot) to the figure and assign the axes object a _variable_ name
-3. use an axes method to plot the data (defines the kind of plot)
-4. customise the plot
+3. use a method for the axes object to plot the data (defines the kind of plot)
+4. customize the plot with methods for the axes object and the figure object
 
 ```python
 fig = plt.figure()
@@ -246,13 +245,15 @@ ax.legend(rainfall_wide.columns[0:5])
 
 ![lineplot](../fig/lineplot.png)
 
-Note how we always call our axes object `ax` together with a method (function) like `plot` or `legend` to add additional things to the plot. This way we can also define axis labels, customise position and labels of axis ticks, add titles, add text and a lot more.
+Note how we always call our axes object `ax` together with a method like `plot` or `legend` to add additional elements to the plot. This way we can also define axis labels, customise position and labels of axis ticks, add titles, add text and a lot more.
 
 > ## Challenges
 >
 > 1. Can you add a y-label and a x-label?
 > 2. Add a title!
 > 3. Can you change the scale of the y-axis to a log-scale?
+> 
+> HINT: have a look [here](https://matplotlib.org/api/axes_api.html) for methods that are available for axes objects.
 {: .challenge}
 
 
@@ -433,14 +434,19 @@ ax.set_aspect('equal',adjustable='box')
 > {: .solution}
 >
 >> ## How to make a real map 
->> We can use the library [cartopy](https://scitools.org.uk/cartopy/docs/latest/) to produce real maps in python.
+>> We can use the library [cartopy](https://scitools.org.uk/cartopy/docs/latest/) to produce real maps in python. The cartopy library does not come pre-installed with Anaconda, it can be installed with the conda package manager.
 >> ```python
 >> import cartopy.crs as ccrs
+>> # create an empty plot with Plate Carree projection
 ax = plt.axes(projection=ccrs.PlateCarree())
+# add coastlines
 ax.coastlines(resolution='10m', color='black', linewidth=1)
+# add a grid with coordinates
 ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, alpha = 0.2) 
+# set the limits of the grid to fit with our data
 ax.set_xlim(round(min(rain_merged.location_x),1)-0.1,round(max(rain_merged.location_x),1)+0.1)
 ax.set_ylim(round(min(rain_merged.location_y),1)-0.1,round(max(rain_merged.location_y),1)+0.1)
+# plot the locations of the raingauges with the rainfall as size
 plt.scatter(rain_merged.location_x, rain_merged.location_y, s=rain_merged.data)
 >> ```
 >> ![map](../fig/map.png)
