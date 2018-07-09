@@ -107,7 +107,7 @@ You may want additional directories or subdirectories depending on your project 
 
 In order to stay in the working directory when running a script we have to change the run settings in preferences:
 
-* under the _python_ menu, click on _Preferences_ and choose _Run_, under _Working Directory settings_ choose _The current working directory_
+* under the _Tools_ menu, click on _Preferences_ and choose _Run_, under _Working Directory settings_ choose _The current working directory_
 
 ## Interacting with Python
 The basis of programming is that we write down instructions for the computer to follow, and then we tell the computer to follow those instructions. We write, or code, instructions in python because it is a common language that both the computer and we can understand. We call the instructions commands and we tell the computer to follow the instructions by executing (also called running) those commands.
@@ -129,7 +129,7 @@ The material we cover during this workshop will give you an initial taste of how
 
 ## Seeking help
 
-Spyder can automatically show an object's help information after a left parenthesis is written next to it. To activate this feature go to _python_ and choose  _Preferences_ and then _Help_, under _Automatic connections_ tick _Editor_ and _iPython Console_.
+Spyder can automatically show an object's help information after a left parenthesis is written next to it. To activate this feature go to _Tools_ and choose  _Preferences_ and then _Help_, under _Automatic connections_ tick _Editor_ and _IPython Console_.
 
 Other options to find help are:
 
