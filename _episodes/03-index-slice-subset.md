@@ -337,7 +337,6 @@ selects the element that is 3 rows down and 7 columns over in the DataFrame.
 >
 >    - `rainfall_df.iloc[0:4, 1:4]`
 >    - `rainfall_df.loc[0:4, 1:4]`
->
 > - How are the two commands different? (HINT: you may get an error message)
 > 
 > 3. Create a new dataframe that only holds the first 20 rows and columns `UT`,`raingauges_id` and `data`
