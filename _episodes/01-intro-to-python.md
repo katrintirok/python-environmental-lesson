@@ -209,14 +209,14 @@ Numeric data types include integers (`int`) and floating point real values (`flo
 A **floating point** number has decimal points even if that decimal point value is 0. For example: 1.13, 2.0, 1234.345. An **integer** will never have a decimal point. Thus if we wanted to store 1.13 as an integer it would be stored as 1. Similarly, 1234.345 would be stored as 1234. You will often see the data type `Int64` in python which stands for 64 bit integer. The 64
 simply refers to the memory allocated to store data in each cell which effectively relates to how many digits it can store in each "cell". Allocating space ahead of time allows computers to optimize storage and processing efficiency. 
 
-Text data type is known as *strings* (`str`) in Python. Strings can contain characters and/or numbers. For example, a string might be a word, a sentence, or several sentences. You can't perform mathematical calculations on a string, even if the string contains numbers. Strings are represented as a sequence of Unicode characters (in the range of U+0000 - U+10FFFF) in Python 3.x and thus are often show as `<U..`, e.g. `<U15`.
+Text data type is known as *strings* (`str`) in Python. Strings can contain characters and/or numbers. For example, a string might be a word, a sentence, or several sentences. You can't perform mathematical calculations on a string, even if the string contains numbers. Strings are represented as a sequence of Unicode characters (in the range of U+0000 - U+10FFFF) in Python 3.x and thus are often shown as `<U..`, e.g. `<U15`.
 
 Another important data type are booleans (`bool`), i.e. `True` and `False`. Booleans represent the truth values of logic and are useful in conditional expressions, and anywhere else you want to represent the truth or falsity of some condition. `True` and `False` are stored as `1` and `0` in python. 
 
  
 > ## Challenge - playing with data types
 > * Define the following variables: 
-> `a = 2`, `b = 4.5`, `c = "cat"`, `d = int(4.5)`, `e = float(3)`, `f=bool(true)`, `g=bool(0)`
+> `a = 2`, `b = 4.5`, `c = "cat"`, `d = int(4.5)`, `e = float(3)`, `f=bool(True)`, `g=bool(0)`
 > * Use the function `type()` to find which data type each variable corresponds to. 
 > As you have seen, we can convert a floating point number to an integer or an integer to a floating point number. Notice that Python by default rounds down when it converts from floating point to integer.
 > 
@@ -296,7 +296,7 @@ NumPy arrays are multidimensional containers of items of the same type. That is,
 > 1. multiply l1, l2, a1, and a2 by 2
 > 2. add 2 to l1, l2, a1, and a2
 > 3. divide l1, l2, a1, and a2 by 2
-> 4. try `l1 + l2`, `a1 + a2`, `l1 + a1`, `l2 + a1`
+> 4. try `l1 + l2`, `a1 + a2`, `l1 + a1`, `l2 + a2`
 > 
 > Discuss the different behaviour of lists and numpy arrays with your neighbour.
 {: .challenge}
