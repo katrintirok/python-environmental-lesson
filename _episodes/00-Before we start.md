@@ -89,11 +89,11 @@ It is good practice to keep a set of related data, analyses, and text self-conta
 Spyder provides a helpful set of tools to do this through its “Projects” interface, which not only creates a working directory for you but also remembers its location (allowing you to quickly navigate to it) and optionally preserves custom settings and open files to make it easier to resume work after a break. Below, we will go through the steps for creating an “Python Project” for this tutorial.
 
 * Start _Anaconda Navigator_ and launch _Spyder_ 
+* You can customise how Spyder looks like under the _View_ menu, under _Window layouts_ please chose _Spyder Default Layout_, which we want to use for this lesson
 * Under the _Projects_ menu, click on _New project_, choose _New directory_
 * Enter a name for this new folder (or “directory”), and choose a convenient location for it. This will be your working directory for the rest of the day (e.g., ~/data-carpentry)
 * Click on _Create_
-* You can customise how Spyder looks like under the _View_ menu, under _Window layouts_ please chose _Spyder Default Layout_, which we want to use for this lesson
-* Choose the _Project Explorer_ tab in the top right window of the screen, right click, choose _New_ and _Folder_ and create a folder named data within your newly created working directory (e.g., ~/data-carpentry/data)
+* Choose the _Project Explorer_ tab on the left side in spyder, right click on the project folder, choose _New_ and _Folder_ and create a folder named 'data' within your newly created working directory (e.g., ~/data-carpentry/data)
 
 ### Organizing your working directory
 Using a consistent folder structure across your projects will help keep things organized, and will also make it easy to find/file things in the future. This can be especially helpful when you have multiple projects. In general, you may create directories (folders) for scripts, data, and documents.
@@ -105,7 +105,7 @@ Using a consistent folder structure across your projects will help keep things o
 **`scripts/`** This would be the location to keep your python scripts for different analyses or plotting, and potentially a separate folder for your functions (more on that later).
 You may want additional directories or subdirectories depending on your project needs, but these should form the backbone of your working directory. For this workshop, we will need a `data/` folder to store our raw data, and we will create later a `data_output/` folder when we learn how to export data as CSV files.
 
-In order to stay in the workign directory when running a script we have to change the run settings in preferences:
+In order to stay in the working directory when running a script we have to change the run settings in preferences:
 
 * under the _python_ menu, click on _Preferences_ and choose _Run_, under _Working Directory settings_ choose _The current working directory_
 
