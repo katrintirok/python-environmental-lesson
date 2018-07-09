@@ -335,7 +335,7 @@ Let's look at the data using these.
 > ## Challenge - DataFrames
 >
 > Using our DataFrame `rainfall_df`, try out the following attributes and methods to see what they return:
->  `.columns`, `.axes`, `.ndim`, `.size`, `.shape`, `.head()`, `.tail()`, `.describe`
+>  `.columns`, `.axes`, `.ndim`, `.size`, `.shape`, `.head()`, `.tail()`, `.describe()`
 > 
 > (Remember you can use `?`, e.g. `?rainfall_df.head()`, to get some information about an attribute in the console or check the [pandas documentation](http://pandas.pydata.org/pandas-docs/stable/index.html))
 > 
@@ -658,18 +658,18 @@ Dates in python are represented by `date`, `time` and `datetime` objects from th
 ```python
 import datetime as dt
 # a date
-dt.date(year = 2018, month = 01, day = 11)
+dt.date(year = 2018, month = 1, day = 11)
 # a time
 dt.time(hour = 9, minute=30, second=15)
 # a datetime
-dt.datetime(2018, 01, 11, 9, 30, 15)
+dt.datetime(2018, 1, 11, 9, 30, 15)
 ```
 A defined format for date is important when calculating e.g. differences between dates etc.
 
 Let's try:
 ```python
-dt1 = dt.datetime(2018, 01, 11, 9, 30, 00)
-dt2 = dt.datetime(2018, 01, 11, 10, 00, 00)
+dt1 = dt.datetime(2018, 1, 11, 9, 30, 0)
+dt2 = dt.datetime(2018, 1, 11, 10, 0, 0)
 dt2 - dt1
 datetime.timedelta(0, 1800)
 ```
@@ -698,6 +698,6 @@ datetime         datetime64[ns]
 > ## Challenge - datetime objects
 > Add a column with hours to rainfall_df.
 > 
-> hint: look up the methods of the _datetime_ package to extract individual date and time elements from the `datetime` column.
+> HINT: look into the documentation of methods for _Pandas Series_ on how to access individual date and time elements from the `datetime` column.
 {: .challenge}
 
