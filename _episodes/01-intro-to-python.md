@@ -1,7 +1,7 @@
 ---
 title: Introduction to python
-teaching: 50
-exercises: 30
+teaching: 45
+exercises: 25
 questions:
   - "How can I do basic calculations in python?"
   - "How can I use functions in python?"

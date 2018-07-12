@@ -1,6 +1,6 @@
 ---
 title: Before we start
-teaching: 30
+teaching: 20
 exercises: 0
 questions:
   - "What is Python?"
