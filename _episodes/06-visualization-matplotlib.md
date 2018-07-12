@@ -158,7 +158,7 @@ ax.scatter(rainfall_data['UT'],rainfall_data['data'],alpha=0.1,c='raingauges_id'
 
 The scatter plot we have just generated doesn't provide much detail on the characteristics of the dataset. So let's visualise the distribution of daily rainfall within each raingauge.
 
-To do that, we first need to calculate the daily rainfall and reshape (_pivot_) our data, so that each raingauge is represented by one column. (Have a look in episode "Manipulating DataFrames with pandas" for more information on reshaping)
+To do that, we first need to calculate the daily rainfall and reshape (_pivot_) our data, so that each raingauge is represented by one column. (Have a look in episode ["Manipulating DataFrames with pandas"](https://katrintirok.github.io/python-environmental-lesson/04-merging-data/index.html) for more information on reshaping)
 
 Remember the *pivot* function? 
 
@@ -405,8 +405,8 @@ fig.savefig('my_second_plot.pdf') # save as pdf
 >> 
 >> 1. Load all necessary libraries.
 >> 2. Read in the rainfall data table and the raingauge information table.
->> 3. Aggregate the rainfall data per week and per raingauge.
->> 4. Merge the aggregated rainfall data with the raingauge table.
+>> 3. Aggregate the rainfall data per week and per raingauge. (recap in episode [Starting with data](https://katrintirok.github.io/python-environmental-lesson/02-starting_with_data/index.html))
+>> 4. Merge the aggregated rainfall data with the raingauge table. (recap in episode [Manipulating DataFrames with pandas](https://katrintirok.github.io/python-environmental-lesson/04-merging-data/index.html))
 >> 5. Make the plot.
 > {: .solution}
 >> 
