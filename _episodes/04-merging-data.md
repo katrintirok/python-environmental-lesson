@@ -80,7 +80,11 @@ rainfall_day_long = rainfall_day_wide.melt(id_vars='raingauges_id', var_name='da
 > 
 > Optional:
 > Instead of using `group_by()` to summarise the data and `pivot()` to reshape, try to do both at once using the function `pivot_table()`. 
+>> ## How to use pivot_table
+>> rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='region', aggfunc='sum')
+> {: .solution}
 {: .challenge} 
+
 
 
 # Combining DataFrames

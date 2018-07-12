@@ -74,7 +74,7 @@ matplotlib.figure.Figure
 This gives us an empty figure pane, next we can add a (sub)plot to this figure:
 
 ```python
-ax = fig.add_subplots(111)
+ax = fig.add_subplot(111)
 type(ax)
 matplotlib.axes._subplots.AxesSubplot
 ```
@@ -110,6 +110,7 @@ We can now change the aesthetics such as point size, shape, color, etc.
 For instance, we can add transparency to avoid overplotting using `alpha`:
 
 ```python
+fig, ax = plt.subplots()
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3)
 ```
 ![scatter_alpha](../fig/scatter_alpha.png)
@@ -118,6 +119,7 @@ ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3)
 We can also add a different colour for **all** the points using `c`:
 
 ```python
+fig, ax = plt.subplots()
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c='red')
 ```
 
@@ -126,6 +128,7 @@ ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c='red')
 Or color each raingauge in the plot differently:
 
 ```python
+fig, ax = plt.subplots()
 ax.scatter(rainfall_data['UT'], rainfall_data['data'], alpha=0.3, c=rainfall_data['raingauges_id'])
 ```
 ![scatter_col](../fig/scatter_col.png)
@@ -155,12 +158,14 @@ ax.scatter(rainfall_data['UT'],rainfall_data['data'],alpha=0.1,c='raingauges_id'
 
 The scatter plot we have just generated doesn't provide much detail on the characteristics of the dataset. So let's visualise the distribution of daily rainfall within each raingauge.
 
-To do that, we first need to calculate the daily rainfall and reshape (_pivot_) our data, so that each raingauge is represented by one column.
+To do that, we first need to calculate the daily rainfall and reshape (_pivot_) our data, so that each raingauge is represented by one column. (Have a look in episode "Manipulating DataFrames with pandas" for more information on reshaping)
 
-Remember the *pivot_table* function?
+Remember the *pivot* function? 
 
 ```python
-rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='raingauges_id', aggfunc='sum')
+# group and reshape the data
+rainfall_day = rainfall_data.groupby(['raingauges_id','day','region']).sum().reset_index()
+rainfall_wide = rainfall_day.pivot(index='day',columns='raingauges_id',values='data')
 ```
 
 Plot a boxplot
@@ -171,16 +176,14 @@ fig, ax = plt.subplots()
 ax.boxplot(rainfall_wide)
 ```
 
-<!-- using group_by and pivot
-# group and reshape the data
-rainfall_day = rainfall_data.groupby(['raingauges_id','day','region']).sum().reset_index()
-rainfall_wide = rainfall_day.pivot(index='day',columns='raingauges_id',values='data')
+<!-- using pivot_table
+rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='raingauges_id', aggfunc='sum')
 -->
 
 ![boxplot](../fig/boxplot.png)
 
 > ## Challenge
-> 1. Can you change the boxplot so that the outliers are not shown. HINT: use the *sym* keyword.
+> 1. Can you change the boxplot so that the outliers are not shown? HINT: use the *sym* keyword.
 > 2. Make the boxes horizontal instead of vertical.
 > 3. Boxplots are useful summaries, but hide the *shape* of the distribution. For example, if there is a bimodal distribution, this would not be observed with a boxplot. An alternative is a ***violinplot*** (sometimes known as a beanplot). Replace the box plot with a violinplot. Draw the violinplot and boxplot on top of each other.
 > 
@@ -260,9 +263,9 @@ Note how we always call our axes object `ax` together with a method like `plot` 
 # Subplots
 
 Remember how we added an axes object to the figure using `.add_subplot(111)`? The three 1's give us information on the subplots in the figure. The first two 1's describe a grid of subplots with no of rows and no of columns and the third 1 represents the no of the subplot defined, i.e. `.add_subplot(#rows#cols#subplot)`.
-For instance, `.add_subplot(221)` defines the 1st plot of four subplots with on a 2x2 grid, that is the one in the left upper corner, and `.add_subplot(224)` defines the 4th and last plot on a 2x2 grid, the one in the lower right corner.
+For instance, `.add_subplot(221)` defines the 1st plot of four subplots on a 2x2 grid, that is the one in the left upper corner, and `.add_subplot(224)` defines the 4th and last plot on a 2x2 grid, the one in the lower right corner.
 
-Let's plot boxplots of the regions Southern, Northern, Central and Western in subplots. First we need to prepare the data again. We here prepare a dataframe for each region.
+Let's plot boxplots of the regions Southern, Northern, Central and Western in subplots. First we need to prepare the data again. We here prepare a dataframe for each region. We subset our `rainfall_day` dataframe per region and use `pivot` to reshape.
 
 ```python
 rainfall_south = rainfall_day[rainfall_day.region=='Southern'].pivot('day','raingauges_id','data')
@@ -270,8 +273,10 @@ rainfall_north = rainfall_day[rainfall_day.region=='Northern'].pivot('day','rain
 rainfall_central = rainfall_day[rainfall_day.region=='Central'].pivot('day','raingauges_id','data')
 rainfall_west = rainfall_day[rainfall_day.region=='Western'].pivot('day','raingauges_id','data')
 ```
+
 Define the figure and subplots:
 
+We have to define one axes object for each subplot.
 <!--
 ```python
 rainfall_south = rainfall_data[rainfall_data.region=='Southern'].pivot_table(index='day',columns='raingauges_id',values='data', aggfunc='sum')
@@ -309,11 +314,21 @@ ax4.boxplot(rainfall_west)
 > 1. Can you add titles for each subplot?
 > 2. Can you add x- and y-axis labels?
 > 3. What do you notice in some of the subplots? The x-axis tick labels are not correct. Can you correct them? HINT: We want to use the index of our dataframe which holds our correct days as the xtick labels (remember when we reshaped our data the day was added as an index).
-> 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall.
+> 4. Make a figure with two subplots, one showing the boxplot of daily rainfall and one showing the histogram of daily rainfall. (Hint: use the `rainfall_day` dataframe and the column `data` for the histogram and use the reshaped dataframe `rainfall_wide` for the boxplot).
 > 
 >> ## How to change tick labels
 >> ```python
 >> ax1.set_xticklabels(rainfall_south.index)
+>> ```
+> {: .solution}
+>> ## How to plot boxplot and histogram
+>> ```python
+>> # define figure with 2 subplots next to each other
+>> fig, [ax1, ax2] = plt.subplots(1,2)
+>> # plot the boxplot on ax1 (= left subplot)
+>> ax1.boxplot(rainfall_wide)
+>> # plot the histogram using the data column from rainfall_day dataframe on ax2 (= right subplot)
+>> ax2.hist(rainfall_day['data'])
 >> ```
 > {: .solution}
 {: .challenge}
@@ -350,7 +365,7 @@ think of ways to improve the plot labels. You can write down some of your ideas 
 
 # Exporting your plot
 After creating your plot, you can save it to a file in your favourite format.
-You can easily change format (.png, pdf, eps ...) and resolution of your plot by
+You can easily change format (png, pdf, eps ...) and resolution of your plot by
 adjusting the appropriate arguments (`format`,  `dpi`):
 
 ```python
