@@ -10,7 +10,6 @@ objectives:
 - Reshape data by making pivot_tables and melting tables.
     - Combine data from multiple files into a single DataFrame using merge and concat.
     - Combine two DataFrames using a unique ID found in both DataFrames.
-    - Employ `to_csv` to export a DataFrame in CSV format.
     - Join DataFrames using common fields (join keys).
 keypoints: 
 - the method .pivot_table() creates pivot tables or can just be used to reshape data from long to wide format
@@ -81,7 +80,9 @@ rainfall_day_long = rainfall_day_wide.melt(id_vars='raingauges_id', var_name='da
 > Optional:
 > Instead of using `group_by()` to summarise the data and `pivot()` to reshape, try to do both at once using the function `pivot_table()`. 
 >> ## How to use pivot_table
+>> ```python
 >> rainfall_day_wide = rainfall_data.pivot_table(values='data', index='day', columns='region', aggfunc='sum')
+>> ```
 > {: .solution}
 {: .challenge} 
 

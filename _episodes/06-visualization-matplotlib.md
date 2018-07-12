@@ -274,15 +274,15 @@ rainfall_central = rainfall_day[rainfall_day.region=='Central'].pivot('day','rai
 rainfall_west = rainfall_day[rainfall_day.region=='Western'].pivot('day','raingauges_id','data')
 ```
 
-Define the figure and subplots:
-
-We have to define one axes object for each subplot.
 <!--
 ```python
 rainfall_south = rainfall_data[rainfall_data.region=='Southern'].pivot_table(index='day',columns='raingauges_id',values='data', aggfunc='sum')
 ```
 -->
 
+Define the figure and subplots:
+
+We have to define one axes object for each subplot.
 
 ```python
 fig = plt.figure()
@@ -330,6 +330,7 @@ ax4.boxplot(rainfall_west)
 >> # plot the histogram using the data column from rainfall_day dataframe on ax2 (= right subplot)
 >> ax2.hist(rainfall_day['data'])
 >> ```
+>> ![box_hist](../fig/boxhist.png)
 > {: .solution}
 {: .challenge}
 
